@@ -1,6 +1,6 @@
 ﻿using System;
 using Onix.Client.Helper;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using Onix.Client.Model;
 using System.Windows.Media;
 using System.Reflection;

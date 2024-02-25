@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using Onix.Client.Helper;
 using Onix.Client.Model;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.UI.HumanResource.OrgChart
 {

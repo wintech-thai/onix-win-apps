@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Xml;
 using Onix.Client.Controller;
 using Onix.Client.Helper;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.Windows
 {
@@ -109,7 +110,7 @@ namespace Onix.ClientCenter.Windows
 
         private void cmdTest_Click(object sender, RoutedEventArgs e)
         {
-            Wis.WsClientAPI.CTable dat = new Wis.WsClientAPI.CTable("");
+            CTable dat = new CTable("");
             dat.SetFieldValue("MAX_MIGRAGE", "500");
             OnixWebServiceAPI.SubmitObjectAPI("MoveServiceToItem", dat);
         }

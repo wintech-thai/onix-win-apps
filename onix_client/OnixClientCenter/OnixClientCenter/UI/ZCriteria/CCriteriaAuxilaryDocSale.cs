@@ -9,7 +9,7 @@ using Onix.Client.Helper;
 using Onix.ClientCenter.Commons.UControls;
 using Onix.ClientCenter.Commons.CriteriaConfig;
 using Onix.ClientCenter.Windows;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using Onix.ClientCenter.Commons.Utils;
 
 namespace Onix.ClientCenter.Criteria

@@ -8,7 +8,7 @@ using Onix.ClientCenter.Commons.CriteriaConfig;
 using Onix.Client.Controller;
 using Onix.Client.Helper;
 using Onix.Client.Model;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using Onix.ClientCenter.Commons.Utils;

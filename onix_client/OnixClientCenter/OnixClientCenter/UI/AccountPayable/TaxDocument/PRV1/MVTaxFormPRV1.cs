@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using Onix.Client.Model;
 using Onix.Client.Helper;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.UI.AccountPayable.TaxDocument.PRV1
 {

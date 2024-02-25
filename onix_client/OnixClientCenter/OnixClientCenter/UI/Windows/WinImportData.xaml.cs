@@ -6,7 +6,7 @@ using Onix.ClientCenter.Commons.Loader;
 using Onix.Client.Helper;
 using Onix.Client.Model;
 using Onix.Client.Controller;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.Windows
 {

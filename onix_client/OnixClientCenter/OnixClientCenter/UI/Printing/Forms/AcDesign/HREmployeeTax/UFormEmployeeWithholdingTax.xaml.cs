@@ -3,6 +3,7 @@ using Onix.Client.Model;
 using Onix.Client.Helper;
 using System.Windows;
 using Onix.Client.Report;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.Forms.AcDesign.HREmployeeTax
 {
@@ -14,7 +15,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HREmployeeTax
         {
             if (model == null)
             {
-                model = new MEmployee(new Wis.WsClientAPI.CTable(""));
+                model = new MEmployee(new CTable(""));
             }
 
             dataSource = model;

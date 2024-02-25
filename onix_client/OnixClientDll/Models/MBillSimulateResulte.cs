@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using Onix.Client.Helper;
 using Onix.Client.Pricing;
 

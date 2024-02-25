@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Onix.Client.Report;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using Onix.Client.Model;
 using Onix.Client.Helper;
 

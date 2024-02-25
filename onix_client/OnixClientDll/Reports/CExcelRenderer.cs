@@ -3,7 +3,7 @@ using System.Collections;
 using Microsoft.Office.Interop.Excel;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using Onix.Client.Helper;
 using System.Drawing;
 

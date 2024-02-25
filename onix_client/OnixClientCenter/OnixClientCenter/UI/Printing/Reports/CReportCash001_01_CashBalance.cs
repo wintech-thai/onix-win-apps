@@ -4,7 +4,7 @@ using System.Collections;
 using System.Windows.Documents;
 using Onix.Client.Model;
 using Onix.Client.Report;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using System.IO;
 using Onix.Client.Controller;
 using Onix.Client.Helper;

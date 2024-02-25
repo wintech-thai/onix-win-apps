@@ -1,5 +1,5 @@
 ﻿using System.Windows.Controls;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using System.Windows;
 using Onix.Client.Controller;
 using Onix.ClientCenter.Windows;

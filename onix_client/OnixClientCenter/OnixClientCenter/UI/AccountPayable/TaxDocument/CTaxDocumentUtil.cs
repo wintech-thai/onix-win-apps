@@ -6,7 +6,7 @@ using Onix.Client.Controller;
 using Onix.Client.Helper;
 using Onix.Client.Model;
 using Onix.ClientCenter.Commons.Utils;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.UI.AccountPayable.TaxDocument
 {

@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows;
 using System.Collections;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using System.Collections.ObjectModel;
 using Onix.Client.Model;
 using Onix.Client.Pricing;

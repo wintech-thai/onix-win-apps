@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using System.Collections;
 using Onix.Client.Controller;
 using Onix.Client.Model;

@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using Onix.Client.Controller;
 using Onix.Client.Helper;
 using Onix.Client.Report;

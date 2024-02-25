@@ -1,7 +1,7 @@
 ﻿
 using System;
 using Onix.Client.Model;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.Commons.CriteriaConfig
 {

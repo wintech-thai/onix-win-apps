@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Collections;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using Onix.Client.Controller;
 using Onix.Client.Report;
 using Onix.ClientCenter.Commons.Utils;

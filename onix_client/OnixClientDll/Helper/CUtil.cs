@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Onix.Client.Model;
 using Onix.Client.Controller;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using System.Globalization;

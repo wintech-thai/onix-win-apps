@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows.Media;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using Onix.ClientCenter.UI.HumanResource.OrgChart;
 
 namespace Onix.ClientCenter.Commons.UControls

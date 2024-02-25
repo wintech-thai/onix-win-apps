@@ -1,7 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Collections;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using Onix.Client.Helper;
 using System.Windows.Media;
 

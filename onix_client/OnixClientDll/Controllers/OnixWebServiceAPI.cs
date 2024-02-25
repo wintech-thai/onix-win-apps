@@ -2,7 +2,7 @@
 using System.Net;
 using System.Collections;
 using System.ComponentModel;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using Onix.Client.Helper;
 using System.Diagnostics;
 

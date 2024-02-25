@@ -4,7 +4,7 @@ using System.Collections;
 using System.Windows.Documents;
 using Onix.Client.Model;
 using Onix.Client.Report;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using System.Collections.ObjectModel;
 using System.Printing;
 using Onix.Client.Helper;
@@ -42,7 +42,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.SaleOrder
 
         public override MReportConfig CreateDefaultConfigValues()
         {
-            MReportConfig rc = new MReportConfig(new Wis.WsClientAPI.CTable(""));
+            MReportConfig rc = new MReportConfig(new CTable(""));
 
             rc.SetConfigValue("DocumentTypeThai", "ใบสั่งขาย", "String", "Document Type Thai");
             rc.SetConfigValue("DocumentTypeEng", "SALE ORDER", "String", "Document Type Eng");

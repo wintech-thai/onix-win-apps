@@ -1,5 +1,5 @@
 ﻿using System;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using System.Collections.ObjectModel;
 using System.Collections;
 using Onix.Client.Helper;

@@ -2,6 +2,7 @@
 using Onix.Client.Model;
 using Onix.Client.Report;
 using Onix.ClientCenter.UI.HumanResource.PayrollDocument;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.Forms.AcDesign.HREmployeeLeave
 {
@@ -13,7 +14,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HREmployeeLeave
         {
             if (model == null)
             {
-                model = new MEmployeeLeave(new Wis.WsClientAPI.CTable(""));
+                model = new MEmployeeLeave(new CTable(""));
             }
 
             dataSource = model;

@@ -10,7 +10,7 @@ using Onix.ClientCenter.Commons.Factories;
 using Onix.ClientCenter.Commons.Utils;
 using Onix.ClientCenter.Commons.Windows;
 using Onix.ClientCenter.Windows;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
 {

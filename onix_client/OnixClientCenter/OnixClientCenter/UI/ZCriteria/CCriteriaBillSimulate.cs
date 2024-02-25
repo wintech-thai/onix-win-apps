@@ -7,7 +7,7 @@ using Onix.Client.Model;
 using Onix.Client.Controller;
 using Onix.ClientCenter.Commons.UControls;
 using Onix.ClientCenter.Commons.CriteriaConfig;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using Onix.ClientCenter.Commons.Utils;
 
 namespace Onix.ClientCenter.Criteria

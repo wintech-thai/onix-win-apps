@@ -10,7 +10,7 @@ using Onix.Client.Helper;
 using Onix.Client.Model;
 using Onix.ClientCenter.Commons.Windows;
 using Onix.ClientCenter.UI.AccountPayable.TaxDocument.PRV1;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.UI.AccountPayable.TaxDocument.PRV1Kor
 {

@@ -3,6 +3,7 @@ using Onix.Client.Model;
 using Onix.Client.Helper;
 using System.Threading;
 using Onix.Client.Report;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.Forms.AcDesign.Cheque
 {
@@ -12,7 +13,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.Cheque
         {
             if (model == null)
             {
-                model = new MCheque(new Wis.WsClientAPI.CTable(""));
+                model = new MCheque(new CTable(""));
             }
 
             dataSource = model;

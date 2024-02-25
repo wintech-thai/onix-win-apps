@@ -5,6 +5,7 @@ using Onix.Client.Model;
 using Onix.Client.Report;
 using Onix.Client.Helper;
 using System.Windows.Controls;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.Forms.AcDesign.PurchaseOrder
 {
@@ -42,7 +43,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.PurchaseOrder
 
         public override MReportConfig CreateDefaultConfigValues()
         {
-            MReportConfig rc = new MReportConfig(new Wis.WsClientAPI.CTable(""));
+            MReportConfig rc = new MReportConfig(new CTable(""));
 
             rc.SetConfigValue("DocumentTypeThai", "ใบสั่งซื้อ / PURCHASE ORDER", "String", "Document Type Thai");
             rc.SetConfigValue("DocumentTypeEng", "PURCHASE ORDER", "String", "Document Type Eng");

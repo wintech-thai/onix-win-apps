@@ -9,7 +9,7 @@ using Onix.Client.Controller;
 using Onix.Client.Helper;
 using Onix.ClientCenter.Commons.UControls;
 using Onix.ClientCenter.Commons.CriteriaConfig;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using Onix.ClientCenter.Windows.Sass;
 using Onix.ClientCenter.Commons.Utils;
 
