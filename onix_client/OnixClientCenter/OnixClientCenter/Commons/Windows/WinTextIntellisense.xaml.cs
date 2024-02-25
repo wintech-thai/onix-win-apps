@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 using Onix.Client.Model;
 using Onix.Client.Helper;
 using Onix.Client.Controller;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using Onix.ClientCenter.Commons.UControls;
 
 namespace Onix.ClientCenter.Commons.Windows

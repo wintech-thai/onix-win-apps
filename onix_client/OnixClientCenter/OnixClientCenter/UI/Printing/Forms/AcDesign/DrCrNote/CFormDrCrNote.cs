@@ -6,6 +6,7 @@ using Onix.Client.Model;
 using Onix.Client.Report;
 using Onix.Client.Helper;
 using System.Windows.Controls;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.Forms.AcDesign.DrCrNote
 {
@@ -34,7 +35,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.DrCrNote
 
             //ArrayList arr = createPageParamEasy((dataSource as MAccountDoc).AccountItem, itemPerPage);
 
-            MAccountDocItem mi = new MAccountDocItem(new Wis.WsClientAPI.CTable(""));
+            MAccountDocItem mi = new MAccountDocItem(new CTable(""));
             mi.SelectType = "3";
             mi.FreeText = ad.RefDocNo;
             mi.Quantity = "1";
@@ -54,7 +55,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.DrCrNote
         
         public override MReportConfig CreateDefaultConfigValues()
         {
-            MReportConfig rc = new MReportConfig(new Wis.WsClientAPI.CTable(""));
+            MReportConfig rc = new MReportConfig(new CTable(""));
 
             rc.SetConfigValue("DocumentTypeThai", "ใบลดหนี้/DEBIT NOTE", "String", "Document Type Thai");
             rc.SetConfigValue("DocumentTypeEng", "DEBIT NOTE", "String", "Document Type Eng");

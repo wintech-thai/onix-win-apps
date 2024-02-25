@@ -5,6 +5,7 @@ using Onix.Client.Model;
 using Onix.Client.Report;
 using System.Printing;
 using System.Windows.Controls;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.Forms.AcDesign.HREmployeeLeave
 {
@@ -45,7 +46,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HREmployeeLeave
         
         public override MReportConfig CreateDefaultConfigValues()
         {
-            MReportConfig rc = new MReportConfig(new Wis.WsClientAPI.CTable(""));
+            MReportConfig rc = new MReportConfig(new CTable(""));
 
             populateDefaultReportConfig(rc);
 

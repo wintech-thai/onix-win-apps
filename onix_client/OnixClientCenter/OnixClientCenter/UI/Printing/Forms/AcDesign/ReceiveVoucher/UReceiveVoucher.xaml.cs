@@ -4,6 +4,7 @@ using Onix.Client.Model;
 using Onix.Client.Helper;
 using System.Windows;
 using Onix.Client.Report;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.Forms.AcDesign.ReceiveVoucher
 {
@@ -13,7 +14,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.ReceiveVoucher
         {
             if (model == null)
             {
-                model = new MAccountDoc(new Wis.WsClientAPI.CTable(""));
+                model = new MAccountDoc(new CTable(""));
             }
 
             dataSource = model;
@@ -160,7 +161,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.ReceiveVoucher
             int i = 0;
             foreach (MAccountDocItem di in pageParam.Items)
             {
-                MAccountDocReceipt m = new MAccountDocReceipt(new Wis.WsClientAPI.CTable(""));
+                MAccountDocReceipt m = new MAccountDocReceipt(new CTable(""));
 
                 m.DocumentNo = md.RefDocNo;
                 m.RefPoNo = di.RefPoNo;

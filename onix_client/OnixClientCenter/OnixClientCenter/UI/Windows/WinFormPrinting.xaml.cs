@@ -9,7 +9,7 @@ using Onix.Client.Model;
 using Onix.Client.Report;
 using Onix.Client.Helper;
 using Onix.Client.Controller;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using Onix.ClientCenter.Commons.Utils;
 
 namespace Onix.ClientCenter.Windows

@@ -5,6 +5,7 @@ using Onix.Client.Model;
 using Onix.Client.Report;
 using Onix.Client.Helper;
 using System.Windows.Controls;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.Forms.AcDesign.WitholdingTax
 {
@@ -58,7 +59,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.WitholdingTax
 
         public override MReportConfig CreateDefaultConfigValues()
         {
-            MReportConfig rc = new MReportConfig(new Wis.WsClientAPI.CTable(""));
+            MReportConfig rc = new MReportConfig(new CTable(""));
 
             rc.SetConfigValue("FontSize", "18", "double", "Font Size");
             rc.SetConfigValue("FontName", "AngsanaUPC", "String", "Font Name");

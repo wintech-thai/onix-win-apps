@@ -3,7 +3,7 @@ using System.Windows;
 using System.Printing;
 using System.Windows.Documents;
 using System.Windows.Controls;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using System.Collections;
 using Onix.Client.Controller;
 using Onix.Client.Helper;

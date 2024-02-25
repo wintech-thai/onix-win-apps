@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using Onix.Client.Model;
 using Onix.Client.Helper;
 using Onix.Client.Controller;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using Onix.ClientCenter.Commons.Windows;
 
 namespace Onix.ClientCenter.Commons.CriteriaConfig

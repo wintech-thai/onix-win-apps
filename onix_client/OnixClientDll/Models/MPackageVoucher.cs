@@ -1,4 +1,4 @@
-﻿using Wis.WsClientAPI;
+﻿using Onix.OnixHttpClient;
 using System;
 using Onix.Client.Helper;
 

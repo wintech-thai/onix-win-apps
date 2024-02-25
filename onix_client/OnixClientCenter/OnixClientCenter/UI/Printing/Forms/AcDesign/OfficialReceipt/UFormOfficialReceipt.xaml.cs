@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 using System.Drawing;
 using System.Windows.Media;
 using Onix.Client.Report;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.Forms.AcDesign.OfficialReceipt
 {
@@ -17,7 +18,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.OfficialReceipt
         {
             if (model == null)
             {
-                model = new MAccountDoc(new Wis.WsClientAPI.CTable(""));
+                model = new MAccountDoc(new CTable(""));
             }
 
             dataSource = model;

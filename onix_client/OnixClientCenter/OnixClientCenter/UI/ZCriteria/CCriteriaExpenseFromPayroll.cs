@@ -8,7 +8,7 @@ using Onix.Client.Controller;
 using Onix.ClientCenter.Commons.UControls;
 using Onix.ClientCenter.Commons.CriteriaConfig;
 using Onix.Client.Helper;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using Onix.ClientCenter.UI.HumanResource.PayrollDocument;
 
 namespace Onix.ClientCenter.Criteria

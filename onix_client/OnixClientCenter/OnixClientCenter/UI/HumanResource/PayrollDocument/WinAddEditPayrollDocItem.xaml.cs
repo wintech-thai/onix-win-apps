@@ -7,7 +7,7 @@ using Onix.Client.Model;
 using Onix.ClientCenter.Commons.UControls;
 using Onix.ClientCenter.Commons.Windows;
 using Onix.ClientCenter.Windows;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
 {

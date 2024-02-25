@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 using System.Xml;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using System.Security.Cryptography;
 using System.Collections;
 using System.Reflection;

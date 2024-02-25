@@ -3,6 +3,7 @@ using System.Windows;
 using Onix.Client.Model;
 using Onix.Client.Report;
 using Onix.ClientCenter.UI.HumanResource.PayrollDocument;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.Forms.AcDesign.HRPayrollDeposit
 {
@@ -15,7 +16,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HRPayrollDeposit
         {
             if (model == null)
             {
-                model = new MVPayrollDocument(new Wis.WsClientAPI.CTable(""));
+                model = new MVPayrollDocument(new CTable(""));
             }
 
             dataSource = model;
@@ -33,7 +34,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HRPayrollDeposit
             item = payrollDoc.GetItemByIndex(idx);
             if (item == null)
             {
-                item = new MVPayrollDocumentItem(new Wis.WsClientAPI.CTable(""));
+                item = new MVPayrollDocumentItem(new CTable(""));
             }
 
             numberTextAmount = item.GrandTotalAmount;

@@ -1,6 +1,6 @@
 ﻿using System;
 using Onix.Client.Helper;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 
 namespace Onix.Client.Model
 {

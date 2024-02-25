@@ -3,7 +3,7 @@ using System.Windows;
 using System.Collections;
 using Onix.Client.Helper;
 using Onix.Client.Model;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 
 namespace Onix.Client.Pricing
 {

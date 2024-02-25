@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Collections;
 using System.Windows.Documents;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using System.IO;
 using Onix.Client.Controller;
 using Onix.Client.Helper;

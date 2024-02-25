@@ -10,7 +10,7 @@ using Onix.Client.Model;
 using Onix.ClientCenter.Commons.Utils;
 using Onix.ClientCenter.Commons.Windows;
 using Onix.ClientCenter.UI.Cash.Cheque;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.UI.AccountPayable.TaxDocument.PP30
 {

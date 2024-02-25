@@ -8,7 +8,7 @@ using System.Collections;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.Commons.Windows
 {

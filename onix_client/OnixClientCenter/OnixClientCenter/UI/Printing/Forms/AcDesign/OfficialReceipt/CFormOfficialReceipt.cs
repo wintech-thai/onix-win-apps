@@ -6,6 +6,7 @@ using Onix.Client.Model;
 using Onix.Client.Report;
 using Onix.Client.Helper;
 using System.Windows.Controls;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.Forms.AcDesign.OfficialReceipt
 {
@@ -44,7 +45,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.OfficialReceipt
 
         public override MReportConfig CreateDefaultConfigValues()
         {
-            MReportConfig rc = new MReportConfig(new Wis.WsClientAPI.CTable(""));
+            MReportConfig rc = new MReportConfig(new CTable(""));
 
             rc.SetConfigValue("DocumentTypeThai", "ใบเสร็จรับเงิน", "String", "Document Type Thai");
             rc.SetConfigValue("DocumentTypeEng", "OFFICIAL RECEIPT", "String", "Document Type Eng");

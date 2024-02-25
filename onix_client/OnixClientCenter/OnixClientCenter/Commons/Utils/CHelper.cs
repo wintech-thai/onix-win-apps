@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using Onix.ClientCenter.Windows;
 using Onix.ClientCenter.UControls;
 using System.Text.RegularExpressions;

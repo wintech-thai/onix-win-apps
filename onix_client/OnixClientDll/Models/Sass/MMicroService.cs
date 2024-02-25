@@ -1,7 +1,7 @@
 ﻿using Onix.Client.Helper;
 using System;
 using System.Collections.ObjectModel;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 
 namespace Onix.Client.Model.Sass
 {

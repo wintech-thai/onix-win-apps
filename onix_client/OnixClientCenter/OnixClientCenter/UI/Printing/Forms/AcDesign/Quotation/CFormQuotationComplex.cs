@@ -5,6 +5,7 @@ using Onix.Client.Model;
 using Onix.Client.Report;
 using Onix.Client.Helper;
 using System.Windows.Controls;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.Forms.AcDesign.Quotation
 {
@@ -41,7 +42,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.Quotation
 
         public override MReportConfig CreateDefaultConfigValues()
         {
-            MReportConfig rc = new MReportConfig(new Wis.WsClientAPI.CTable(""));
+            MReportConfig rc = new MReportConfig(new CTable(""));
 
             rc.SetConfigValue("DocumentTypeThai", "QUOTATION", "String", "Document Type Thai");
             rc.SetConfigValue("DocumentTypeEng", "QUOTATION", "String", "Document Type Eng");

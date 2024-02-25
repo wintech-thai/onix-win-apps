@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using Onix.Client.Helper;
 using Onix.Client.Model;
 using System.Collections.ObjectModel;

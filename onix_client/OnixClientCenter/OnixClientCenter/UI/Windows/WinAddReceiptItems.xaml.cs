@@ -3,7 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using Onix.Client.Controller;
 using Onix.Client.Helper;
 

@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
 using System.Threading;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using Onix.Client.Model;
 using Onix.Client.Helper;
 using Onix.ClientCenter.Commons.Utils;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.ComponentModel;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using System.Runtime.CompilerServices;
 using System.Reflection;
 using System.Collections.ObjectModel;

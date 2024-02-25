@@ -3,7 +3,7 @@ using System.Windows;
 using System.Threading;
 using System.Collections;
 using System.Windows.Controls;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using Onix.ClientCenter.UControls;
 using Onix.Client.Helper;
 using Onix.Client.Report;

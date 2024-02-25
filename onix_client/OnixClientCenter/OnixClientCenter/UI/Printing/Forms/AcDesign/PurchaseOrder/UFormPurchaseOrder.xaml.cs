@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using Onix.Client.Model;
 using System.Windows;
 using Onix.Client.Report;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.Forms.AcDesign.PurchaseOrder
 {
@@ -12,7 +13,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.PurchaseOrder
         {
             if (model == null)
             {
-                model = new MAuxilaryDoc(new Wis.WsClientAPI.CTable(""));
+                model = new MAuxilaryDoc(new CTable(""));
             }
 
             dataSource = model;

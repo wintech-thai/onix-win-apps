@@ -4,7 +4,7 @@ using System.Threading;
 using Onix.Client.Controller;
 using System.Net;
 using System.Text;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.Commons.Windows
 {

@@ -3,6 +3,7 @@ using Onix.Client.Model;
 using Onix.Client.Helper;
 using System.Windows;
 using Onix.Client.Report;
+using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.Forms.AcDesign.WitholdingTax
 {
@@ -16,7 +17,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.WitholdingTax
         {
             if (model == null)
             {
-                model = new MAccountDoc(new Wis.WsClientAPI.CTable(""));
+                model = new MAccountDoc(new CTable(""));
             }
 
             dataSource = model;

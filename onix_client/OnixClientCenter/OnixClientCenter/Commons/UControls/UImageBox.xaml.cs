@@ -3,7 +3,7 @@ using Microsoft.Win32;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using Onix.Client.Controller;
 using System.Windows.Media;
 using Onix.Client.Helper;

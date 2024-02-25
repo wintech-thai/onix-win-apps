@@ -10,7 +10,7 @@ using System.Windows.Input;
 using Onix.ClientCenter.Commons.CriteriaConfig;
 using Onix.Client.Helper;
 using Onix.Client.Model;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using Onix.ClientCenter.Commons.UControls;
 
 namespace Onix.ClientCenter.UControls

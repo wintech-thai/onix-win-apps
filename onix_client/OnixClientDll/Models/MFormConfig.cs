@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.ObjectModel;
 using Onix.Client.Helper;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using System.Reflection;
 
 namespace Onix.Client.Model

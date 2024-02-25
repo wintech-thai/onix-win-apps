@@ -3,7 +3,7 @@ using System.Windows;
 using System.Collections;
 using Onix.Client.Model;
 using Onix.Client.Report;
-using Wis.WsClientAPI;
+using Onix.OnixHttpClient;
 using System.Collections.ObjectModel;
 using System.Printing;
 using Onix.Client.Helper;
@@ -49,7 +49,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HRPayrollDeposit
         
         public override MReportConfig CreateDefaultConfigValues()
         {
-            MReportConfig rc = new MReportConfig(new Wis.WsClientAPI.CTable(""));
+            MReportConfig rc = new MReportConfig(new CTable(""));
 
             rc.SetConfigValue("DocumentTypeThai", "ใบฝากเงินเพื่อเข้าบัญชีเงินเดือน", "String", "Document Type Thai");
             rc.SetConfigValue("DocumentTypeEng", "Payroll Deposit Slip", "String", "Document Type Eng");
