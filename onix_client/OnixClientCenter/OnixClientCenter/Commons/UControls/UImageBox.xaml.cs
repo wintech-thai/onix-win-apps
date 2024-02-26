@@ -205,7 +205,7 @@ namespace Onix.ClientCenter.Commons.UControls
             b.BeginInit();
             b.UriSource = new Uri(uri);
             b.EndInit();
-            imgUpload.Source = b;                 
+            imgUpload.Source = b;
         }
 
         private void CmdUpload_Click(object sender, RoutedEventArgs e)

@@ -370,9 +370,12 @@ namespace Onix.OnixHttpClient
           DownloadProgressChangedEventHandler prog,
           AsyncCompletedEventHandler comp)
         {
+            NetworkCredential myCreds = new NetworkCredential("user1", this.key);
+
             Uri uri = new Uri(this.webUrl);
             string uriString = string.Format("{0}?name={1}", (object)this.webUrl.Replace(Path.GetFileName(this.webUrl), this.downloaderScript), (object)srcFile);
             WebClient webClient = new WebClient();
+            webClient.Credentials = myCreds;
             webClient.DownloadProgressChanged += prog;
             webClient.DownloadFileCompleted += comp;
             webClient.DownloadFileAsync(new Uri(uriString), outputFile);
@@ -385,12 +388,17 @@ namespace Onix.OnixHttpClient
           UploadFileCompletedEventHandler comp)
         {
             NameValueCollection nameValueCollection = new NameValueCollection();
+
             string str1 = "N";
             if (this.imageUpload)
                 str1 = "Y";
+
             string str2 = "N";
             if (this.fileUploadPublic)
                 str2 = "Y";
+
+            NetworkCredential myCreds = new NetworkCredential("user1", this.key);
+
             nameValueCollection.Add("PublicShare", str2);
             nameValueCollection.Add("ImageUpload", str1);
             nameValueCollection.Add("Session", this.session);
@@ -398,6 +406,7 @@ namespace Onix.OnixHttpClient
             Uri uri = new Uri(this.webUrl);
             string uriString = this.webUrl.Replace(Path.GetFileName(this.webUrl), this.uploaderScript);
             WebClient webClient = new WebClient();
+            webClient.Credentials = myCreds;
             webClient.QueryString = nameValueCollection;
             webClient.UploadProgressChanged += prog;
             webClient.UploadFileCompleted += comp;
