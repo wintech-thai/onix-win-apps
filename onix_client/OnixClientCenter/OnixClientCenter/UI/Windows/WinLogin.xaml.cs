@@ -137,14 +137,14 @@ namespace Onix.ClientCenter
                 //Comment this line below in order to test auto update from IDE
                 return;
             }
-
+/*
             String api = CConfig.APIVersion;
 
             if (!api.Equals(""))
             {
                 CUtil.AutoUpdateProgram("OnixClientCenter.exe", "OnixCenter.zip");
             }
-
+*/
             isLogin = false;
             this.Close();
         }

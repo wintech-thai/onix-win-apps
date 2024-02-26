@@ -158,15 +158,6 @@ namespace Onix.OnixHttpClient
             return Encoding.UTF8.GetString(numArray, 0, count);
         }
 
-        protected string submitRequestOld(string d)
-        {
-            WebClient webClient = new WebClient();
-            NameValueCollection data = new NameValueCollection();
-            string str = this.EncryptString(d);
-            data.Add("DBOSOBJ", str);
-            return this.DecryptString(Encoding.UTF8.GetString(webClient.UploadValues(this.webUrl, data)));
-        }
-
         private string EscapeDataString(string value)
         {
             int length = 2000;
@@ -186,25 +177,36 @@ namespace Onix.OnixHttpClient
 
         protected string submitRequest(string d)
         {
-            string cipherText = "";
+            var responseText = "";
             long num = 0;
-            string str;
+            var str = "";
+
             try
             {
-                byte[] bytes = Encoding.ASCII.GetBytes(string.Format("DBOSOBJ={0}", (object)this.EscapeDataString(this.EncryptString(d))));
-                HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(this.webUrl);
+                var username = "user1";
+                var password = this.key;
+                string encoded = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes(username + ":" + password));
+
+                byte[] bytes = Encoding.ASCII.GetBytes(string.Format("DBOSOBJ={0}", (object) this.EscapeDataString(d)));
+                HttpWebRequest httpWebRequest = (HttpWebRequest) WebRequest.Create(this.webUrl);
+
                 httpWebRequest.Method = "POST";
                 httpWebRequest.ContentType = "application/x-www-form-urlencoded";
-                httpWebRequest.ContentLength = (long)bytes.Length;
-                num = (long)bytes.Length;
+                httpWebRequest.ContentLength = (long) bytes.Length;
+                httpWebRequest.Headers.Add("Authorization", "Basic " + encoded);
+
+                num = (long) bytes.Length;
                 httpWebRequest.GetRequestStream().Write(bytes, 0, bytes.Length);
-                cipherText = new StreamReader(httpWebRequest.GetResponse().GetResponseStream()).ReadToEnd();
-                str = this.DecryptString(cipherText);
+
+                var httpResponse = httpWebRequest.GetResponse();  
+                responseText = new StreamReader(httpResponse.GetResponseStream()).ReadToEnd();
+                str = responseText;
             }
             catch (Exception ex)
             {
-                str = string.Format("{0}\n{1}\nLen={2}", (object)cipherText, (object)ex.Message, (object)num);
+                str = string.Format("{0}\n{1}\nLen={2}", (object) responseText, (object) ex.Message, (object) num);
             }
+
             return str;
         }
 
