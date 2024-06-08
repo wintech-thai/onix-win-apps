@@ -17,7 +17,7 @@ jobs:
   build:
     strategy:
       matrix:
-        targetplatform: [x64, x86]
+        targetplatform: [x64]
 
     runs-on: windows-latest
 
