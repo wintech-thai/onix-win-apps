@@ -77,6 +77,6 @@ jobs:
       with:
         name: OnixClientCenter-${{ matrix.targetplatform }}
         path: |
-          onix_client\OnixClientCenter\bin\Debug\*.exe
-          onix_client\OnixClientCenter\bin\Debug\*.dll
-          onix_client\OnixClientCenter\bin\Debug\Pictures\*.png
+          onix_client\OnixClientCenter\bin\*.exe
+          onix_client\OnixClientCenter\bin\*.dll
+          onix_client\OnixClientCenter\bin\onix.xml
