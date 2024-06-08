@@ -1,0 +1,121 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT license.
+
+# This continuous delivery pipeline is meant to be triggered on release, anytime a user pushes code associated to a git tag,
+# and will run against multiple configurations and production environments.
+# This pipeline builds the Wpf project based upon the configuration matrix below.  In order to
+# create different channels of the application, the pipeline uses the Package.Identity.Name defined in the
+# Package.appxmanifest in the Windows Application Packaging Project to uniquely identify the application,
+# depending on which channel is being built.
+# Once the MSIX is created for each channel configuration, the agent archives the AppPackages folder, then creates
+# a Release with the specified git release tag. The archive is uploaded to the release as an asset for storage or distribution.
+name:  Wpf Continuous Delivery
+
+# Trigger on any push with a git tag
+# To create a git tag, run the following commands on the branch you wish to release:
+#   git tag 1.0.0.0
+#   git push origin --tags
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+
+  build:
+
+    strategy:
+
+    # The following build matrix allows builds across multiple configurations (Debug and Release) and production environments such as
+    # development, production for sideload applications and production for the Microsoft store.
+    # For more information, see https://help.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow#configuring-a-build-matrix
+      matrix:
+        channel: [Dev]
+        targetPlatform: [x64]
+        include:
+
+          # includes the following variables for the matrix leg matching Dev
+          - channel: Dev
+            ChannelName: Dev
+            Configuration: Debug
+            DistributionUrl: https://microsoft.github.io/tm-browser
+            MsixPackageId: TMBrowserWPF.DevOpsDemo.Dev
+            MsixPublisherId: CN=GitHubActionsDemo
+            MsixPackageDisplayName: TMBrowserWPF
+
+    runs-on: windows-latest
+
+    env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+      App_Packages_Archive: TM-Browser.zip
+      SigningCertificate: GitHubActionsDemo.pfx
+      Solution_Path: TMBrowserWPF.sln
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
+
+    # Use Nerdbank.GitVersioning to set version variables: https://github.com/AArnott/nbgv
+    - name: Use Nerdbank.GitVersioning to set version variables
+      uses: aarnott/nbgv@v0.3
+      with:
+        setAllVars: true
+
+    # Install the .NET Core workload
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1.302'
+
+    # Add  MsBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.1
+
+    # Restore the application
+    - name:  Restore the Wpf application to populate the obj folder
+      run: msbuild $env:Solution_Path /t:Restore /p:Configuration=$env:Configuration /p:RuntimeIdentifier=$env:RuntimeIdentifier
+      env:
+        Configuration: ${{ matrix.Configuration }}
+        RuntimeIdentifier: win-${{ matrix.targetplatform }}
+
+    # Build the Windows Application Packaging project for Dev and Prod_Sideload
+    - name: Build the Windows Application Packaging Project (wapproj) for ${{ matrix.ChannelName }}
+      run: msbuild $env:Solution_Path /p:Platform=$env:TargetPlatform /p:Configuration=$env:Configuration /p:UapAppxPackageBuildMode=$env:BuildMode /p:AppxBundle=$env:AppxBundle /p:PackageCertificateKeyFile=$env:SigningCertificate /p:PackageCertificatePassword=${{ secrets.Pfx_Key }}
+      if: matrix.ChannelName != 'Prod_Store'
+      env:
+        AppxBundle: Never
+        AppInstallerUri: ${{ matrix.DistributionUrl }}
+        BuildMode: SideloadOnly
+        Configuration: ${{ matrix.Configuration }}
+        GenerateAppInstallerFile: True
+        TargetPlatform: ${{ matrix.targetplatform }}
+
+    # Archive the package
+    - name: Create archive
+      run: Compress-Archive -Path TMBrowser\bin\Debug\Pictures\*.png, TMBrowser\bin\Debug\*.exe, TMBrowser\bin\Debug\*.dll -DestinationPath $env:App_Packages_Archive
+
+    # Create the release:  https://github.com/actions/create-release
+    - name: Create release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      with:
+        tag_name: ${{ github.ref}}.${{matrix.ChannelName}}.${{ matrix.targetplatform }}
+        release_name:  ${{ github.ref }}.${{ matrix.ChannelName }}.${{ matrix.targetplatform }}
+        draft: false
+        prerelease: false
+
+    # Upload release asset:   https://github.com/actions/upload-release-asset
+    - name: Update release asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}  # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+        asset_path: ${{ env.App_Packages_Archive }}
+        asset_name: ${{ env.App_Packages_Archive }}
+        asset_content_type: application/zip
