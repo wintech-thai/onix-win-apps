@@ -57,7 +57,8 @@ jobs:
           VERSION=$BRANCH-$GIT_HASH
         fi
 
-        echo ::set-output name=ProgramVersion::${VERSION}
+        # echo ::set-output name=ProgramVersion::${VERSION}
+        echo "ProgramVersion=${VERSION}" >> $GITHUB_OUTPUT
 
     # Install the .NET Core workload
     - name: Install .NET Core
