@@ -1,0 +1,104 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT license.
+
+# This continuous integration pipeline is triggered anytime a user pushes code to the repo.
+# This pipeline builds the Wpf project, runs unit tests, then saves the MSIX build artifact.
+name: Onix WPF Destop App
+
+# Trigger on every master branch push and pull request
+on:
+  push:
+    branches:
+      - main
+      - develop
+    tags:
+      - '*'
+
+jobs:
+
+  build:
+    strategy:
+      matrix:
+        targetplatform: [x64]
+
+    runs-on: windows-latest
+
+    env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+      App_Packages_Directory: AppPackages
+      SigningCertificate: GitHubActionsDemo.pfx
+      Solution_Path: onix_client\OnixClientCenter\OnixClientCenter.sln
+      TargetPlatform: "Any CPU"
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
+
+    # Use Nerdbank.GitVersioning to set version variables: https://github.com/AArnott/nbgv
+    - name: Use Nerdbank.GitVersioning to set version variables
+      uses: aarnott/nbgv@v0.3
+      id: nbgv
+      with:
+        setAllVars: true
+
+    - name: Prepare-Version
+      id: prepare
+      shell: bash
+      run: |
+        GITHUB_REF=${{ steps.nbgv.outputs.BuildingRef }}
+        GIT_HASH=${{ steps.nbgv.outputs.GitCommitIdShort }}
+
+        if [[ $GITHUB_REF == refs/tags/* ]]; then
+          VERSION=${GITHUB_REF#refs/tags/}
+          DEPLOYMENT_BRANCH=production
+        elif [[ $GITHUB_REF == refs/heads/* ]]; then
+          BRANCH=$(echo ${GITHUB_REF#refs/heads/} | sed -r 's#/+#-#g')
+          VERSION=$BRANCH-$GIT_HASH
+        fi
+
+        VERSION_FILE=onix_client/OnixClientCenter/OnixClientCenter/Properties/AssemblyInfo.cs
+        sed -i "s#<version-here>#${VERSION}#g" ${VERSION_FILE}
+
+        echo "ProgramVersion=${VERSION}" >> $GITHUB_OUTPUT
+
+    # Install the .NET Core workload
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.0.x'
+
+    # Add  MsBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.1
+
+    - name: Setup NuGet.exe
+      uses: nuget/setup-nuget@v1
+      
+    - run: nuget restore $env:Solution_Path
+
+    # Restore the application
+    - name:  Restore the Wpf application to populate the obj folder
+      run: msbuild $env:Solution_Path /t:Restore /p:Configuration=$env:Configuration /p:RuntimeIdentifier=$env:RuntimeIdentifier
+      env:
+        Configuration: Debug
+        RuntimeIdentifier: win-${{ matrix.targetplatform }}
+
+    # Build the Windows Application Packaging project
+    # /p:Platform=$env:TargetPlatform /p:Configuration=$env:Configuration 
+    - name: Build the Windows Application Packaging Project
+      run: msbuild $env:Solution_Path /p:AssemblyFileVersion=${{ steps.prepare.outputs.ProgramVersion }} /p:AssemblyVersion=${{ steps.prepare.outputs.ProgramVersion }} /p:UapAppxPackageBuildMode=$env:BuildMode /p:Configuration=$env:Configuration /p:AppxBundle=$env:AppxBundle /p:PackageCertificateKeyFile=$env:SigningCertificate /p:PackageCertificatePassword=${{ secrets.Pfx_Key }}
+      env:
+        AppxBundle: Never
+        BuildMode: SideloadOnly
+        Configuration: Debug
+        TargetPlatform: ${{ matrix.targetplatform }}
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: OnixClientCenter-${{ matrix.targetplatform }}_${{ steps.prepare.outputs.ProgramVersion }}
+        path: |
+          onix_client\OnixClientCenter\bin\*.exe
+          onix_client\OnixClientCenter\bin\*.dll
