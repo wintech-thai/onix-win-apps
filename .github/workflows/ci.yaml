@@ -11,6 +11,8 @@ on:
     branches:
       - main
       - develop
+    tags:
+      - '*'
 
 jobs:
 
@@ -26,7 +28,7 @@ jobs:
       App_Packages_Directory: AppPackages
       SigningCertificate: GitHubActionsDemo.pfx
       Solution_Path: onix_client\OnixClientCenter\OnixClientCenter.sln
-      TargetPlatform: "Any CPU" # ${{ matrix.targetplatform }}
+      TargetPlatform: "Any CPU"
 
     steps:
     - name: Checkout
@@ -44,7 +46,7 @@ jobs:
     - name: Install .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '8.0.6'
+        dotnet-version: '6.0.x'
 
     # Add  MsBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
@@ -79,4 +81,3 @@ jobs:
         path: |
           onix_client\OnixClientCenter\bin\*.exe
           onix_client\OnixClientCenter\bin\*.dll
-          onix_client\OnixClientCenter\bin\onix.xml
