@@ -43,9 +43,11 @@ jobs:
       with:
         setAllVars: true
 
-    - run: |
+    - name: Prepare-Version
+      shell: bash
+      run: |
         GITHUB_REF=${{ steps.nbgv.outputs.BuildingRef }}
-        GIT_HASH=${{ steps.nbgv.outputs.GitCommitId }}
+        GIT_HASH=${{ steps.nbgv.outputs.GitCommitIdShort }}
 
         if [[ $GITHUB_REF == refs/tags/* ]]; then
           VERSION=${GITHUB_REF#refs/tags/}
