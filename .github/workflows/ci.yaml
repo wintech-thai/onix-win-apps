@@ -85,7 +85,7 @@ jobs:
     # Build the Windows Application Packaging project
     # /p:Platform=$env:TargetPlatform /p:Configuration=$env:Configuration 
     - name: Build the Windows Application Packaging Project
-      run: msbuild $env:Solution_Path /p:Version=${{ steps.prepare.outputs.ProgramVersion }} /p:UapAppxPackageBuildMode=$env:BuildMode /p:Configuration=$env:Configuration /p:AppxBundle=$env:AppxBundle /p:PackageCertificateKeyFile=$env:SigningCertificate /p:PackageCertificatePassword=${{ secrets.Pfx_Key }}
+      run: msbuild $env:Solution_Path /p:AssemblyVersion=${{ steps.prepare.outputs.ProgramVersion }} /p:UapAppxPackageBuildMode=$env:BuildMode /p:Configuration=$env:Configuration;AssemblyFileVersion=${{ steps.prepare.outputs.ProgramVersion }} /p:AppxBundle=$env:AppxBundle /p:PackageCertificateKeyFile=$env:SigningCertificate /p:PackageCertificatePassword=${{ secrets.Pfx_Key }}
       env:
         AppxBundle: Never
         BuildMode: SideloadOnly
