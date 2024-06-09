@@ -39,8 +39,11 @@ jobs:
     # Use Nerdbank.GitVersioning to set version variables: https://github.com/AArnott/nbgv
     - name: Use Nerdbank.GitVersioning to set version variables
       uses: aarnott/nbgv@v0.3
+      id: nbgv
       with:
         setAllVars: true
+
+    - run: echo 'GitCommitId=${{ steps.nbgv.outputs.GitCommitId }}'
 
     # Install the .NET Core workload
     - name: Install .NET Core
