@@ -43,7 +43,19 @@ jobs:
       with:
         setAllVars: true
 
-    - run: echo 'GitCommitId=${{ steps.nbgv.outputs.GitCommitId }}'
+    - run: |
+        GITHUB_REF=${{ steps.nbgv.outputs.BuildingRef }}
+        GIT_HASH=${{ steps.nbgv.outputs.GitCommitId }}
+
+        if [[ $GITHUB_REF == refs/tags/* ]]; then
+          VERSION=${GITHUB_REF#refs/tags/}
+          DEPLOYMENT_BRANCH=production
+        elif [[ $GITHUB_REF == refs/heads/* ]]; then
+          BRANCH=$(echo ${GITHUB_REF#refs/heads/} | sed -r 's#/+#-#g')
+          VERSION=$BRANCH-$GIT_HASH
+        fi
+
+        echo ::set-output name=ProgramVersion::${VERSION}
 
     # Install the .NET Core workload
     - name: Install .NET Core
