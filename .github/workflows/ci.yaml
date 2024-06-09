@@ -95,7 +95,7 @@ jobs:
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: OnixClientCenter-${{ matrix.targetplatform }}
+        name: OnixClientCenter-${{ matrix.targetplatform }}_${{ steps.prepare.outputs.ProgramVersion }}
         path: |
           onix_client\OnixClientCenter\bin\*.exe
           onix_client\OnixClientCenter\bin\*.dll
