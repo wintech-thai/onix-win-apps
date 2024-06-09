@@ -11,8 +11,7 @@ on:
     branches:
       - main
       - develop
-    tags:
-      - '*'
+    tags: ['v*.*.*']
 
 jobs:
 
