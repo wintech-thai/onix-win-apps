@@ -58,6 +58,9 @@ jobs:
           VERSION=$BRANCH-$GIT_HASH
         fi
 
+        VERSION_FILE=onix_client/OnixClientCenter/OnixClientCenter/Properties/AssemblyInfo.cs
+        sed -i "s#<version-here>#${VERSION}#g" ${VERSION_FILE}
+
         echo "ProgramVersion=${VERSION}" >> $GITHUB_OUTPUT
 
     # Install the .NET Core workload
