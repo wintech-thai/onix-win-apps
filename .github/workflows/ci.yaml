@@ -44,6 +44,7 @@ jobs:
         setAllVars: true
 
     - name: Prepare-Version
+      id: prepare
       shell: bash
       run: |
         GITHUB_REF=${{ steps.nbgv.outputs.BuildingRef }}
@@ -57,7 +58,6 @@ jobs:
           VERSION=$BRANCH-$GIT_HASH
         fi
 
-        # echo ::set-output name=ProgramVersion::${VERSION}
         echo "ProgramVersion=${VERSION}" >> $GITHUB_OUTPUT
 
     # Install the .NET Core workload
@@ -85,7 +85,7 @@ jobs:
     # Build the Windows Application Packaging project
     # /p:Platform=$env:TargetPlatform /p:Configuration=$env:Configuration 
     - name: Build the Windows Application Packaging Project
-      run: msbuild $env:Solution_Path /p:UapAppxPackageBuildMode=$env:BuildMode /p:Configuration=$env:Configuration /p:AppxBundle=$env:AppxBundle /p:PackageCertificateKeyFile=$env:SigningCertificate /p:PackageCertificatePassword=${{ secrets.Pfx_Key }}
+      run: msbuild $env:Solution_Path /p:Version=${{ steps.prepare.outputs.ProgramVersion }} /p:UapAppxPackageBuildMode=$env:BuildMode /p:Configuration=$env:Configuration /p:AppxBundle=$env:AppxBundle /p:PackageCertificateKeyFile=$env:SigningCertificate /p:PackageCertificatePassword=${{ secrets.Pfx_Key }}
       env:
         AppxBundle: Never
         BuildMode: SideloadOnly
