@@ -8,7 +8,7 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("OnixClientCenter")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("OnixClientCenter")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Wintech-Thai")]
 [assembly: AssemblyProduct("OnixClientCenter")]
@@ -52,4 +52,4 @@ using System.Windows;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.2")]
-[assembly: AssemblyFileVersion("1.0.0")]
+[assembly: AssemblyFileVersion("<version-here>")]
