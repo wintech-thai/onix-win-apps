@@ -132,19 +132,16 @@ namespace Onix.ClientCenter
 
             CUtil.EnableForm(true, this);
 
-            if (CHelper.VerifyVersion())
+            if (!CHelper.VerifyNewVersion())
             {
                 //Comment this line below in order to test auto update from IDE
                 return;
             }
-/*
-            String api = CConfig.APIVersion;
 
-            if (!api.Equals(""))
-            {
-                CUtil.AutoUpdateProgram("OnixClientCenter.exe", "OnixCenter.zip");
-            }
+/*
+            CUtil.AutoUpdateProgram("OnixClientCenter.exe", "OnixCenter.zip");
 */
+
             isLogin = false;
             this.Close();
         }

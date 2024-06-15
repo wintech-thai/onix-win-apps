@@ -312,8 +312,9 @@ namespace Onix.ClientCenter.Commons.Utils
         {
             get
             {
-                AssemblyName asm = Assembly.GetExecutingAssembly().GetName();
-                String version = String.Format("{0}-{1}.{2}", CBuild.BuildVersion, asm.Version.Major, asm.Version.Minor);
+                Assembly asm = Assembly.GetExecutingAssembly();
+                System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(asm.Location);
+                string version = fvi.FileVersion;
 
                 return (version);
             }

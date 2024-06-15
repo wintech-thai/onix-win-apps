@@ -62,6 +62,15 @@ jobs:
 
         echo "ProgramVersion=${VERSION}" >> $GITHUB_OUTPUT
 
+    - name: Slack notification start
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        fields: repo,message,commit,author,ref,workflow # selectable (default: repo,message)
+        text: "Start building [Onix-Win-Apps] [${{ steps.prepare.outputs.ProgramVersion }}]..."
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_URL }} # required
+  
     # Install the .NET Core workload
     - name: Install .NET Core
       uses: actions/setup-dotnet@v1
@@ -101,3 +110,13 @@ jobs:
         path: |
           onix_client\OnixClientCenter\bin\*.exe
           onix_client\OnixClientCenter\bin\*.dll
+
+    - name: Slack notification end
+      if: always()
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        fields: repo,message,commit,author,ref,workflow # selectable (default: repo,message)
+        text: "Done building [Onix-Win-Apps] [${{ steps.prepare.outputs.ProgramVersion }}]"
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_URL }} # required

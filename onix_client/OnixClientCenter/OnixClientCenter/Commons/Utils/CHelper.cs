@@ -404,34 +404,12 @@ namespace Onix.ClientCenter.Commons.Utils
             return (false);
         }
 
-        public static Boolean VerifyVersion()
+        public static Boolean VerifyNewVersion()
         {
-            String api = CConfig.APIVersion;
-            String prog = CConfig.Version;
+            //Check if new version exists
+            //Check if run from source code then no need to update
 
-            String[] apibuilt = api.Split('-');
-            String[] progbuilt = prog.Split('-');
-
-            String str = CLanguage.getValue("version_mismatch");
-            String strwarn = CLanguage.getValue("version_mismatch_warn");
-            String fmt = String.Format(str, api, prog);
-            String fmtwarn = String.Format(strwarn, api, prog);
-
-            if (!apibuilt[0].Equals(progbuilt[0]))
-            {
-                if (progbuilt[0].Equals("$ONIX_BUILD_LABEL_VAR$"))
-                {
-                    //Run from source code is allow for version mismatch for the sake of debugging
-
-                    CMessageBox.Show(fmtwarn, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return (true);
-                }
-
-                CMessageBox.Show(fmt, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                return (false);
-            }
-
-            return (true);
+            return (false);
         }
 
         public static CTable GetComboSelectedObject(ComboBox cbo)
