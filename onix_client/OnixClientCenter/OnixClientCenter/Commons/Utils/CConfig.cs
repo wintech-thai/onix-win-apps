@@ -8,6 +8,8 @@ using System.Collections;
 using System.Reflection;
 using Onix.Client.Controller;
 using Onix.Client.Helper;
+using System.Linq;
+using Org.BouncyCastle.Asn1.Cms;
 
 namespace Onix.ClientCenter.Commons.Utils
 {
@@ -312,10 +314,15 @@ namespace Onix.ClientCenter.Commons.Utils
         {
             get
             {
+                string version = "";
                 Assembly asm = Assembly.GetExecutingAssembly();
-                System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(asm.Location);
-                string version = fvi.FileVersion;
 
+                var attr = asm.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false).Select(a => a as AssemblyDescriptionAttribute).FirstOrDefault();
+                if (attr != null)
+                {
+                    version = attr.Description;
+                }
+  
                 return (version);
             }
         }
