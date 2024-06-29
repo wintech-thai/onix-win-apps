@@ -403,7 +403,7 @@ namespace Onix.ClientCenter
             stbiVersionValue.Width = 1 * r;
 
             stbiServerValue.Content = CConfig.GetUrl();
-            stbiVersionValue.Content = CConfig.Version;
+            stbiVersionValue.Content = "1234"; // CConfig.Version;
         }
 
         private void mnuMenu_Click(object sender, RoutedEventArgs e)
