@@ -314,16 +314,7 @@ namespace Onix.ClientCenter.Commons.Utils
         {
             get
             {
-                string version = "";
-                Assembly asm = Assembly.GetExecutingAssembly();
-
-                var attr = asm.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false).Select(a => a as AssemblyDescriptionAttribute).FirstOrDefault();
-                if (attr != null)
-                {
-                    version = attr.Description;
-                }
-  
-                return (version);
+                return (CBuild.BuildVersion);
             }
         }
 

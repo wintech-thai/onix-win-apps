@@ -7,7 +7,7 @@ namespace Onix.Client.Helper
 {
    public static class CBuild
    {
-        public static String BuildVersion = "$ONIX_BUILD_LABEL_VAR$";
+        public static String BuildVersion = "<version-here>";
         public static String Product = "onix";
-   }
+    }
 }
