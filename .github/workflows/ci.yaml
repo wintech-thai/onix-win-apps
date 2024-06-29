@@ -57,9 +57,9 @@ jobs:
           VERSION=$BRANCH-$GIT_HASH
         fi
 
-        VERSION=v1.0.4 #_$VERSION # --> Will remove
+        #VERSION=v1.0.4 # --> Will remove
 
-        VERSION_FILE=onix_client/OnixClientCenter/OnixClientCenter/Properties/AssemblyInfo.cs
+        VERSION_FILE=onix_client/OnixClientDll/Helper/CBuild.cs
         sed -i "s#<version-here>#${VERSION}#g" ${VERSION_FILE}
 
         echo "ProgramVersion=${VERSION}" >> $GITHUB_OUTPUT
