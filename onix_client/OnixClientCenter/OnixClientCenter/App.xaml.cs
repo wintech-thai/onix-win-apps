@@ -12,8 +12,15 @@ namespace Onix.ClientCenter
 
         public App() : base()
         {
-            this.Dispatcher.UnhandledException += OnDispatcherUnhandledException;
-
+            try
+            {
+                this.Dispatcher.UnhandledException += OnDispatcherUnhandledException;
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = string.Format("An unhandled exception occurred: {0}", ex.Message);
+                MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             //CultureInfo ci = new CultureInfo(Thread.CurrentThread.CurrentCulture.Name);
             //ci.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
             //ci.DateTimeFormat.LongDatePattern = "dd/MM/yyyy";
