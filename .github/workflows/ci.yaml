@@ -57,7 +57,7 @@ jobs:
           VERSION=$BRANCH-$GIT_HASH
         fi
 
-        VERSION=v1.0.4 # --> Will remove
+        #VERSION=v1.0.4 # --> Will remove
 
         VERSION_FILE=onix_client/OnixClientDll/Helper/CBuild.cs
         sed -i "s#<version-here>#${VERSION}#g" ${VERSION_FILE}
