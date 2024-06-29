@@ -62,6 +62,8 @@ jobs:
         VERSION_FILE=onix_client/OnixClientDll/Helper/CBuild.cs
         sed -i "s#<version-here>#${VERSION}#g" ${VERSION_FILE}
 
+        cat onix_client/OnixClientCenter/OnixClientCenter/Properties/AssemblyInfo.cs
+
         echo "ProgramVersion=${VERSION}" >> $GITHUB_OUTPUT
 
     - name: Slack notification start
