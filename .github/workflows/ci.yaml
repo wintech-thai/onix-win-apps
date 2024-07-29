@@ -76,37 +76,38 @@ jobs:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_URL }} # required
   
     # Install the .NET Core workload
-    - name: Install .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: '8.0.x' # '6.0.x'
+    #- name: Install .NET Core
+    #  uses: actions/setup-dotnet@v1
+    #  with:
+    #    dotnet-version: '8.0.x' # '6.0.x'
 
     # Add  MsBuild to the PATH: https://github.com/microsoft/setup-msbuild
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v2
+    #- name: Setup MSBuild.exe
+    #  uses: microsoft/setup-msbuild@v2
 
-    - name: Setup NuGet.exe
-      uses: nuget/setup-nuget@v1
+    #- name: Setup NuGet.exe
+    #  uses: nuget/setup-nuget@v1
       
-    - run: nuget restore $env:Solution_Path
+    #- run: nuget restore $env:Solution_Path
 
     # Restore the application
-    - name:  Restore the Wpf application to populate the obj folder
-      run: msbuild $env:Solution_Path /t:Restore /p:Configuration=$env:Configuration /p:RuntimeIdentifier=$env:RuntimeIdentifier
-      env:
-        Configuration: Debug
-        RuntimeIdentifier: win-${{ matrix.targetplatform }}
+    #- name:  Restore the Wpf application to populate the obj folder
+    #  run: msbuild $env:Solution_Path /t:Restore /p:Configuration=$env:Configuration /p:RuntimeIdentifier=$env:RuntimeIdentifier
+    #  env:
+    #    Configuration: Debug
+    #    RuntimeIdentifier: win-${{ matrix.targetplatform }}
 
     # Build the Windows Application Packaging project
     # /p:Platform=$env:TargetPlatform /p:Configuration=$env:Configuration 
-    - name: Build the Windows Application Packaging Project
-      run: msbuild $env:Solution_Path /p:AssemblyFileVersion=${{ steps.prepare.outputs.ProgramVersion }} /p:AssemblyVersion=${{ steps.prepare.outputs.ProgramVersion }} /p:UapAppxPackageBuildMode=$env:BuildMode /p:Configuration=$env:Configuration /p:AppxBundle=$env:AppxBundle /p:PackageCertificateKeyFile=$env:SigningCertificate /p:PackageCertificatePassword=${{ secrets.Pfx_Key }}
-      env:
-        AppxBundle: Never
-        BuildMode: SideloadOnly
-        Configuration: Debug
-        TargetPlatform: ${{ matrix.targetplatform }}
+    #- name: Build the Windows Application Packaging Project
+    #  run: msbuild $env:Solution_Path /p:AssemblyFileVersion=${{ steps.prepare.outputs.ProgramVersion }} /p:AssemblyVersion=${{ steps.prepare.outputs.ProgramVersion }} /p:UapAppxPackageBuildMode=$env:BuildMode /p:Configuration=$env:Configuration /p:AppxBundle=$env:AppxBundle /p:PackageCertificateKeyFile=$env:SigningCertificate /p:PackageCertificatePassword=${{ secrets.Pfx_Key }}
+    #  env:
+    #    AppxBundle: Never
+    #    BuildMode: SideloadOnly
+    #    Configuration: Debug
+    #    TargetPlatform: ${{ matrix.targetplatform }}
 
+    # Use files from local build
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
       with:
