@@ -1,5 +1,5 @@
 .vs
 obj
 packages
-bin/*.xml
-bin/*.pdb
+**/bin/*.xml
+**/bin/*.pdb

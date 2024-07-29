@@ -57,7 +57,7 @@ jobs:
           VERSION=$BRANCH-$GIT_HASH
         fi
 
-        echo ${VERSION} > onix_client\OnixClientCenter\bin\build.txt
+        echo ${VERSION} > onix_client/OnixClientCenter/bin/build.txt
 
         echo "ProgramVersion=${VERSION}" >> $GITHUB_OUTPUT
 
