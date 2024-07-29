@@ -11,8 +11,7 @@ on:
     branches:
       - main
       - develop
-    tags:
-      - '*'
+    tags: ['v*.*.*']
 
 jobs:
 
@@ -28,7 +27,7 @@ jobs:
       App_Packages_Directory: AppPackages
       SigningCertificate: GitHubActionsDemo.pfx
       Solution_Path: onix_client\OnixClientCenter\OnixClientCenter.sln
-      TargetPlatform: "Any CPU"
+      TargetPlatform: "x64"
 
     steps:
     - name: Checkout
@@ -58,43 +57,52 @@ jobs:
           VERSION=$BRANCH-$GIT_HASH
         fi
 
-        VERSION_FILE=onix_client/OnixClientCenter/OnixClientCenter/Properties/AssemblyInfo.cs
-        sed -i "s#<version-here>#${VERSION}#g" ${VERSION_FILE}
+        echo ${VERSION} > onix_client/OnixClientCenter/bin/build.txt
 
         echo "ProgramVersion=${VERSION}" >> $GITHUB_OUTPUT
 
-    # Install the .NET Core workload
-    - name: Install .NET Core
-      uses: actions/setup-dotnet@v1
+    - name: Slack notification start
+      uses: 8398a7/action-slack@v3
       with:
-        dotnet-version: '6.0.x'
+        status: ${{ job.status }}
+        fields: repo,message,commit,author,ref,workflow # selectable (default: repo,message)
+        text: "Start building [Onix-Win-Apps] [${{ steps.prepare.outputs.ProgramVersion }}]..."
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_URL }} # required
+  
+    # Install the .NET Core workload
+    #- name: Install .NET Core
+    #  uses: actions/setup-dotnet@v1
+    #  with:
+    #    dotnet-version: '8.0.x' # '6.0.x'
 
     # Add  MsBuild to the PATH: https://github.com/microsoft/setup-msbuild
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.0.1
+    #- name: Setup MSBuild.exe
+    #  uses: microsoft/setup-msbuild@v2
 
-    - name: Setup NuGet.exe
-      uses: nuget/setup-nuget@v1
+    #- name: Setup NuGet.exe
+    #  uses: nuget/setup-nuget@v1
       
-    - run: nuget restore $env:Solution_Path
+    #- run: nuget restore $env:Solution_Path
 
     # Restore the application
-    - name:  Restore the Wpf application to populate the obj folder
-      run: msbuild $env:Solution_Path /t:Restore /p:Configuration=$env:Configuration /p:RuntimeIdentifier=$env:RuntimeIdentifier
-      env:
-        Configuration: Debug
-        RuntimeIdentifier: win-${{ matrix.targetplatform }}
+    #- name:  Restore the Wpf application to populate the obj folder
+    #  run: msbuild $env:Solution_Path /t:Restore /p:Configuration=$env:Configuration /p:RuntimeIdentifier=$env:RuntimeIdentifier
+    #  env:
+    #    Configuration: Debug
+    #    RuntimeIdentifier: win-${{ matrix.targetplatform }}
 
     # Build the Windows Application Packaging project
     # /p:Platform=$env:TargetPlatform /p:Configuration=$env:Configuration 
-    - name: Build the Windows Application Packaging Project
-      run: msbuild $env:Solution_Path /p:AssemblyFileVersion=${{ steps.prepare.outputs.ProgramVersion }} /p:AssemblyVersion=${{ steps.prepare.outputs.ProgramVersion }} /p:UapAppxPackageBuildMode=$env:BuildMode /p:Configuration=$env:Configuration /p:AppxBundle=$env:AppxBundle /p:PackageCertificateKeyFile=$env:SigningCertificate /p:PackageCertificatePassword=${{ secrets.Pfx_Key }}
-      env:
-        AppxBundle: Never
-        BuildMode: SideloadOnly
-        Configuration: Debug
-        TargetPlatform: ${{ matrix.targetplatform }}
+    #- name: Build the Windows Application Packaging Project
+    #  run: msbuild $env:Solution_Path /p:AssemblyFileVersion=${{ steps.prepare.outputs.ProgramVersion }} /p:AssemblyVersion=${{ steps.prepare.outputs.ProgramVersion }} /p:UapAppxPackageBuildMode=$env:BuildMode /p:Configuration=$env:Configuration /p:AppxBundle=$env:AppxBundle /p:PackageCertificateKeyFile=$env:SigningCertificate /p:PackageCertificatePassword=${{ secrets.Pfx_Key }}
+    #  env:
+    #    AppxBundle: Never
+    #    BuildMode: SideloadOnly
+    #    Configuration: Debug
+    #    TargetPlatform: ${{ matrix.targetplatform }}
 
+    # Use files from local build
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
       with:
@@ -102,3 +110,14 @@ jobs:
         path: |
           onix_client\OnixClientCenter\bin\*.exe
           onix_client\OnixClientCenter\bin\*.dll
+          onix_client\OnixClientCenter\bin\*.txt
+
+    - name: Slack notification end
+      if: always()
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        fields: repo,message,commit,author,ref,workflow # selectable (default: repo,message)
+        text: "Done building [Onix-Win-Apps] [${{ steps.prepare.outputs.ProgramVersion }}]"
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_URL }} # required

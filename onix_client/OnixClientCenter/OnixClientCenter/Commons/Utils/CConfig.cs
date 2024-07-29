@@ -8,6 +8,8 @@ using System.Collections;
 using System.Reflection;
 using Onix.Client.Controller;
 using Onix.Client.Helper;
+using System.Linq;
+using Org.BouncyCastle.Asn1.Cms;
 
 namespace Onix.ClientCenter.Commons.Utils
 {
@@ -312,10 +314,7 @@ namespace Onix.ClientCenter.Commons.Utils
         {
             get
             {
-                AssemblyName asm = Assembly.GetExecutingAssembly().GetName();
-                String version = String.Format("{0}-{1}.{2}", CBuild.BuildVersion, asm.Version.Major, asm.Version.Minor);
-
-                return (version);
+                return (CBuild.BuildVersion);
             }
         }
 

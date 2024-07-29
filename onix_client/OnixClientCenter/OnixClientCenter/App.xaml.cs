@@ -12,8 +12,15 @@ namespace Onix.ClientCenter
 
         public App() : base()
         {
-            this.Dispatcher.UnhandledException += OnDispatcherUnhandledException;
-
+            try
+            {
+                this.Dispatcher.UnhandledException += OnDispatcherUnhandledException;
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = string.Format("An unhandled exception occurred: {0}", ex.Message);
+                MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             //CultureInfo ci = new CultureInfo(Thread.CurrentThread.CurrentCulture.Name);
             //ci.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
             //ci.DateTimeFormat.LongDatePattern = "dd/MM/yyyy";
@@ -30,20 +37,28 @@ namespace Onix.ClientCenter
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            EventManager.RegisterClassHandler(typeof(TextBox), TextBox.PreviewKeyDownEvent, new KeyEventHandler(Element_PreviewKeyDown));
-            EventManager.RegisterClassHandler(typeof(TextBox), TextBox.GotFocusEvent, new RoutedEventHandler(TextBox_GotFocus));
+            try
+            {
+                EventManager.RegisterClassHandler(typeof(TextBox), TextBox.PreviewKeyDownEvent, new KeyEventHandler(Element_PreviewKeyDown));
+                EventManager.RegisterClassHandler(typeof(TextBox), TextBox.GotFocusEvent, new RoutedEventHandler(TextBox_GotFocus));
 
-            EventManager.RegisterClassHandler(typeof(ComboBox), ComboBox.PreviewKeyDownEvent, new KeyEventHandler(ComboBox_PreviewKeyDown));
-            EventManager.RegisterClassHandler(typeof(CheckBox), CheckBox.PreviewKeyDownEvent, new KeyEventHandler(ComboBox_PreviewKeyDown));
-            EventManager.RegisterClassHandler(typeof(RadioButton), RadioButton.PreviewKeyDownEvent, new KeyEventHandler(ComboBox_PreviewKeyDown));
+                EventManager.RegisterClassHandler(typeof(ComboBox), ComboBox.PreviewKeyDownEvent, new KeyEventHandler(ComboBox_PreviewKeyDown));
+                EventManager.RegisterClassHandler(typeof(CheckBox), CheckBox.PreviewKeyDownEvent, new KeyEventHandler(ComboBox_PreviewKeyDown));
+                EventManager.RegisterClassHandler(typeof(RadioButton), RadioButton.PreviewKeyDownEvent, new KeyEventHandler(ComboBox_PreviewKeyDown));
 
-            EventManager.RegisterClassHandler(typeof(PasswordBox), PasswordBox.PreviewKeyDownEvent, new KeyEventHandler(ElementPWD_PreviewKeyDown));
-            EventManager.RegisterClassHandler(typeof(PasswordBox), PasswordBox.GotFocusEvent, new RoutedEventHandler(PasswordBox_GotFocus));
+                EventManager.RegisterClassHandler(typeof(PasswordBox), PasswordBox.PreviewKeyDownEvent, new KeyEventHandler(ElementPWD_PreviewKeyDown));
+                EventManager.RegisterClassHandler(typeof(PasswordBox), PasswordBox.GotFocusEvent, new RoutedEventHandler(PasswordBox_GotFocus));
 
-            EventManager.RegisterClassHandler(typeof(Window), Window.PreviewKeyDownEvent, new KeyEventHandler(Window_PreviewKeyDown));
-            //EventManager.RegisterClassHandler(typeof(UserControl), UserControl.PreviewKeyDownEvent, new KeyEventHandler(UControl_PreviewKeyDown));
+                EventManager.RegisterClassHandler(typeof(Window), Window.PreviewKeyDownEvent, new KeyEventHandler(Window_PreviewKeyDown));
+                //EventManager.RegisterClassHandler(typeof(UserControl), UserControl.PreviewKeyDownEvent, new KeyEventHandler(UControl_PreviewKeyDown));
 
-            base.OnStartup(e);
+                base.OnStartup(e);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = string.Format("An unhandled exception occurred: {0}", ex.Message);
+                MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void PasswordBox_GotFocus(object sender, RoutedEventArgs e)

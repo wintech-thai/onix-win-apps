@@ -701,7 +701,11 @@ namespace Onix.Client.Report
 
             if (!fieldName.Equals(""))
             {
-                itemDesc = (String) m.GetType().GetProperty(fieldName).GetValue(m, null);
+                var prop = m.GetType().GetProperty(fieldName);
+                if (prop != null)
+                {
+                    itemDesc = (String)m.GetType().GetProperty(fieldName).GetValue(m, null);
+                }
             }
             
             String fontName = rptCfg.GetConfigValue("FontName");
