@@ -49,9 +49,11 @@ jobs:
         GITHUB_REF=${{ steps.nbgv.outputs.BuildingRef }}
         GIT_HASH=${{ steps.nbgv.outputs.GitCommitIdShort }}
 
+        DEPLOYMENT_BRANCH="dev"
+
         if [[ $GITHUB_REF == refs/tags/* ]]; then
           VERSION=${GITHUB_REF#refs/tags/}
-          DEPLOYMENT_BRANCH=production
+          DEPLOYMENT_BRANCH=prod
         elif [[ $GITHUB_REF == refs/heads/* ]]; then
           BRANCH=$(echo ${GITHUB_REF#refs/heads/} | sed -r 's#/+#-#g')
           VERSION=$BRANCH-$GIT_HASH
@@ -60,6 +62,7 @@ jobs:
         echo ${VERSION} > onix_client/OnixClientCenter/bin/build.txt
 
         echo "ProgramVersion=${VERSION}" >> $GITHUB_OUTPUT
+        echo "ProgramEnvironment=${DEPLOYMENT_BRANCH}" >> $GITHUB_OUTPUT
 
     - name: Slack notification start
       uses: 8398a7/action-slack@v3
@@ -111,6 +114,28 @@ jobs:
           onix_client\OnixClientCenter\bin\*.exe
           onix_client\OnixClientCenter\bin\*.dll
           onix_client\OnixClientCenter\bin\*.txt
+
+    - name: Zip-Artifact
+      id: zip-artifact
+      shell: bash
+      run: |
+        CWD=$(pwd)
+        cd onix_client/OnixClientCenter/bin/
+        zip ${CWD}/OnixClientCenter-${{ matrix.targetplatform }}_${{ steps.prepare.outputs.ProgramVersion }}.zip *.exe *.dll *.txt
+        cd ${CWD}
+        ls -al
+
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v2'
+      with:
+        credentials_json: '${{ secrets.GCR_KEY }}'
+
+    #- id: 'upload-file'
+    #  uses: 'google-github-actions/upload-cloud-storage@v2'
+    #  with:
+    #    path: OnixClientCenter-${{ matrix.targetplatform }}_${{ steps.prepare.outputs.ProgramVersion }}.zip
+    #    destination: 'public-software-download/onix/${{ steps.prepare.outputs.ProgramEnvironment }}'
 
     - name: Slack notification end
       if: always()
