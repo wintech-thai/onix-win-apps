@@ -121,7 +121,7 @@ jobs:
       run: |
         CWD=$(pwd)
         cd onix_client/OnixClientCenter/bin/
-        zip ${CWD}/OnixClientCenter-${{ matrix.targetplatform }}_${{ steps.prepare.outputs.ProgramVersion }}.zip *.exe *.dll *.txt
+        tar -czvf ${CWD}/OnixClientCenter-${{ matrix.targetplatform }}_${{ steps.prepare.outputs.ProgramVersion }}.gz *.exe *.dll *.txt
         cd ${CWD}
         ls -al
 
