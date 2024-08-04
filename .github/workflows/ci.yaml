@@ -121,7 +121,7 @@ jobs:
       run: |
         CWD=$(pwd)
         cd onix_client/OnixClientCenter/bin/
-        tar -czvf ${CWD}/OnixClientCenter-${{ matrix.targetplatform }}_${{ steps.prepare.outputs.ProgramVersion }}.gz *.exe *.dll *.txt
+        tar -czvf ${CWD}/OnixClientCenter-${{ matrix.targetplatform }}_${{ steps.prepare.outputs.ProgramVersion }}.tar.gz *.exe *.dll *.txt
         cd ${CWD}
         ls -al
 
@@ -134,7 +134,7 @@ jobs:
     - id: 'upload-file'
       uses: 'google-github-actions/upload-cloud-storage@v2'
       with:
-        path: OnixClientCenter-${{ matrix.targetplatform }}_${{ steps.prepare.outputs.ProgramVersion }}.gz
+        path: OnixClientCenter-${{ matrix.targetplatform }}_${{ steps.prepare.outputs.ProgramVersion }}.tar.gz
         destination: 'public-software-download/onix/${{ steps.prepare.outputs.ProgramEnvironment }}'
 
     - name: Slack notification end
