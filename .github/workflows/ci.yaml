@@ -131,11 +131,11 @@ jobs:
       with:
         credentials_json: '${{ secrets.GCR_KEY }}'
 
-    #- id: 'upload-file'
-    #  uses: 'google-github-actions/upload-cloud-storage@v2'
-    #  with:
-    #    path: OnixClientCenter-${{ matrix.targetplatform }}_${{ steps.prepare.outputs.ProgramVersion }}.zip
-    #    destination: 'public-software-download/onix/${{ steps.prepare.outputs.ProgramEnvironment }}'
+    - id: 'upload-file'
+      uses: 'google-github-actions/upload-cloud-storage@v2'
+      with:
+        path: OnixClientCenter-${{ matrix.targetplatform }}_${{ steps.prepare.outputs.ProgramVersion }}.gz
+        destination: 'public-software-download/onix/${{ steps.prepare.outputs.ProgramEnvironment }}'
 
     - name: Slack notification end
       if: always()
