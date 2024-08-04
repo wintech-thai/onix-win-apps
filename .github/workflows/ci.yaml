@@ -124,6 +124,7 @@ jobs:
         tar -czvf ${CWD}/OnixClientCenter-${{ matrix.targetplatform }}_${{ steps.prepare.outputs.ProgramVersion }}.tar.gz *.exe *.dll *.txt
         cd ${CWD}
         ls -al
+        echo "${{ steps.prepare.outputs.ProgramVersion }}" > latest-release.txt
 
     - id: 'auth'
       name: 'Authenticate to Google Cloud'
@@ -131,10 +132,16 @@ jobs:
       with:
         credentials_json: '${{ secrets.GCR_KEY }}'
 
-    - id: 'upload-file'
+    - id: 'upload-artifact-file'
       uses: 'google-github-actions/upload-cloud-storage@v2'
       with:
         path: OnixClientCenter-${{ matrix.targetplatform }}_${{ steps.prepare.outputs.ProgramVersion }}.tar.gz
+        destination: 'public-software-download/onix/${{ steps.prepare.outputs.ProgramEnvironment }}'
+
+    - id: 'upload-release-manifest'
+      uses: 'google-github-actions/upload-cloud-storage@v2'
+      with:
+        path: latest-release.txt
         destination: 'public-software-download/onix/${{ steps.prepare.outputs.ProgramEnvironment }}'
 
     - name: Slack notification end
