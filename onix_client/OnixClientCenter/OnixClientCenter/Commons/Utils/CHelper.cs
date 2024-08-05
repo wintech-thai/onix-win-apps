@@ -569,36 +569,30 @@ namespace Onix.ClientCenter.Commons.Utils
 
         public static void LoadTheme(ComboBox cbo, Boolean allowEmpty, String id)
         {
-            CTable obj = new CTable("MASTER_REF");
             List<MMasterRef> items = new List<MMasterRef>();
-            int idx = 0;
-            int selectedIndex = 0;
-            int themeIndex = CProductFilter.GetThemeIndex();
 
-            if (allowEmpty)
+            MMasterRef t1 = new MMasterRef(new CTable("MASTER_REF"));
+            t1.MasterID = "5";
+            t1.Description = ThemeToString(5);
+            t1.RowIndex = 0;
+            items.Add(t1);
+
+            MMasterRef t2 = new MMasterRef(new CTable("MASTER_REF"));
+            t2.MasterID = "6";
+            t2.Description = ThemeToString(6);
+            t2.RowIndex = 1;
+            items.Add(t2);
+
+            var themeIndex = 0;
+            var selectedIndex = 0;
+            foreach (var t in items)
             {
-                MMasterRef v = new MMasterRef(null);
-                v.RowIndex = idx;
-                items.Add(v);
-
-                idx++;
-            }
-
-            for (int i = themeIndex; i <= themeIndex; i++)
-            {
-                MMasterRef v = new MMasterRef(new CTable("MASTER_REF"));
-                v.MasterID = i.ToString();
-                v.Description = ThemeToString(i);
-
-                v.RowIndex = idx;
-                items.Add(v);
-
-                if (v.MasterID.Equals(id))
+                if (t.MasterID.Equals(id.ToString()))
                 {
-                    selectedIndex = idx;
+                    selectedIndex = themeIndex;
                 }
 
-                idx++;
+                themeIndex++;
             }
 
             cbo.ItemsSource = items;
