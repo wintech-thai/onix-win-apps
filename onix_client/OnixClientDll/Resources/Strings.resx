@@ -4596,4 +4596,7 @@
   <data name="rv_tax_1_kor" xml:space="preserve">
     <value>ภ.ง.ด. 1 ก</value>
   </data>
+  <data name="item_image" xml:space="preserve">
+    <value>รูปภาพ</value>
+  </data>
 </root>

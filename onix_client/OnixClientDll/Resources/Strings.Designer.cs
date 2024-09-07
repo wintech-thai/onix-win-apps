@@ -6640,6 +6640,15 @@ namespace Onix.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to รูปภาพ.
+        /// </summary>
+        public static string item_image {
+            get {
+                return ResourceManager.GetString("item_image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to รายการสินค้า.
         /// </summary>
         public static string item_info {

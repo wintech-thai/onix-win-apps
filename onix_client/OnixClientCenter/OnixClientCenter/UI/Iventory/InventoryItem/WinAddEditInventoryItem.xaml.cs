@@ -139,6 +139,11 @@ namespace Onix.ClientCenter.UI.Inventory.InventoryItem
             }
         }
 
+        private void ImgLogo_SelectedFileChanged(object sender, SelectionChangedEventArgs e)
+        {
+            mv.IsModified = true;
+        }
+
         private void CmdMigrate_Click(object sender, RoutedEventArgs e)
         {
             CTable dat = new CTable("");
