@@ -185,7 +185,8 @@
 
                         <StackPanel DockPanel.Dock="Right" Orientation="Vertical">
                             <Button Name="cmdAdjustItemAdd" Content="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=add}" IsEnabled="{Binding IsEditable}"
-                                Width="80"  Margin="5,5,5,0" Click="cmdAdjustItemAdd_Click"/>
+                                MinWidth="100"  Margin="5" Click="cmdAdjustItemAdd_Click"/>
+
                         </StackPanel>
 
                         <ListBox DockPanel.Dock="Left" Margin="0,5,0,0" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding AdjustmentItems}"
@@ -221,7 +222,11 @@
                 <DockPanel LastChildFill="True">
                     <StackPanel DockPanel.Dock="Right" Orientation="Vertical" Grid.Column="1">
                         <Button  Name="cmdAdd" IsEnabled="{Binding IsEditable}" Content="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=add}" HorizontalAlignment="Center"
-                                MinWidth="80"  Margin="5,5,0,5" Click="cmdAdd_Click"/>
+                                MinWidth="100"  Margin="5" Click="cmdAdd_Click"/>
+
+                        <Button Name="cmdAddByPO" IsEnabled="{Binding IsEditable}" Content="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=add_by_po}" HorizontalAlignment="Center"
+                                MinWidth="100"  Margin="5" Click="cmdAddByPO_Click"/>
+
                     </StackPanel>
 
                     <ListView Name="lsvImportItem" Style="{StaticResource SearchListView}" Grid.Column="0" ItemsSource="{Binding TxItems}"

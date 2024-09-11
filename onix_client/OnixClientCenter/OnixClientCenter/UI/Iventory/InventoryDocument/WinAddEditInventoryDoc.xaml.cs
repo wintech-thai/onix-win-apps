@@ -10,6 +10,7 @@ using Onix.Client.Model;
 using Onix.ClientCenter.Commons.Utils;
 using Onix.ClientCenter.Windows;
 using Onix.ClientCenter.Commons.Windows;
+using Onix.ClientCenter.Criteria;
 
 namespace Onix.ClientCenter.UI.Inventory.InventoryDocument
 {
@@ -53,6 +54,11 @@ namespace Onix.ClientCenter.UI.Inventory.InventoryDocument
             {
                 tbiItem.IsSelected = true;
             }            
+
+            if (dt != InventoryDocumentType.InvDocImport)
+            {
+                cmdAddByPO.Visibility = Visibility.Hidden;
+            }
         }
 
         protected override MBaseModel createObject()
@@ -107,6 +113,7 @@ namespace Onix.ClientCenter.UI.Inventory.InventoryDocument
         {
             return (mv.IsEditable);
         }
+
 
         protected override Boolean postValidate()
         {
@@ -462,6 +469,31 @@ namespace Onix.ClientCenter.UI.Inventory.InventoryDocument
         private void UInventoryItemAdjustment_OnChanged(object sender, EventArgs e)
         {
             vw.IsModified = true;
+        }
+
+        private void cmdAddByPO_Click(object sender, RoutedEventArgs e)
+        {
+            MAccountDoc d = new MAccountDoc(new CTable(""))
+            {
+                EntityCode = "",
+                EntityName = "",
+                EntityId = "0",
+            };
+
+            CCriteriaPurchaseOrderItem cr = new Criteria.CCriteriaPurchaseOrderItem();
+            cr.SetActionEnable(false);
+            cr.SetDefaultData(d);
+            cr.Init("");
+
+            WinMultiSelection w = new WinMultiSelection(cr, CLanguage.getValue("purchase_item"));
+            w.ShowDialog();
+
+            if (w.IsOK)
+            {
+                //addAccountDocItems(w.SelectedItems);
+                //vw.CalculateExtraFields();
+                vw.IsModified = true;
+            }
         }
     }
 }
