@@ -4390,6 +4390,15 @@ namespace Onix.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ไม่พบรายการ item ของระบบคลังในใบ PO ที่เลือก.
+        /// </summary>
+        public static string ERROR_NO_ITEM_IN_PO {
+            get {
+                return ResourceManager.GetString("ERROR_NO_ITEM_IN_PO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ไม่มีข้อมูลถูกเลือกเพื่อทำการลบ.
         /// </summary>
         public static string ERROR_NO_ITEM_SELECTED {
