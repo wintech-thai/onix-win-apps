@@ -107,7 +107,7 @@ jobs:
 
     # Use files from local build
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: OnixClientCenter-${{ matrix.targetplatform }}_${{ steps.prepare.outputs.ProgramVersion }}
         path: |
