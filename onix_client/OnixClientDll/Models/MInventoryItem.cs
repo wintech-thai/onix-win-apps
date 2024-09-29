@@ -4,6 +4,7 @@ using Onix.Client.Helper;
 using System.Collections;
 using Onix.Client.Pricing;
 using Onix.OnixHttpClient;
+using Onix.Client.Controller;
 
 namespace Onix.Client.Model
 {
@@ -1152,5 +1153,66 @@ namespace Onix.Client.Model
                 NotifyPropertyChanged();
             }
         }
+
+        public String ItemImage1Name
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("ITEM_IMAGE1"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("ITEM_IMAGE1", value);
+                updateFlag();
+                NotifyPropertyChanged();
+            }
+        }
+
+        public String ItemImage1NameWip
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("ITEM_IMAGE1_WIP"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("ITEM_IMAGE1_WIP", value);
+                updateFlag();
+                NotifyPropertyChanged();
+            }
+        }
+
+        public String ItemImage1Flag
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("IMAGE_EXT_FLAG"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("IMAGE_EXT_FLAG", value);
+                updateFlag();
+                NotifyPropertyChanged();
+            }
+        }
+
     }
 }

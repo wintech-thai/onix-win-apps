@@ -4345,6 +4345,15 @@ namespace Onix.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ไม่พบรายการ item ของระบบคลังในใบ PO ที่เลือก.
+        /// </summary>
+        public static string ERROR_NO_ITEM_IN_PO {
+            get {
+                return ResourceManager.GetString("ERROR_NO_ITEM_IN_PO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No data selected for deleteing.
         /// </summary>
         public static string ERROR_NO_ITEM_SELECTED {
@@ -6573,6 +6582,15 @@ namespace Onix.Client.Resources {
         public static string item_finish_good {
             get {
                 return ResourceManager.GetString("item_finish_good", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Item Image.
+        /// </summary>
+        public static string item_image {
+            get {
+                return ResourceManager.GetString("item_image", resourceCulture);
             }
         }
         

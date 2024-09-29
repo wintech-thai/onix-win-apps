@@ -4555,4 +4555,10 @@
   <data name="rv_tax_1_kor" xml:space="preserve">
     <value>ภ.ง.ด. 1 ก</value>
   </data>
+  <data name="item_image" xml:space="preserve">
+    <value>Item Image</value>
+  </data>
+  <data name="ERROR_NO_ITEM_IN_PO" xml:space="preserve">
+    <value>ไม่พบรายการ item ของระบบคลังในใบ PO ที่เลือก</value>
+  </data>
 </root>

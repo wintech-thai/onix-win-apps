@@ -5202,7 +5202,15 @@ namespace Onix.Client.Helper
 			}
 		}
 
-		public String item_brand
+        public String item_image
+        {
+            get
+            {
+                return (CLanguage.getValueEx());
+            }
+        }
+
+        public String item_brand
 		{
 			get
 			{

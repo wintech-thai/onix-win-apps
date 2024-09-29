@@ -10,6 +10,7 @@ using Onix.Client.Model;
 using Onix.ClientCenter.Commons.Utils;
 using Onix.ClientCenter.Windows;
 using Onix.ClientCenter.Commons.Windows;
+using Onix.ClientCenter.Criteria;
 
 namespace Onix.ClientCenter.UI.Inventory.InventoryDocument
 {
@@ -53,6 +54,11 @@ namespace Onix.ClientCenter.UI.Inventory.InventoryDocument
             {
                 tbiItem.IsSelected = true;
             }            
+
+            if (dt != InventoryDocumentType.InvDocImport)
+            {
+                cmdAddByPO.Visibility = Visibility.Hidden;
+            }
         }
 
         protected override MBaseModel createObject()
@@ -107,6 +113,7 @@ namespace Onix.ClientCenter.UI.Inventory.InventoryDocument
         {
             return (mv.IsEditable);
         }
+
 
         protected override Boolean postValidate()
         {
@@ -462,6 +469,68 @@ namespace Onix.ClientCenter.UI.Inventory.InventoryDocument
         private void UInventoryItemAdjustment_OnChanged(object sender, EventArgs e)
         {
             vw.IsModified = true;
+        }
+
+        private int addInventoryDocItems(ArrayList items)
+        {
+            int cnt = 0;
+            foreach (MAuxilaryDocItem ai in items)
+            {
+                var ti = new MInventoryTransactionImport(new CTable(""));
+                ti.ExtFlag = "A";
+
+                ti.ItemID = ai.ItemId;
+                ti.ItemCode = ai.ItemCode;
+                ti.ItemNameThai = ai.ItemNameThai;
+                ti.ItemNameEng = ai.ItemNameEng;
+                ti.ItemQuantity = ai.Quantity;
+                ti.ItemAmount = ai.Amount;
+                ti.ItemPrice = ai.UnitPrice;
+                ti.ProjectID = ai.ProjectID;
+                ti.ProjectCode = ai.ProjectCode;
+
+                if (!ti.ItemID.Equals(""))
+                {
+                    (vw as MInventoryDoc).AddTxItem(ti, dt);
+                    cnt++;
+                }
+
+            }
+
+            return cnt;
+        }
+
+        private void cmdAddByPO_Click(object sender, RoutedEventArgs e)
+        {
+            MAccountDoc d = new MAccountDoc(new CTable(""))
+            {
+                EntityCode = "",
+                EntityName = "",
+                EntityId = "0",
+            };
+
+            CCriteriaPurchaseOrderItem cr = new Criteria.CCriteriaPurchaseOrderItem();
+            cr.SetActionEnable(false);
+            cr.SetDefaultData(d);
+            cr.Init("");
+
+            WinMultiSelection w = new WinMultiSelection(cr, CLanguage.getValue("purchase_item"));
+            w.ShowDialog();
+
+            if (w.IsOK)
+            {
+                int cnt = addInventoryDocItems(w.SelectedItems);
+                if (cnt <= 0)
+                {
+                    String str = CLanguage.getValue("ERROR_NO_ITEM_IN_PO");
+                    CMessageBox.Show(str, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    return;
+                }
+
+                //vw.CalculateExtraFields();
+                vw.IsModified = true;
+            }
         }
     }
 }
