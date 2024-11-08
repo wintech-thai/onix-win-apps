@@ -5758,6 +5758,15 @@ namespace Onix.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Employee Payroll Details.
+        /// </summary>
+        public static string hr_payroll_detail {
+            get {
+                return ResourceManager.GetString("hr_payroll_detail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Employee Payroll Slip.
         /// </summary>
         public static string hr_payroll_slip {

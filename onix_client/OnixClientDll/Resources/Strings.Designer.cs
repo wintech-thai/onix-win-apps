@@ -5803,6 +5803,15 @@ namespace Onix.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to รายละเอียดเงินเดือนพนักงาน.
+        /// </summary>
+        public static string hr_payroll_detail {
+            get {
+                return ResourceManager.GetString("hr_payroll_detail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to สลิปเงินเดือนพนักงาน.
         /// </summary>
         public static string hr_payroll_slip {

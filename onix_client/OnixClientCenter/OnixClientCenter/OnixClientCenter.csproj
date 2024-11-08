@@ -213,6 +213,10 @@
     <Compile Include="UI\Printing\Forms\AcDesign\HREmployeeLeave\UFormEmployeeLeave.xaml.cs">
       <DependentUpon>UFormEmployeeLeave.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Printing\Forms\AcDesign\HRPayrollDetails\CFormPayrollDetails.cs" />
+    <Compile Include="UI\Printing\Forms\AcDesign\HRPayrollDetails\UFormPayrollDetails.xaml.cs">
+      <DependentUpon>UFormPayrollDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Printing\Forms\AcDesign\HRPayrollWithdraw\CFormPayrollWithdraw.cs" />
     <Compile Include="UI\Printing\Forms\AcDesign\HRPayrollWithdraw\UFormPayrollWithdraw.xaml.cs">
       <DependentUpon>UFormPayrollWithdraw.xaml</DependentUpon>
@@ -695,6 +699,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Printing\Forms\AcDesign\HREmployeeLeave\UFormEmployeeLeave.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Printing\Forms\AcDesign\HRPayrollDetails\UFormPayrollDetails.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1489,5 +1497,6 @@
       <Name>OnixHttpClient</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

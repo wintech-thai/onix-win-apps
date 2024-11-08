@@ -89,6 +89,7 @@ namespace Onix.ClientCenter.Windows
             reports.Add("inventory_borrow_document", prefix + "AcDesign.Inventory.CFormInventoryBorrowDoc");
             reports.Add("inventory_export_document", prefix + "AcDesign.Inventory.CFormInventoryExportDoc");
 
+            reports.Add("hr_payroll_detail", prefix + "AcDesign.HRPayrollSlip.CFormPayrollDetails");
             reports.Add("hr_payroll_slip", prefix + "AcDesign.HRPayrollSlip.CFormPayrollSlip");
             reports.Add("hr_payroll_withdraw", prefix + "AcDesign.HRPayrollWithdraw.CFormPayrollWithdraw");
             reports.Add("hr_payroll_deposit", prefix + "AcDesign.HRPayrollDeposit.CFormPayrollDeposit");
@@ -144,6 +145,7 @@ namespace Onix.ClientCenter.Windows
             addReportGroup("grpInventoryBorrow", "inventory_borrow_document");
             addReportGroup("grpInventoryExport", "inventory_export_document");
 
+            addReportGroup("grpHRSlip", "hr_payroll_detail");
             addReportGroup("grpHRSlip", "hr_payroll_slip");
             addReportGroup("grpHRSlip", "hr_payroll_withdraw");
             addReportGroup("grpHRSlip", "hr_payroll_deposit");
