@@ -4605,4 +4605,7 @@
   <data name="hr_payroll_detail" xml:space="preserve">
     <value>รายละเอียดเงินเดือนพนักงาน</value>
   </data>
+  <data name="grpHRSlipOrg" xml:space="preserve">
+    <value>สลิปเงินเดือน</value>
+  </data>
 </root>

@@ -190,7 +190,7 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
 
         private void CmdPreview_Click(object sender, RoutedEventArgs e)
         {
-            WinFormPrinting w = new WinFormPrinting("grpHRSlip", mv);
+            WinFormPrinting w = new WinFormPrinting("grpHRSlipOrg", mv);
             w.ShowDialog();
         }
 

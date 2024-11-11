@@ -9,6 +9,9 @@ using System.Printing;
 using Onix.Client.Helper;
 using System.Windows.Controls;
 using Onix.ClientCenter.UI.HumanResource.PayrollDocument;
+using Onix.ClientCenter.UI.HumanResource.OTDocument;
+using Microsoft.Office.Interop.Excel;
+using Onix.Client.Controller;
 
 namespace Onix.ClientCenter.Forms.AcDesign.HRPayrollSlip
 {
@@ -20,7 +23,26 @@ namespace Onix.ClientCenter.Forms.AcDesign.HRPayrollSlip
 
         protected override UserControl createPageObject(Size s, int pageIdx, int pageCount, CReportPageParam param)
         {
-            UFormPayrollDetails page = new UFormPayrollDetails(dataSource, pageIdx, pageCount, rptCfg, param);
+            var m = (MVPayrollDocument) dataSource;
+
+            MVOTDocument ad = new MVOTDocument(new CTable(""));
+            ad.FromDocumentDate = m.FromSalaryDate;
+            ad.ToDocumentDate = m.ToSalaryDate;
+
+            var items = OnixWebServiceAPI.GetListAPI("GetOtDocList", "OT_DOC_LIST", ad.GetDbObject());
+            var newobj = new CTable("");
+
+            if (items.Count > 0)
+            {
+                CTable dat = (CTable) items[0];
+                newobj = OnixWebServiceAPI.SubmitObjectAPI("GetOtDocInfo", dat);
+            }
+
+            MVOTDocument otDoc = new MVOTDocument(newobj);
+            otDoc.InitializeAfterLoaded();
+
+            m.OtDoc = otDoc;
+            UFormPayrollDetails page = new UFormPayrollDetails(m, pageIdx, pageCount, rptCfg, param);
 
             page.Width = rptCfg.AreaWidthDot;
             page.Height = rptCfg.AreaHeightDot;

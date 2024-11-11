@@ -145,6 +145,10 @@ namespace Onix.ClientCenter.Windows
             addReportGroup("grpInventoryBorrow", "inventory_borrow_document");
             addReportGroup("grpInventoryExport", "inventory_export_document");
 
+            addReportGroup("grpHRSlipOrg", "hr_payroll_slip");
+            addReportGroup("grpHRSlipOrg", "hr_payroll_withdraw");
+            addReportGroup("grpHRSlipOrg", "hr_payroll_deposit");
+
             addReportGroup("grpHRSlip", "hr_payroll_detail");
             addReportGroup("grpHRSlip", "hr_payroll_slip");
             addReportGroup("grpHRSlip", "hr_payroll_withdraw");

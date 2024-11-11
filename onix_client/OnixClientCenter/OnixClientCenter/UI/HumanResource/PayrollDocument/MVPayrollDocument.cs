@@ -5,6 +5,7 @@ using Onix.OnixHttpClient;
 using Onix.Client.Model;
 using System.Windows.Media;
 using System.Collections;
+using Onix.ClientCenter.UI.HumanResource.OTDocument;
 
 namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
 {
@@ -12,6 +13,7 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
     {
         private ObservableCollection<MVPayrollDocumentItem> docItems = new ObservableCollection<MVPayrollDocumentItem>();
         private String accountNo = "";
+        public MVOTDocument OtDoc = new MVOTDocument(new CTable(""));
 
         public MVPayrollDocument(CTable obj) : base(obj)
         {

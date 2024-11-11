@@ -160,7 +160,6 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
         public override Tuple<CTable, ObservableCollection<MBaseModel>> QueryData()
         {
             MVOTDocument ad = (model as MVOTDocument);
-
             items = OnixWebServiceAPI.GetListAPI("GetOtDocList", "OT_DOC_LIST", ad.GetDbObject());
             lastObjectReturned = OnixWebServiceAPI.GetLastObjectReturned();
 
