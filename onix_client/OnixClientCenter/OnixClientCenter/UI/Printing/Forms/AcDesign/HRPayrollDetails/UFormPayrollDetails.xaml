@@ -138,20 +138,20 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
                     <RowDefinition Height="25"/>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
                 </Grid.RowDefinitions>
 
                 <!-- Row 0 -->
@@ -221,7 +221,7 @@
                 </Border>
 
                 <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="2" Grid.Row="2">
-                    <TextBlock  Text="{Binding ElementName=rootElement, Path=ItemObj.SlipReceiveOTFmt}" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="0,0,10,0"
+                    <TextBlock  Text="{Binding ElementName=rootElement, Path=ItemObj.ReceiveOTFmt}" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="0,0,10,0"
                                 HorizontalAlignment="Right" VerticalAlignment="Center"/>
                 </Border>
 
@@ -539,8 +539,10 @@
         <Border Margin="10,0,10,0" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
             <DockPanel LastChildFill="False">
                 <!-- OT -->
-                <Border Margin="10,10,0,10" Width="360" BorderBrush="Black" BorderThickness="1,1,1,1" DockPanel.Dock="Left">
-                    <Grid Width="360" HorizontalAlignment="Left">
+                <Border Margin="10,10,0,10" Width="420" BorderBrush="Black" BorderThickness="1,1,1,1" DockPanel.Dock="Left">
+
+                    <Grid Width="420" HorizontalAlignment="Left" Name="grdOT">
+<!-- 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="110*"/>
                             <ColumnDefinition Width="35*"/>
@@ -553,7 +555,7 @@
                             <RowDefinition Height="20"/>
                         </Grid.RowDefinitions>
 
-                        <!-- Row 0 -->
+
                         <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="0" Grid.Row="0">
                             <TextBlock  Text="รายการ OT" Style="{StaticResource ResourceKey=ItemTextFontDetail}" 
                                 HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -578,12 +580,12 @@
                             <TextBlock  Text="รับ" Style="{StaticResource ResourceKey=ItemTextFontDetail}" 
                             HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
+-->
                     </Grid>
                 </Border>
 
-                <!-- ขาด ลา สาย -->
-                <Border Margin="10,10,0,10" Width="340" BorderBrush="Black" BorderThickness="1,1,1,1" DockPanel.Dock="Left">
-                    <Grid Width="340" HorizontalAlignment="Left">
+                <Border Margin="10,10,0,10" Width="280" BorderBrush="Black" BorderThickness="1,1,1,1" DockPanel.Dock="Left">
+                    <Grid Width="280" HorizontalAlignment="Left">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="110*"/>
                             <ColumnDefinition Width="35*"/>
@@ -594,7 +596,6 @@
                             <RowDefinition Height="20"/>
                         </Grid.RowDefinitions>
 
-                        <!-- Row 0 -->
                         <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="0" Grid.Row="0">
                             <TextBlock  Text="รายการหัก" Style="{StaticResource ResourceKey=ItemTextFontDetail}" 
                                 HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -610,6 +611,7 @@
                             HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </Grid>
+
                 </Border>
 
             </DockPanel>

@@ -6,6 +6,7 @@ using Onix.Client.Helper;
 using Onix.Client.Model;
 using Onix.ClientCenter.Commons.UControls;
 using Onix.ClientCenter.Commons.Windows;
+using Onix.ClientCenter.UI.HumanResource.OTDocument;
 using Onix.ClientCenter.Windows;
 using Onix.OnixHttpClient;
 
@@ -287,19 +288,30 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
 
             CUtil.EnableForm(false, this);
 
-            CTable dat = new CTable("");
-            dat.SetFieldValue("FROM_DOCUMENT_DATE", CUtil.DateTimeToDateStringInternalMin(mvParent.FromSalaryDate));
-            dat.SetFieldValue("TO_DOCUMENT_DATE", CUtil.DateTimeToDateStringInternalMax(mvParent.ToSalaryDate));
-            dat.SetFieldValue("EMPLOYEE_ID", mv.EmployeeID);
+            MVOTDocument ad = new MVOTDocument(new CTable(""));
+            ad.FromDocumentDate = mvParent.FromSalaryDate;
+            ad.ToDocumentDate = mvParent.ToSalaryDate;
+            ad.EmployeeID = mv.EmployeeID;
 
-            ArrayList arr = OnixWebServiceAPI.GetListAPI("GetEmployeePayrollAccumulate", "PAYROLL_EMPLOYEE_ACCUM_LIST", dat);
-            mv.ReceiveOT = getAmount(arr, "EMPLOYEE_OT");
+            var items = OnixWebServiceAPI.GetListAPI("GetOtDocList", "OT_DOC_LIST", ad.GetDbObject());
+            var newobj = new CTable("");
+            if (items.Count > 0)
+            {
+                CTable tmpTable = (CTable) items[0];
+                newobj = OnixWebServiceAPI.SubmitObjectAPI("GetOtDocInfo", tmpTable);
+            }
+
+            MVOTDocument otDoc = new MVOTDocument(newobj);
+            otDoc.InitializeAfterLoaded();
+
+            mv.ReceiveOT = otDoc.ReceiveAmount;
             if (mvParent.EmployeeType.Equals("1"))
             {
-                mv.ReceiveIncome = getAmount(arr, "EMPLOYEE_WORK");
+                mv.ReceiveIncome = otDoc.WorkedAmountFmt;
             }
-            mv.ReceiveTransaportation = getAmount(arr, "EMPLOYEE_EXPENSE");
-            mv.DeductPenalty = getAmount(arr, "EMPLOYEE_DEDUCTION");
+            
+            //mv.ReceiveTransaportation = otDoc.ExpenseAmount; //To be fixed
+            mv.DeductPenalty = otDoc.DeductionAmount;
 
             CUtil.EnableForm(true, this);
         }

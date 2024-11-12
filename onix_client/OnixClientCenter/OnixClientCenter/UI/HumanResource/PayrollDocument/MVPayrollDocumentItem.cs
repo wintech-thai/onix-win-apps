@@ -1472,12 +1472,12 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             double coverage = CUtil.StringToDouble(DeductCoverage);
 
             double deductOther = borrow + advance + coverage;
-            double receiveOthers = commission + allowance + bonus + refund; //ลูกค้าต้องการให้แสดงแบบนี้
+            double receiveOthers = commission + allowance + bonus; //ลูกค้าต้องการให้แสดงแบบนี้
 
-            ot = Math.Floor(ot - penalty); //ปัดลงทุกกรณี, ตอนแสดง OT ให้แสดงแบบที่หักขาดลาสายไปแล้ว พนักงานจะไม่ตั้งคำถามว่าหักอะไร
+            ot = Math.Floor(ot); //ปัดลงทุกกรณี
 
             double received = income + ot + position + transport + telephone + receiveOthers; 
-            double deduced = tax + socialSecurity + deductOther;
+            double deduced = tax + socialSecurity + deductOther + penalty;
 
             double remain = received - deduced;
             double grandTotal = remain;//ตัวเงินจริง ๆ ทั้งหมดที่พนักงานได้รับ

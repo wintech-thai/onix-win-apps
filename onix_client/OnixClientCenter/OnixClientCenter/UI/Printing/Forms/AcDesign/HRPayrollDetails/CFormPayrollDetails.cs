@@ -25,9 +25,17 @@ namespace Onix.ClientCenter.Forms.AcDesign.HRPayrollSlip
         {
             var m = (MVPayrollDocument) dataSource;
 
+            int idx = pageIdx - 1;
+            var item = m.GetItemByIndex(idx);
+            if (item == null)
+            {
+                item = new MVPayrollDocumentItem(new CTable(""));
+            }
+
             MVOTDocument ad = new MVOTDocument(new CTable(""));
             ad.FromDocumentDate = m.FromSalaryDate;
             ad.ToDocumentDate = m.ToSalaryDate;
+            ad.EmployeeID = item.EmployeeID;
 
             var items = OnixWebServiceAPI.GetListAPI("GetOtDocList", "OT_DOC_LIST", ad.GetDbObject());
             var newobj = new CTable("");
