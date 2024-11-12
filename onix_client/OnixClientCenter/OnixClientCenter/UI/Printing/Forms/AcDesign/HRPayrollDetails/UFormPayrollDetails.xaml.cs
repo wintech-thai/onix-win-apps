@@ -45,8 +45,40 @@ namespace Onix.ClientCenter.Forms.AcDesign.HRPayrollSlip
             InitializeComponent();
 
             populateOtGrid(payrollDoc);
-        }   
-        
+            populateDeductionGrid(payrollDoc);
+        }
+
+        private void populateDeductionGrid(MVPayrollDocument payrollDoc)
+        {
+            var otDoc = payrollDoc.OtDoc;
+
+            ColumnDefinition gridCol1 = new ColumnDefinition();
+            ColumnDefinition gridCol2 = new ColumnDefinition();
+            ColumnDefinition gridCol3 = new ColumnDefinition();
+
+            gridCol1.Width = new GridLength(110, GridUnitType.Star);
+            gridCol2.Width = new GridLength(35, GridUnitType.Star);
+            gridCol3.Width = new GridLength(45, GridUnitType.Star);
+
+            grdDeduction.ColumnDefinitions.Add(gridCol1);
+            grdDeduction.ColumnDefinitions.Add(gridCol2);
+            grdDeduction.ColumnDefinitions.Add(gridCol3);
+
+            //Header
+            putDeductionDataRow(0, 12, "รายการ", "นาที", "รวมหัก");
+
+            var i = 1;
+            foreach (var item in otDoc.DeductionItems)
+            {
+                putDeductionDataRow(i, 12, $"{item.DeductionDateFmt} ({item.DeductionTypeDesc})", item.DurationMinFmt, "");
+                i++;
+            }
+
+            putDeductionDataRow(i, 12, "ปรับยอด", "", $"-{otDoc.AdjustAmount}");
+            putDeductionDataRow(i + 1, 12, "หักสุทธิ", "", otDoc.DeductionAmountFmt);
+        }
+
+
         private void populateOtGrid(MVPayrollDocument payrollDoc)
         {
             var otDoc = payrollDoc.OtDoc;
@@ -89,7 +121,57 @@ namespace Onix.ClientCenter.Forms.AcDesign.HRPayrollSlip
             putOtDataRow(i+1, 12, "รวม", "", "", "", "", otDoc.WorkedAmountFmt, otDoc.ReceiveAmountFmt);
         }
 
-        private void putOtDataRow(int i, int headerFontSize, string v1, string v2, string v3, string v4, string v5, string v6, string v7)
+        private void putDeductionDataRow(int i, int headerFontSize, string v1, string v2, string v3)
+        {
+            RowDefinition tmpRowDev = new RowDefinition();
+            tmpRowDev.Height = new GridLength(20);
+            grdDeduction.RowDefinitions.Add(tmpRowDev);
+
+            Border row1_1 = new Border();
+            row1_1.BorderBrush = Brushes.Black;
+            row1_1.BorderThickness = new Thickness(0, 0, 1, 1);
+            TextBlock data1_1 = new TextBlock();
+            data1_1.Foreground = Brushes.Black;
+            data1_1.FontSize = headerFontSize;
+            data1_1.Text = v1;
+            data1_1.HorizontalAlignment = HorizontalAlignment.Center;
+            data1_1.VerticalAlignment = VerticalAlignment.Center;
+            row1_1.Child = data1_1;
+            Grid.SetRow(row1_1, i);
+            Grid.SetColumn(row1_1, 0);
+
+            Border row1_2 = new Border();
+            row1_2.BorderBrush = Brushes.Black;
+            row1_2.BorderThickness = new Thickness(0, 0, 1, 1);
+            TextBlock data1_2 = new TextBlock();
+            data1_2.Foreground = Brushes.Black;
+            data1_2.FontSize = headerFontSize;
+            data1_2.Text = v2;
+            data1_2.HorizontalAlignment = HorizontalAlignment.Center;
+            data1_2.VerticalAlignment = VerticalAlignment.Center;
+            row1_2.Child = data1_2;
+            Grid.SetRow(row1_2, i);
+            Grid.SetColumn(row1_2, 1);
+
+            Border row1_3 = new Border();
+            row1_3.BorderBrush = Brushes.Black;
+            row1_3.BorderThickness = new Thickness(0, 0, 1, 1);
+            TextBlock data1_3 = new TextBlock();
+            data1_3.Foreground = Brushes.Black;
+            data1_3.FontSize = headerFontSize;
+            data1_3.Text = v3;
+            data1_3.HorizontalAlignment = HorizontalAlignment.Center;
+            data1_3.VerticalAlignment = VerticalAlignment.Center;
+            row1_3.Child = data1_3;
+            Grid.SetRow(row1_3, i);
+            Grid.SetColumn(row1_3, 2);
+
+            grdDeduction.Children.Add(row1_1);
+            grdDeduction.Children.Add(row1_2);
+            grdDeduction.Children.Add(row1_3);
+        }
+
+            private void putOtDataRow(int i, int headerFontSize, string v1, string v2, string v3, string v4, string v5, string v6, string v7)
         {
             RowDefinition tmpRowDev = new RowDefinition();
             tmpRowDev.Height = new GridLength(20);
