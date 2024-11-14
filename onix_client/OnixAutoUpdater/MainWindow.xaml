@@ -12,8 +12,8 @@
         ContentRendered="Window_ContentRendered"
         Title="Updating..." Height="70" Width="400">
     <Grid>
-        <DockPanel>
-            <ProgressBar Name="prgValue" DockPanel.Dock="Top" HorizontalAlignment="Left"/>
+        <DockPanel LastChildFill="True">
+            <ProgressBar Name="prgValue" DockPanel.Dock="Left" Width="400" HorizontalAlignment="Left" Maximum="100"/>
         </DockPanel>
     </Grid>
 </Window>

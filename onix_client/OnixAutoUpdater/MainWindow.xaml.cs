@@ -1,14 +1,15 @@
 ﻿using System;
-using System.Net.Security;
 using System.Net;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Markup;
 using System.IO;
 using System.Threading;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO.Compression;
+using System.Net.Http;
+using System.Windows.Threading;
+using ICSharpCode.SharpZipLib.GZip;
+using ICSharpCode.SharpZipLib.Tar;
 
 namespace OnixAutoUpdater
 {
@@ -18,6 +19,7 @@ namespace OnixAutoUpdater
     public partial class MainWindow : Window, IComponentConnector
     {
         private string webUrl = "";
+        private string env = "";
         private Exception lastError = (Exception)null;
         private string cwd = Directory.GetCurrentDirectory();
         private bool isDownloadDone = false;
@@ -26,44 +28,55 @@ namespace OnixAutoUpdater
         private Thread mnThread = (Thread)null;
         private string postProgram = "";
 
+        private double totalFileSize = 15 * 1024 * 1024; // 15 MB
+        private double totalDownloaded = 0;
+        private bool isLocalMode = true;
+
         public MainWindow()
         {
-            ServicePointManager.ServerCertificateValidationCallback = (RemoteCertificateValidationCallback)((_param1, _param2, _param3, _param4) => true);
+            //ServicePointManager.ServerCertificateValidationCallback = (RemoteCertificateValidationCallback)((_param1, _param2, _param3, _param4) => true);
+            webUrl = "https://storage.googleapis.com/public-software-download/onix";
+            postProgram = "OnixClientCenter.exe";
+            env = "dev";
+
             string[] commandLineArgs = Environment.GetCommandLineArgs();
-            if (commandLineArgs.Length < 3)
+            if (commandLineArgs.Length >= 4)
             {
-                int num = (int)MessageBox.Show("Argument error !!!", "Updater", MessageBoxButton.OK, MessageBoxImage.Asterisk);
-                Close();
+                webUrl = commandLineArgs[1];
+                postProgram = commandLineArgs[2];
+                env = commandLineArgs[3];
 
-                return;
+                isLocalMode = false;
             }
-
-            webUrl = commandLineArgs[1];
-            postProgram = commandLineArgs[2];
 
             InitializeComponent();
         }
 
-        public virtual void DownloadFileAsync(string outputFile, DownloadProgressChangedEventHandler prog, AsyncCompletedEventHandler comp)
+        public virtual void DoDownloadFileAsync(string fileUrl, string outputFile, DownloadProgressChangedEventHandler prog, AsyncCompletedEventHandler comp)
         {
-            this.lastError = (Exception)null;
-            Uri address = new Uri(this.webUrl);
+            this.lastError = (Exception) null;
+            Uri address = new Uri(fileUrl);
+
             WebClient webClient = new WebClient();
             webClient.DownloadProgressChanged += prog;
             webClient.DownloadFileCompleted += comp;
             webClient.DownloadFileAsync(address, outputFile);
         }
 
-
         private void downloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             double bytesIn = double.Parse(e.BytesReceived.ToString());
-            double totalBytes = double.Parse(e.TotalBytesToReceive.ToString());
+            totalDownloaded = totalDownloaded + bytesIn;
+
+            double totalBytes = totalFileSize; // double.Parse(e.TotalBytesToReceive.ToString());
             double percentage = bytesIn / totalBytes * 100.0;
+
             this.Dispatcher.Invoke((Action)(() =>
             {
-                this.Title = string.Format("Downloading... {0,0:0,000} from {1,0:0,000} ({2,0:#.00}%)", (object)bytesIn, (object)totalBytes, (object)percentage);
-                this.prgValue.Value = (double)int.Parse(Math.Truncate(percentage).ToString());
+                Title = string.Format("Downloading... {0,0:0,000} from {1,0:0,000} ({2,0:#.00}%)", (object)bytesIn, (object)totalBytes, (object)percentage);
+                var value = (double) int.Parse(Math.Truncate(percentage).ToString());
+
+                prgValue.Dispatcher.Invoke(() => prgValue.Value = value, DispatcherPriority.Background);
             }));
         }
 
@@ -77,29 +90,55 @@ namespace OnixAutoUpdater
             }));
         }
 
+        [Obsolete]
         private void extractZipFile(string zipPath)
         {
-/*
-            ZipArchive zipArchive = ZipFile.OpenRead(zipPath);
-            int cnt = 0;
-            foreach (ZipArchiveEntry entry1 in zipArchive.Entries)
+            var targetDir = this.cwd;
+            if (isLocalMode)
             {
-                ZipArchiveEntry entry = entry1;
-                cnt++;
-                this.Dispatcher.Invoke((Action)(() => this.txtStatus.Text = string.Format("Extracting file [{0}]...", (object)entry.FullName)));
-                string str = Path.Combine(this.cwd, Path.GetFileName(entry.FullName));
-                if (System.IO.File.Exists(str))
-                    System.IO.File.Delete(str);
-                entry.ExtractToFile(str);
+                targetDir = @"D:\tmp";
             }
-            this.Dispatcher.Invoke((Action)(() => this.txtStatus.Text = string.Format("Done extracted {0} file(s)", (object)cnt)));
-*/
+
+            FileInfo tarFileInfo = new FileInfo(zipPath);
+            DirectoryInfo targetDirectory = new DirectoryInfo(targetDir);
+
+            if (!targetDirectory.Exists)
+            {
+                targetDirectory.Create();
+            }
+
+            using (Stream sourceStream = new GZipInputStream(tarFileInfo.OpenRead()))
+            {
+                using (TarArchive tarArchive = TarArchive.CreateInputTarArchive(sourceStream, TarBuffer.DefaultBlockFactor))
+                {
+                    tarArchive.ExtractContents(targetDirectory.FullName);
+                }
+            }
         }
 
         private void fileDownload()
         {
-            this.dlFile = string.Format("{0}\\{1}", (object)this.cwd, (object) System.IO.Path.GetFileName(this.webUrl));
-            this.DownloadFileAsync(this.dlFile, new DownloadProgressChangedEventHandler(this.downloadProgressChanged), new AsyncCompletedEventHandler(this.downloadFileCompleted));
+            var latestRelease = getLatestRelease();
+            var fileUrl = $"{webUrl}/{env}/OnixClientCenter-x64_{latestRelease}.tar.gz"; ;
+
+            dlFile = string.Format("{0}\\{1}", (object) this.cwd, (object) System.IO.Path.GetFileName(fileUrl));
+            DoDownloadFileAsync(fileUrl, dlFile, 
+                new DownloadProgressChangedEventHandler(downloadProgressChanged), 
+                new AsyncCompletedEventHandler(downloadFileCompleted));
+        }
+
+        private string getLatestRelease()
+        {
+            //https://storage.googleapis.com/public-software-download/onix/dev/latest-release.txt
+
+            HttpClient httpClient = new HttpClient();
+            var releaseInfoUrl = $"{webUrl}/{env}/latest-release.txt";
+
+            var t = httpClient.GetStringAsync(releaseInfoUrl);
+            var releaseVersion = t.Result;
+
+
+            return releaseVersion.Trim();
         }
 
         private void jobMonitor()
@@ -113,13 +152,22 @@ namespace OnixAutoUpdater
 
             if (this.lastError != null)
             {
-                int num = (int)MessageBox.Show(string.Format("Download error [{0}]!!!", (object)this.lastError.ToString()), "Updater", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                MessageBox.Show(string.Format("Download error [{0}]!!!", (object)this.lastError.ToString()), "Updater", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             }
             else
             {
                 this.extractZipFile(this.dlFile);
                 this.Dispatcher.Invoke((Action)(() => this.Title = "Program successfully updated"));
-                Process.Start(this.postProgram);
+
+                try
+                {
+                    Process.Start(postProgram);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"{ex.Message} - [{postProgram}]", "Updater", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                }
+
                 Process.GetCurrentProcess().Kill();
             }
         }
