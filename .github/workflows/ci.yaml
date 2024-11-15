@@ -122,6 +122,7 @@ jobs:
       shell: bash
       run: |
         CWD=$(pwd)
+        cp onix_client/OnixAutoUpdater/bin/*.exe  onix_client/OnixAutoUpdater/bin/*.dll onix_client/OnixClientCenter/bin/ 
         cd onix_client/OnixClientCenter/bin/
         tar -czvf ${CWD}/OnixClientCenter-${{ matrix.targetplatform }}_${{ steps.prepare.outputs.ProgramVersion }}.tar.gz *.exe *.dll *.txt
         cd ${CWD}
