@@ -114,6 +114,8 @@ jobs:
           onix_client\OnixClientCenter\bin\*.exe
           onix_client\OnixClientCenter\bin\*.dll
           onix_client\OnixClientCenter\bin\*.txt
+          onix_client\OnixAutoUpdater\bin\*.dll
+          onix_client\OnixAutoUpdater\bin\*.exe
 
     - name: Zip-Artifact
       id: zip-artifact
