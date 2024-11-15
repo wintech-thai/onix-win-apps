@@ -99,21 +99,29 @@ namespace OnixAutoUpdater
                 targetDir = @"D:\tmp";
             }
 
-            FileInfo tarFileInfo = new FileInfo(zipPath);
-            DirectoryInfo targetDirectory = new DirectoryInfo(targetDir);
-
-            if (!targetDirectory.Exists)
+            try
             {
-                targetDirectory.Create();
-            }
+                FileInfo tarFileInfo = new FileInfo(zipPath);
+                DirectoryInfo targetDirectory = new DirectoryInfo(targetDir);
 
-            using (Stream sourceStream = new GZipInputStream(tarFileInfo.OpenRead()))
-            {
-                using (TarArchive tarArchive = TarArchive.CreateInputTarArchive(sourceStream, TarBuffer.DefaultBlockFactor))
+                if (!targetDirectory.Exists)
                 {
-                    tarArchive.ExtractContents(targetDirectory.FullName);
+                    targetDirectory.Create();
+                }
+
+                using (Stream sourceStream = new GZipInputStream(tarFileInfo.OpenRead()))
+                {
+                    using (TarArchive tarArchive = TarArchive.CreateInputTarArchive(sourceStream, TarBuffer.DefaultBlockFactor))
+                    {
+                        tarArchive.ExtractContents(targetDirectory.FullName);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message} - [{zipPath}]", "Updater", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            }
+
         }
 
         private void fileDownload()
