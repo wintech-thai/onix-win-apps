@@ -138,9 +138,10 @@ namespace OnixAutoUpdater
         private string getLatestRelease()
         {
             //https://storage.googleapis.com/public-software-download/onix/dev/latest-release.txt
+            var randomStr = Guid.NewGuid().ToString("n").Substring(0, 8); //To escape cache
 
             HttpClient httpClient = new HttpClient();
-            var releaseInfoUrl = $"{webUrl}/{env}/latest-release.txt";
+            var releaseInfoUrl = $"{webUrl}/{env}/latest-release.txt?{randomStr}";
 
             var t = httpClient.GetStringAsync(releaseInfoUrl);
             var releaseVersion = t.Result;
