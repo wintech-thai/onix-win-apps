@@ -445,7 +445,7 @@ namespace Onix.ClientCenter.Commons.Utils
             var foundNewVersion = !currentVersion.Equals(releaseVersion);
             if (foundNewVersion)
             {
-                CMessageBox.Show($"ระบบจะทำการติดตั้งโปรแกรมเวอร์ชันใหม่ xx1 [{env}] [{releaseVersion}] จากของเดิม [{currentVersion}]", "INFO", MessageBoxButton.OK);
+                CMessageBox.Show($"ระบบจะทำการติดตั้งโปรแกรมเวอร์ชันใหม่ [{env}] [{releaseVersion}] จากของเดิม [{currentVersion}]", "INFO", MessageBoxButton.OK);
             }
 
             return foundNewVersion;
