@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<API>
+  <OBJECT name="PARAM" />
+  <OBJECT name="CONFIG">
+    <FIELD name="URL">http://wiscon.cloudhost.in.th:88/dbos/dev/mps/mps_pgsql/cgi-bin/dbos_db_api_dispatcher.pl</FIELD>
+    <FIELD name="KEY">oaEf0zQFjgJnlVqHuD1QlQ==</FIELD>
+    <FIELD name="THEME">5</FIELD>
+  </OBJECT>
+</API>

@@ -4602,4 +4602,10 @@
   <data name="ERROR_NO_ITEM_IN_PO" xml:space="preserve">
     <value>ไม่พบรายการ item ของระบบคลังในใบ PO ที่เลือก</value>
   </data>
+  <data name="hr_payroll_detail" xml:space="preserve">
+    <value>รายละเอียดเงินเดือนพนักงาน</value>
+  </data>
+  <data name="grpHRSlipOrg" xml:space="preserve">
+    <value>สลิปเงินเดือน</value>
+  </data>
 </root>

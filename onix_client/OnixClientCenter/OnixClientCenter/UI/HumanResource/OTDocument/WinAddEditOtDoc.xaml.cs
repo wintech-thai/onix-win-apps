@@ -42,8 +42,8 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
             ratios = new double[10] { 0.05, 0.05, 0.15, 0.15, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10 };
             registerListViewSize(lsvDaily.Name, ratios);
 
-            ratios = new double[8] { 0.05, 0.05, 0.15, 0.15, 0.30, 0.10, 0.10, 0.10 };
-            registerListViewSize(lsvExpense.Name, ratios);
+            //ratios = new double[8] { 0.05, 0.05, 0.15, 0.15, 0.30, 0.10, 0.10, 0.10 };
+            //registerListViewSize(lsvExpense.Name, ratios);
 
             ratios = new double[6] { 0.05, 0.05, 0.15, 0.15, 0.50, 0.10};
             registerListViewSize(lsvDeduct.Name, ratios);
@@ -310,11 +310,11 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
 
         private void LsvExpense_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (lsvExpense.SelectedItems.Count == 1)
-            {
-                currentExpenseViewObj = (MVPayrollExpenseItem)lsvExpense.SelectedItems[0];
-                showEditExpenseWindow();
-            }
+            //if (lsvExpense.SelectedItems.Count == 1)
+            //{
+            //    currentExpenseViewObj = (MVPayrollExpenseItem)lsvExpense.SelectedItems[0];
+            //    showEditExpenseWindow();
+            //}
         }
 
         private void CmdDailyCalculate_Click(object sender, RoutedEventArgs e)

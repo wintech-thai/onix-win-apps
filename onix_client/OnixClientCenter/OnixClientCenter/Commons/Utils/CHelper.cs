@@ -13,6 +13,7 @@ using Onix.Client.Controller;
 using Onix.Client.Helper;
 using Onix.ClientCenter.Reports;
 using Onix.ClientCenter.Commons.UControls;
+using System.Net.Http;
 
 namespace Onix.ClientCenter.Commons.Utils
 { 
@@ -406,10 +407,48 @@ namespace Onix.ClientCenter.Commons.Utils
 
         public static Boolean VerifyNewVersion()
         {
-            //Check if new version exists
-            //Check if run from source code then no need to update
+            var currentVersion = CConfig.Version;
 
-            return (false);
+            if (currentVersion.Contains("local"))
+            {
+                //Local mode - no need new version update
+                return false;
+            }
+
+            string pattern = @"^v\.(.+)\.(.+)\.(.+)$";
+            Regex regex = new Regex(pattern);
+            Match match = regex.Match(currentVersion);
+
+            var env = "dev";
+            if (match.Success)
+            {
+                env = "prod";
+            }
+
+            var releaseVersion = currentVersion;
+            try
+            {
+                //https://storage.googleapis.com/public-software-download/onix/dev/latest-release.txt
+                var randomStr = Guid.NewGuid().ToString("n").Substring(0, 8); //To escape cache
+
+                HttpClient httpClient = new HttpClient();
+                var releaseInfoUrl = $"{CUtil.AutoUpdateUrl}/{env}/latest-release.txt?{randomStr}";
+
+                var t = httpClient.GetStringAsync(releaseInfoUrl);
+                releaseVersion = t.Result.Trim();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}", "", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            }
+
+            var foundNewVersion = !currentVersion.Equals(releaseVersion);
+            if (foundNewVersion)
+            {
+                CMessageBox.Show($"ระบบจะทำการติดตั้งโปรแกรมเวอร์ชันใหม่ [{releaseVersion}] จากของเดิม [{currentVersion}]", "INFO", MessageBoxButton.OK);
+            }
+
+            return foundNewVersion;
         }
 
         public static CTable GetComboSelectedObject(ComboBox cbo)

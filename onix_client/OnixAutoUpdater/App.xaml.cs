@@ -11,6 +11,8 @@ namespace OnixAutoUpdater
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
+    /// [assembly: Packer] 
+    /// 
     public partial class App : Application
     {
     }

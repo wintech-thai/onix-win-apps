@@ -138,12 +138,12 @@ namespace Onix.ClientCenter
                 return;
             }
 
-/*
-            CUtil.AutoUpdateProgram("OnixClientCenter.exe", "OnixCenter.zip");
-*/
-
-            isLogin = false;
-            this.Close();
+            var isSuccess = CUtil.AutoUpdateProgram(CUtil.AutoUpdateUrl, "OnixClientCenter.exe", CConfig.Version);
+            if (isSuccess)
+            {
+                isLogin = false;
+                this.Close();
+            }
         }
 
         private void cmdSetting_Click(object sender, RoutedEventArgs e)

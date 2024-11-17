@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<API>
+  <OBJECT name="PARAM">
+    <FIELD name="DLL_VERSION">1.0.4 built on 09/13/2017 (MM/DD/YYYY)</FIELD>
+  </OBJECT>
+  <OBJECT name="CONFIG">
+    <FIELD name="URL">https://onix-legacy-api.aip-np.its-software-services.com/onix/api/acd/acdesign/dispatcher.php</FIELD>
+    <FIELD name="KEY">fffVUPiTxXqCMPyuRc+fbUhkku4TDcRN0NrFQIkcPKo=</FIELD>
+    <FIELD name="THEME">5</FIELD>
+  </OBJECT>
+</API>

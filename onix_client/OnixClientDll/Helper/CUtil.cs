@@ -13,6 +13,7 @@ using Onix.OnixHttpClient;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace Onix.Client.Helper
 {
@@ -276,6 +277,8 @@ namespace Onix.Client.Helper
     {
         private static ArrayList screens = new ArrayList();
         private static String currentScr = "";
+        public static string AutoUpdateUrl = "https://storage.googleapis.com/public-software-download/onix";
+
 
         public static void RegisterScreen(String screenName)
         {
@@ -1863,36 +1866,44 @@ namespace Onix.Client.Helper
             return (calValue);
         }
 
-        public static void AutoUpdateProgram(String caller, String zip)
+        public static bool AutoUpdateProgram(string uploadUrl, string caller, string currentVersion)
         {
-            //https://103.58.151.73:444/onix/dev/wis/framework/cgi-bin/dispatcher.php
+            string pattern = @"^v\.(.+)\.(.+)\.(.+)$";
+            Regex regex = new Regex(pattern);
+            Match match = regex.Match(currentVersion);
 
-            String updater = "WisAutoUpdate.exe";
+            var env = "dev";
+            if (match.Success)
+            {
+                env = "prod";
+            }
+
+            String updater = "OnixAutoUpdater.exe";
             String newUpdater = "Updater.exe";
 
-            if (File.Exists(newUpdater))
+            try
             {
-                File.Delete(newUpdater);
+                if (File.Exists(newUpdater))
+                {
+                    File.Delete(newUpdater);
+                }
+                File.Copy(updater, newUpdater);
+
+                String args = $"{uploadUrl} {caller} {env}";
+
+                ProcessStartInfo startInfo = new ProcessStartInfo();
+                startInfo.FileName = newUpdater;
+                startInfo.Arguments = args;
+                Process.Start(startInfo);
+
             }
-            File.Copy(updater, newUpdater);
-
-            String url = OnixWebServiceAPI.GetUrl();
-
-            if (url.IndexOf("cgi-bin") > 0)
+            catch (Exception ex)
             {
-                url = url.Replace("cgi-bin/dispatcher.php", "install/" + zip);
+                MessageBox.Show($"{ex.Message}", "", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                return false;
             }
-            else
-            {
-                url = url.Replace("dispatcher.php", "install/" + zip);
-            }
-            
-            String args = String.Format("{0} {1}", url, caller);
 
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.FileName = newUpdater;
-            startInfo.Arguments = args;
-            Process.Start(startInfo);
+            return true;
         }
 
         public static Boolean LockFile(String suffix)
