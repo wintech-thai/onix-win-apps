@@ -49,6 +49,12 @@ namespace OnixAutoUpdater
                 env = commandLineArgs[3];
 
                 isLocalMode = false;
+
+                //MessageBox.Show($"Running in production/dev mode - [{env}] environment", "Updater", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            }
+            else
+            {
+                MessageBox.Show($"Running in local mode - [{env}] environment", "Updater", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             }
 
             InitializeComponent();
@@ -101,7 +107,7 @@ namespace OnixAutoUpdater
                 targetDir = @"D:\tmp";
             }
 
-            MessageBox.Show($"Extracting files to [{targetDir}]", "Updater", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            MessageBox.Show($"Extracting files to [{targetDir}] [{env}]", "Updater", MessageBoxButton.OK, MessageBoxImage.Asterisk);
 
             try
             {
