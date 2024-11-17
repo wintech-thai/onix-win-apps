@@ -16,6 +16,8 @@ namespace OnixAutoUpdater
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
+    
     public partial class MainWindow : Window, IComponentConnector
     {
         private string webUrl = "";
@@ -121,7 +123,6 @@ namespace OnixAutoUpdater
             {
                 MessageBox.Show($"{ex.Message} - [{zipPath}]", "Updater", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             }
-
         }
 
         private void fileDownload()
@@ -165,7 +166,7 @@ namespace OnixAutoUpdater
             }
             else
             {
-                this.extractZipFile(this.dlFile);
+                //this.extractZipFile(this.dlFile);
                 this.Dispatcher.Invoke((Action)(() => this.Title = "Program successfully updated"));
 
                 try

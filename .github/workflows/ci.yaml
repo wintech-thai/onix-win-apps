@@ -114,9 +114,7 @@ jobs:
           onix_client\OnixClientCenter\bin\*.exe
           onix_client\OnixClientCenter\bin\*.dll
           onix_client\OnixClientCenter\bin\*.txt
-          onix_client\OnixAutoUpdater\bin\*.dll
           onix_client\OnixAutoUpdater\bin\*.exe
-          onix_client\OnixAutoUpdater\bin\*.config
 
     - name: Zip-Artifact
       id: zip-artifact
@@ -124,9 +122,9 @@ jobs:
       run: |
         CWD=$(pwd)
         cd onix_client/OnixAutoUpdater/bin/
-        cp *.exe *.dll *.config ../../OnixClientCenter/bin/
+        cp *.exe ../../OnixClientCenter/bin/
         cd ../../OnixClientCenter/bin/
-        tar -czvf ${CWD}/OnixClientCenter-${{ matrix.targetplatform }}_${{ steps.prepare.outputs.ProgramVersion }}.tar.gz *.exe *.dll *.txt *.config
+        tar -czvf ${CWD}/OnixClientCenter-${{ matrix.targetplatform }}_${{ steps.prepare.outputs.ProgramVersion }}.tar.gz *.exe *.dll *.txt
         cd ${CWD}
         ls -al
         echo "${{ steps.prepare.outputs.ProgramVersion }}" > latest-release.txt
