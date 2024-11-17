@@ -166,7 +166,7 @@ namespace OnixAutoUpdater
             }
             else
             {
-                //this.extractZipFile(this.dlFile);
+                this.extractZipFile(this.dlFile);
                 this.Dispatcher.Invoke((Action)(() => this.Title = "Program successfully updated"));
 
                 try
