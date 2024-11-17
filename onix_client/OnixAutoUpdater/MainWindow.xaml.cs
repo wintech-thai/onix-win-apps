@@ -101,6 +101,8 @@ namespace OnixAutoUpdater
                 targetDir = @"D:\tmp";
             }
 
+            MessageBox.Show($"Extracting files to [{targetDir}]", "Updater", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+
             try
             {
                 FileInfo tarFileInfo = new FileInfo(zipPath);
