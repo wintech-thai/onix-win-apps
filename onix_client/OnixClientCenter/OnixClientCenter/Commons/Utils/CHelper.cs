@@ -415,7 +415,7 @@ namespace Onix.ClientCenter.Commons.Utils
                 return false;
             }
 
-            string pattern = @"^v\.(.+)\.(.+)\.(.+)$";
+            string pattern = @"^v(.+)\.(.+)\.(.+)$";
             Regex regex = new Regex(pattern);
             Match match = regex.Match(currentVersion);
 
@@ -445,7 +445,7 @@ namespace Onix.ClientCenter.Commons.Utils
             var foundNewVersion = !currentVersion.Equals(releaseVersion);
             if (foundNewVersion)
             {
-                CMessageBox.Show($"ระบบจะทำการติดตั้งโปรแกรมเวอร์ชันใหม่ [{releaseVersion}] จากของเดิม [{currentVersion}]", "INFO", MessageBoxButton.OK);
+                CMessageBox.Show($"ระบบจะทำการติดตั้งโปรแกรมเวอร์ชันใหม่ xx1 [{env}] [{releaseVersion}] จากของเดิม [{currentVersion}]", "INFO", MessageBoxButton.OK);
             }
 
             return foundNewVersion;

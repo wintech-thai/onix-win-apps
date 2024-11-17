@@ -1868,7 +1868,7 @@ namespace Onix.Client.Helper
 
         public static bool AutoUpdateProgram(string uploadUrl, string caller, string currentVersion)
         {
-            string pattern = @"^v\.(.+)\.(.+)\.(.+)$";
+            string pattern = @"^v(.+)\.(.+)\.(.+)$";
             Regex regex = new Regex(pattern);
             Match match = regex.Match(currentVersion);
 
@@ -1881,6 +1881,8 @@ namespace Onix.Client.Helper
             String updater = "OnixAutoUpdater.exe";
             String newUpdater = "Updater.exe";
 
+            //MessageBox.Show($"Calling with parameter [{uploadUrl}] [{caller}] [{env}]", "", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+
             try
             {
                 if (File.Exists(newUpdater))
@@ -1890,6 +1892,7 @@ namespace Onix.Client.Helper
                 File.Copy(updater, newUpdater);
 
                 String args = $"{uploadUrl} {caller} {env}";
+
 
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.FileName = newUpdater;
