@@ -435,14 +435,20 @@ namespace Onix.ClientCenter.Commons.Utils
                 var releaseInfoUrl = $"{CUtil.AutoUpdateUrl}/{env}/latest-release.txt?{randomStr}";
 
                 var t = httpClient.GetStringAsync(releaseInfoUrl);
-                releaseVersion = t.Result;
+                releaseVersion = t.Result.Trim();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"{ex.Message}", "", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             }
 
-            return !currentVersion.Equals(releaseVersion);
+            var foundNewVersion = !currentVersion.Equals(releaseVersion);
+            if (foundNewVersion)
+            {
+                CMessageBox.Show($"ระบบจะทำการติดตั้งโปรแกรมเวอร์ชันใหม่ [{releaseVersion}] จากของเดิม [{currentVersion}]", "INFO", MessageBoxButton.OK);
+            }
+
+            return foundNewVersion;
         }
 
         public static CTable GetComboSelectedObject(ComboBox cbo)
