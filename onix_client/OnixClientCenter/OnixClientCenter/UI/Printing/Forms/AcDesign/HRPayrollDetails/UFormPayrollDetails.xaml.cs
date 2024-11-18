@@ -65,17 +65,17 @@ namespace Onix.ClientCenter.Forms.AcDesign.HRPayrollSlip
             grdDeduction.ColumnDefinitions.Add(gridCol3);
 
             //Header
-            putDeductionDataRow(0, 12, "รายการ", "นาที", "รวมหัก");
+            putDeductionDataRow(0, 16, "รายการ", "นาที", "รวมหัก");
 
             var i = 1;
             foreach (var item in otDoc.DeductionItems)
             {
-                putDeductionDataRow(i, 12, $"{item.DeductionDateFmt} ({item.DeductionTypeDesc})", item.DurationMinFmt, "");
+                putDeductionDataRow(i, 16, $"{item.DeductionDateFmt} ({item.DeductionTypeDesc})", item.DurationMinFmt, "");
                 i++;
             }
 
-            putDeductionDataRow(i, 12, "ปรับยอด", "", $"-{otDoc.AdjustAmount}");
-            putDeductionDataRow(i + 1, 12, "หักสุทธิ", "", otDoc.DeductionAmountFmt);
+            putDeductionDataRow(i, 16, "ปรับยอด", "", $"-{otDoc.AdjustAmount}");
+            putDeductionDataRow(i + 1, 16, "หักสุทธิ", "", otDoc.DeductionAmountFmt);
         }
 
 
@@ -108,17 +108,17 @@ namespace Onix.ClientCenter.Forms.AcDesign.HRPayrollSlip
             grdOT.ColumnDefinitions.Add(gridCol7);
 
             //Header
-            putOtDataRow(0, 12, "รายการ", "ค่าแรง", "ชม ทำงาน", "ชม OT", "ตัวคูณ", "ค่าแรง", "OT");
+            putOtDataRow(0, 16, "รายการ", "ค่าแรง", "ชม ทำงาน", "ชม OT", "ตัวคูณ", "ค่าแรง", "OT");
 
             var i = 1;
             foreach (var item in otDoc.OTItems)
             {
-                putOtDataRow(i, 12, item.FromWorkDateFmt, item.OtRateFmt, item.WorkAdjustedTotalHourFmt, item.OtAdjustedTotalHourFmt, item.MultiplierType, item.WorkAmountFmt, item.OtAmountFmt);
+                putOtDataRow(i, 16, item.FromWorkDateFmt, item.OtRateFmt, item.WorkAdjustedTotalHourFmt, item.OtAdjustedTotalHourFmt, item.MultiplierType, item.WorkAmountFmt, item.OtAmountFmt);
                 i++;
             }
 
-            putOtDataRow(i, 12, "ปรับยอด", "", "", "", "", "", $"-{otDoc.OtAdjustAmount}");
-            putOtDataRow(i+1, 12, "รวม", "", "", "", "", otDoc.WorkedAmountFmt, otDoc.ReceiveAmountFmt);
+            putOtDataRow(i, 16, "ปรับยอด", "", "", "", "", "", $"-{otDoc.OtAdjustAmount}");
+            putOtDataRow(i+1, 16, "รวม", "", "", "", "", otDoc.WorkedAmountFmt, otDoc.ReceiveAmountFmt);
         }
 
         private void putDeductionDataRow(int i, int headerFontSize, string v1, string v2, string v3)

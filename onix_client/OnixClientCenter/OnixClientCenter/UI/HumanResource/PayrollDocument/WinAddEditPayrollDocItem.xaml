@@ -158,6 +158,7 @@
                                 <RowDefinition Height="40"/>
                                 <RowDefinition Height="20"/>
                                 <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
                                 <RowDefinition Height="20"/>
                                 <RowDefinition Height="40"/>
                                 <RowDefinition Height="40"/>
@@ -245,23 +246,38 @@
                                      VerticalContentAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Right" 
                                      Margin="5,0,0,0" TextChanged="DefaultTextBox_TextChanged" PreviewTextInput="DefaultTextBoxNumber_PreviewTextInput"/>
 
+                            <Label Grid.Column="0" Grid.Row="4" Content="ภาษี" VerticalAlignment="Center" 
+                                   VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Margin="5,0,0,0"/>
+                            <TextBox Grid.Column="1" Grid.Row="4" Width="150" Text="{Binding DeductTax, UpdateSourceTrigger=PropertyChanged}"
+                                     VerticalContentAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Right" 
+                                     Margin="5,0,0,0" TextChanged="DefaultTextBox_TextChanged" PreviewTextInput="DefaultTextBoxNumber_PreviewTextInput"/>
 
-                            <Label Name="lblSocialSec" Grid.Column="6" Grid.Row="4" Content="หักเงินค้ำประกัน" VerticalAlignment="Center" 
+
+                            <Label Name="lblSocialSec" Grid.Column="6" Grid.Row="4" Content="หักเงินประกัน" VerticalAlignment="Center" 
                                    VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Margin="5,0,0,0"/>
                             <TextBox Name="txtSocialSec" Grid.Column="7" Grid.Row="4" Width="150" Text="{Binding DeductCoverage, UpdateSourceTrigger=PropertyChanged}"
                                      VerticalContentAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Right" 
                                      Margin="5,0,0,0" TextChanged="DefaultTextBox_TextChanged" PreviewTextInput="DefaultTextBoxNumber_PreviewTextInput"/>
 
-                            
-                            <Label Grid.Column="0" Grid.Row="6" Content="ปกส (นายจ้าง)" VerticalAlignment="Center" 
+
+
+                            <Label Name="lblBorrow" Grid.Column="0" Grid.Row="5" Content="หักเงินกู้ยืม" VerticalAlignment="Center" 
                                    VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Margin="5,0,0,0"/>
-                            <TextBox Grid.Column="1" Grid.Row="6" Width="150" Text="{Binding SocialSecurityCompany, UpdateSourceTrigger=PropertyChanged}"
+                            <TextBox Name="txtBorrow" Grid.Column="1" Grid.Row="5" Width="150" Text="{Binding DeductBorrow, UpdateSourceTrigger=PropertyChanged}"
                                      VerticalContentAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Right" 
                                      Margin="5,0,0,0" TextChanged="DefaultTextBox_TextChanged" PreviewTextInput="DefaultTextBoxNumber_PreviewTextInput"/>
 
-                            <Label Grid.Column="0" Grid.Row="7" Content="สำรองจ่าย" VerticalAlignment="Center" 
+                            
+                            
+                            <Label Grid.Column="0" Grid.Row="7" Content="ปกส (นายจ้าง)" VerticalAlignment="Center" 
                                    VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Margin="5,0,0,0"/>
-                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3">
+                            <TextBox Grid.Column="1" Grid.Row="7" Width="150" Text="{Binding SocialSecurityCompany, UpdateSourceTrigger=PropertyChanged}"
+                                     VerticalContentAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Right" 
+                                     Margin="5,0,0,0" TextChanged="DefaultTextBox_TextChanged" PreviewTextInput="DefaultTextBoxNumber_PreviewTextInput"/>
+
+                            <Label Grid.Column="0" Grid.Row="8" Content="สำรองจ่าย" VerticalAlignment="Center" 
+                                   VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Margin="5,0,0,0"/>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="3">
                                 <TextBox  Width="150" Text="{Binding ReceiveRefund, UpdateSourceTrigger=PropertyChanged}"
                                           IsEnabled="{Binding ElementName=self, Path=IsPreviewAble}"
                                          VerticalContentAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Right" 

@@ -46,7 +46,7 @@
             </Style>
 
             <Style x:Key="ItemTextFontDetail" TargetType="{x:Type TextBlock}">
-                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontSize" Value="14"/>
                 <Setter Property="FontFamily" Value="{Binding ElementName=rootElement, Path=FontName}"/>
                 <Setter Property="FontWeight" Value="Bold"/>
             </Style>
@@ -55,7 +55,7 @@
         <StackPanel Name="pnlFiller1" DockPanel.Dock="Top" Orientation="Horizontal" 
                     Height="{Binding ElementName=rootElement, Path=Filler1Height}"/>
 
-        <Grid Name="dckHeader" DockPanel.Dock="Top" Height="30" Margin="10,10,10,0">
+        <Grid Name="dckHeader" DockPanel.Dock="Top" Height="20" Margin="10,10,10,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50*"/>
                 <ColumnDefinition Width="30*"/>
@@ -81,7 +81,7 @@
                        VerticalAlignment="Center"/>
         </Grid>
 
-        <Grid Name="grdName" DockPanel.Dock="Top" Height="30" Margin="10,0,10,0">
+        <Grid Name="grdName" DockPanel.Dock="Top" Height="20" Margin="10,0,10,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="80*"/>
                 <ColumnDefinition Width="50*"/>
@@ -139,6 +139,7 @@
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="25"/>
+                    <RowDefinition Height="20"/>
                     <RowDefinition Height="20"/>
                     <RowDefinition Height="20"/>
                     <RowDefinition Height="20"/>
@@ -399,7 +400,6 @@
                 </Border>
 
 
-
                 <!-- Row 9 -->
                 <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="0" Grid.Row="9" Grid.RowSpan="1">
                     <TextBlock Text="9" Style="{StaticResource ResourceKey=ItemTextFont}" 
@@ -407,34 +407,34 @@
                 </Border>
 
                 <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="1" Grid.Row="9">
-                    <TextBlock  Text="ภาษี" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="50,0,0,0"
+                    <TextBlock  Text="คืนเงินสำรองจ่าย" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="10,0,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 </Border>
 
                 <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="2" Grid.Row="9">
-                    <TextBlock  Text="" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="0,0,10,0"
+                    <TextBlock  Text="{Binding ElementName=rootElement, Path=ItemObj.ReceiveRefundFmt}" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="0,0,10,0"
                                 HorizontalAlignment="Right" VerticalAlignment="Center"/>
                 </Border>
 
                 <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="3" Grid.Row="9">
-                    <TextBlock  Text="{Binding ElementName=rootElement, Path=ItemObj.DeductTaxFmt}" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="0,0,10,0"
-                                HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock  Text="" Style="{StaticResource ResourceKey=ItemTextFont}" 
+                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Border>
 
                 <Border BorderThickness="0,0,0,1" BorderBrush="Black" Grid.Column="4" Grid.Row="9">
                     <TextBlock  Text="" Style="{StaticResource ResourceKey=ItemTextFont}" 
                             HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Border>
-
+                
 
                 <!-- Row 10 -->
                 <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="0" Grid.Row="10" Grid.RowSpan="1">
-                    <TextBlock Text="10" Style="{StaticResource ResourceKey=ItemTextFont}" 
+                    <TextBlock Text="9" Style="{StaticResource ResourceKey=ItemTextFont}" 
                                 HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Border>
 
                 <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="1" Grid.Row="10">
-                    <TextBlock  Text="ประกันสังคม" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="50,0,0,0"
+                    <TextBlock  Text="ภาษี" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="50,0,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 </Border>
 
@@ -444,7 +444,7 @@
                 </Border>
 
                 <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="3" Grid.Row="10">
-                    <TextBlock  Text="{Binding ElementName=rootElement, Path=ItemObj.DeductSocialSecurityFmt}" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="0,0,10,0"
+                    <TextBlock  Text="{Binding ElementName=rootElement, Path=ItemObj.DeductTaxFmt}" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="0,0,10,0"
                                 HorizontalAlignment="Right" VerticalAlignment="Center"/>
                 </Border>
 
@@ -454,15 +454,14 @@
                 </Border>
 
 
-
                 <!-- Row 11 -->
                 <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="0" Grid.Row="11" Grid.RowSpan="1">
-                    <TextBlock Text="11" Style="{StaticResource ResourceKey=ItemTextFont}" 
+                    <TextBlock Text="10" Style="{StaticResource ResourceKey=ItemTextFont}" 
                                 HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Border>
 
                 <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="1" Grid.Row="11">
-                    <TextBlock  Text="ขาด/สาย" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="50,0,0,0"
+                    <TextBlock  Text="ประกันสังคม" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="50,0,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 </Border>
 
@@ -472,7 +471,7 @@
                 </Border>
 
                 <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="3" Grid.Row="11">
-                    <TextBlock  Text="{Binding ElementName=rootElement, Path=ItemObj.DeductPenaltyFmt}" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="0,0,10,0"
+                    <TextBlock  Text="{Binding ElementName=rootElement, Path=ItemObj.DeductSocialSecurityFmt}" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="0,0,10,0"
                                 HorizontalAlignment="Right" VerticalAlignment="Center"/>
                 </Border>
 
@@ -482,14 +481,15 @@
                 </Border>
 
 
+
                 <!-- Row 12 -->
                 <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="0" Grid.Row="12" Grid.RowSpan="1">
-                    <TextBlock Text="12" Style="{StaticResource ResourceKey=ItemTextFont}" 
+                    <TextBlock Text="11" Style="{StaticResource ResourceKey=ItemTextFont}" 
                                 HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Border>
 
                 <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="1" Grid.Row="12">
-                    <TextBlock  Text="เงินค้ำประกัน" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="50,0,0,0"
+                    <TextBlock  Text="ขาด/สาย" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="50,0,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 </Border>
 
@@ -499,7 +499,7 @@
                 </Border>
 
                 <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="3" Grid.Row="12">
-                    <TextBlock  Text="{Binding ElementName=rootElement, Path=ItemObj.DeductCoverageFmt}" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="0,0,10,0"
+                    <TextBlock  Text="{Binding ElementName=rootElement, Path=ItemObj.DeductPenaltyFmt}" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="0,0,10,0"
                                 HorizontalAlignment="Right" VerticalAlignment="Center"/>
                 </Border>
 
@@ -508,29 +508,56 @@
                             HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Border>
 
+
                 <!-- Row 13 -->
                 <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="0" Grid.Row="13" Grid.RowSpan="1">
+                    <TextBlock Text="12" Style="{StaticResource ResourceKey=ItemTextFont}" 
+                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+
+                <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="1" Grid.Row="13">
+                    <TextBlock  Text="เงินค้ำประกัน + เงินกู้ยืม" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="50,0,0,0"
+                                HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Border>
+
+                <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="2" Grid.Row="13">
+                    <TextBlock  Text="" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="0,0,10,0"
+                                HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                </Border>
+
+                <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="3" Grid.Row="13">
+                    <TextBlock  Text="{Binding ElementName=rootElement, Path=ItemObj.DeductBorrowCoverageFmt}" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="0,0,10,0"
+                                HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                </Border>
+
+                <Border BorderThickness="0,0,0,1" BorderBrush="Black" Grid.Column="4" Grid.Row="13">
+                    <TextBlock  Text="" Style="{StaticResource ResourceKey=ItemTextFont}" 
+                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+
+                <!-- Row 14 -->
+                <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="0" Grid.Row="14" Grid.RowSpan="1">
                     <TextBlock Text="" Style="{StaticResource ResourceKey=ItemTextFont}" 
                                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Border>
 
-                <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="1" Grid.Row="13">
+                <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="1" Grid.Row="14">
                     <TextBlock  Text="รับสุทธิ" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="10,0,0,0"
                                     HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 </Border>
 
-                <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="2" Grid.Row="13">
-                    <TextBlock  Text="{Binding ElementName=rootElement, Path=ItemObj.ReceiveAmountFmt}" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="0,0,10,0"
+                <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="2" Grid.Row="14">
+                    <TextBlock  Text="{Binding ElementName=rootElement, Path=ItemObj.ReceivedWithRefundFmt}" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="0,0,10,0"
                                     HorizontalAlignment="Right" VerticalAlignment="Center"/>
                 </Border>
 
-                <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="3" Grid.Row="13">
+                <Border BorderThickness="0,0,1,1" BorderBrush="Black" Grid.Column="3" Grid.Row="14">
                     <TextBlock  Text="{Binding ElementName=rootElement, Path=ItemObj.DeductAmountFmt}" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="0,0,10,0"
                                     HorizontalAlignment="Right" VerticalAlignment="Center"/>
                 </Border>
 
-                <Border BorderThickness="0,0,0,1" BorderBrush="Black" Grid.Column="4" Grid.Row="13">
-                    <TextBlock  Text="{Binding ElementName=rootElement, Path=ItemObj.RemainAmountFmt}" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="0,0,10,0"
+                <Border BorderThickness="0,0,0,1" BorderBrush="Black" Grid.Column="4" Grid.Row="14">
+                    <TextBlock  Text="{Binding ElementName=rootElement, Path=ItemObj.RemainWithRefundFmt}" Style="{StaticResource ResourceKey=ItemTextFont}" Margin="0,0,10,0"
                                 HorizontalAlignment="Right" VerticalAlignment="Center"/>
                 </Border>
             </Grid>
