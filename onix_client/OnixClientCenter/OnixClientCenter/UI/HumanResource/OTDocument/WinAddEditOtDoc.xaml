@@ -114,7 +114,6 @@
         </Grid>
 
         <TabControl Margin="5, 10, 5, 0" KeyboardNavigation.TabNavigation="Local" >
-<!--
             <TabItem Name="tbiAllowance">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -247,7 +246,7 @@
                     </DockPanel>
                 </DockPanel>
             </TabItem>
--->
+
             <TabItem Name="tbiItem" 
                      Visibility="{Binding ElementName=self, Path=IsMonthly, Converter={StaticResource TrueToVisibleConverter}}">
                 <TabItem.Header>
