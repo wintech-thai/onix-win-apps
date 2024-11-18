@@ -630,6 +630,87 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             }
         }
 
+
+        public String ReceivedWithRefund
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                var receiveRefund = CUtil.StringToDouble(ReceiveRefund);
+                var receiveAmt = CUtil.StringToDouble(ReceiveAmount);
+                var amt = receiveRefund + receiveAmt;
+
+                return (amt.ToString());
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("RECEIVE_AMOUNT_WITH_REFUND", value);
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("ReceivedWithRefundFmt");
+
+                updateFlag();
+            }
+        }
+
+        public String ReceivedWithRefundFmt
+        {
+            get
+            {
+                String fmt = CUtil.FormatNumber(ReceivedWithRefund);
+                return (fmt);
+            }
+
+            set
+            {
+            }
+        }
+
+
+        public String RemainWithRefund
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                var remainAmt = CUtil.StringToDouble(RemainAmount);
+                var receiveRefund = CUtil.StringToDouble(ReceiveRefund);
+
+                var amt = remainAmt + receiveRefund;
+
+                return (amt.ToString());
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("REMAIN_AMOUNT_WITH_REFUND", value);
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("RemainWithRefundFmt");
+
+                updateFlag();
+            }
+        }
+
+        public String RemainWithRefundFmt
+        {
+            get
+            {
+                String fmt = CUtil.FormatNumber(RemainWithRefund);
+                return (fmt);
+            }
+
+            set
+            {
+            }
+        }
+
         public String DeductAmount
         {
             get
@@ -1363,6 +1444,7 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             }
         }
 
+
         public String DeductOther
         {
             get
@@ -1388,6 +1470,44 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             get
             {
                 String fmt = CUtil.FormatNumber(DeductOther);
+                return (fmt);
+            }
+
+            set
+            {
+            }
+        }
+
+
+        public String DeductBorrowCoverage
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                double borrow = CUtil.StringToDouble(DeductBorrow);
+                double coverage = CUtil.StringToDouble(DeductCoverage);
+                double amt = borrow + coverage;
+
+                return (amt.ToString());
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("DEDUCT_BORROW_COVERAGE", value);
+                NotifyPropertyChanged();
+                updateFlag();
+            }
+        }
+
+        public String DeductBorrowCoverageFmt
+        {
+            get
+            {
+                String fmt = CUtil.FormatNumber(DeductBorrowCoverage);
                 return (fmt);
             }
 
@@ -1471,15 +1591,19 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             double socialSecurity = CUtil.StringToDouble(DeductSocialSecurity);
             double coverage = CUtil.StringToDouble(DeductCoverage);
 
+
+            double deductBorrowCoverage = borrow + coverage;
             double deductOther = borrow + advance + coverage + penalty;
             double receiveOthers = commission + allowance + bonus; //ลูกค้าต้องการให้แสดงแบบนี้
 
             ot = Math.Floor(ot); //ปัดลงทุกกรณี
 
-            double received = income + ot + position + transport + telephone + receiveOthers; 
+            double received = income + ot + position + transport + telephone + receiveOthers;
+            double receivedWithRefund = received + refund;
             double deduced = tax + socialSecurity + deductOther;
 
             double remain = received - deduced;
+            double remainWithRefund = receivedWithRefund - deduced;
             double grandTotal = remain;//ตัวเงินจริง ๆ ทั้งหมดที่พนักงานได้รับ
 
             RemainAmount = remain.ToString();
@@ -1487,6 +1611,7 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             DeductAmount = deduced.ToString();
             ReceiveOtherTotal = receiveOthers.ToString();
             DeductOther = deductOther.ToString();
+            DeductBorrowCoverage = deductBorrowCoverage.ToString();
             SlipReceiveOT = ot.ToString();
 
             GrandTotalAmount = grandTotal.ToString();
