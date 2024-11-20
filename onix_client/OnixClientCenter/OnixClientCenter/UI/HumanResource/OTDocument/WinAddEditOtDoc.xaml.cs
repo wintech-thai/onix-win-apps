@@ -402,5 +402,10 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
                 vw.IsModified = true;
             }        
         }
+
+        private void DefaultTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

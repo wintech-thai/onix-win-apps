@@ -24,6 +24,8 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
             initOTDocItem();
             initExpenseItem();
             initDeductionItem();
+
+            CalculateTotalFields();
         }
 
 
@@ -1134,7 +1136,7 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
             DeductionMinuteTotal = deductMinuteTotal.ToString();
 
             ExpenseItemCount = expenseCount.ToString();
-            ExpenseAmount = expense.ToString();            
+            ExpenseAmount = expense.ToString();
         }
 
         private double roundHour(double num)

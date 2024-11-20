@@ -303,6 +303,7 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
 
             MVOTDocument otDoc = new MVOTDocument(newobj);
             otDoc.InitializeAfterLoaded();
+            otDoc.CalculateTotalFields();
 
             mv.ReceiveOT = otDoc.ReceiveAmount;
             if (mvParent.EmployeeType.Equals("1"))
@@ -312,6 +313,7 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             
             //mv.ReceiveTransaportation = otDoc.ExpenseAmount; //To be fixed
             mv.DeductPenalty = otDoc.DeductionAmount;
+            mv.ReceiveRefund = otDoc.ExpenseAmount;
 
             CUtil.EnableForm(true, this);
         }
