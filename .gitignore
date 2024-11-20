@@ -3,3 +3,5 @@ obj
 packages
 
 *.tar.gz
+onix-*.xml
+onix.xml
