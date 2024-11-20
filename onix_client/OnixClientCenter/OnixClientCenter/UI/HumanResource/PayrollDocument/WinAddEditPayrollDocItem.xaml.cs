@@ -307,7 +307,7 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             mv.ReceiveOT = otDoc.ReceiveAmount;
             if (mvParent.EmployeeType.Equals("1"))
             {
-                mv.ReceiveIncome = otDoc.WorkedAmountFmt;
+                mv.ReceiveIncome = otDoc.WorkedAmount;
             }
             
             //mv.ReceiveTransaportation = otDoc.ExpenseAmount; //To be fixed
