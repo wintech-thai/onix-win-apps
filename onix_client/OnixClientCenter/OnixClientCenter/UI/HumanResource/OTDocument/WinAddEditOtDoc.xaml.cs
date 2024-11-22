@@ -47,6 +47,9 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
 
             ratios = new double[6] { 0.05, 0.05, 0.15, 0.15, 0.50, 0.10};
             registerListViewSize(lsvDeduct.Name, ratios);
+
+            ratios = new double[8] { 0.05, 0.05, 0.15, 0.15, 0.30, 0.10, 0.10, 0.10 };
+            registerListViewSize(lsvEmpAllowance.Name, ratios);
         }
 
         protected override bool isEditable()
@@ -404,6 +407,29 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
         }
 
         private void DefaultTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void cmdEmployeeAllowanceAdd_Click(object sender, RoutedEventArgs e)
+        {
+            CWinLoadParam param = new CWinLoadParam();
+
+            param.Caption = CLanguage.getValue("add") + " " + "สวัสดิการพนักงาน";
+            param.Mode = "A";
+            param.ActualParentView = mv;
+            param.GenericType = loadParam.GenericType;
+            //param.ActualView = actDoc;
+            Boolean okClick = FactoryWindow.ShowWindow("WinAddEditPayrollAllowanceItem", param);
+
+            if (okClick)
+            {
+                (vw as MVOTDocument).CalculateTotalFields();
+                vw.IsModified = true;
+            }
+        }
+
+        private void lsvEmpAllowance_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
 
         }
