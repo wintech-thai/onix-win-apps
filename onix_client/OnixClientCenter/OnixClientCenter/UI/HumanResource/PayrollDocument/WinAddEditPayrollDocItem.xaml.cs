@@ -314,6 +314,7 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             //mv.ReceiveTransaportation = otDoc.ExpenseAmount; //To be fixed
             mv.DeductPenalty = otDoc.DeductionAmount;
             mv.ReceiveRefund = otDoc.ExpenseAmount;
+            mv.ReceiveTransaportation = otDoc.AllowanceAmount; //ตอนนี้สวัสดิการมีแต่ค่ายานพาหนะ
 
             CUtil.EnableForm(true, this);
         }
