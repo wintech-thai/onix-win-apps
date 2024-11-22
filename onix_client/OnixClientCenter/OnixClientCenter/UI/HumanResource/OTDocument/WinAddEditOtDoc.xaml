@@ -827,7 +827,7 @@
                                     <GridViewColumn x:Name="colEmpAllowanceType" Header="สวัสดิการ">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock TextAlignment="Left" Text="{Binding ExpenseTypeDesc}" Foreground="{Binding RowColor}"/>
+                                                <TextBlock TextAlignment="Left" Text="{Binding AllowanceTypeDesc}" Foreground="{Binding RowColor}"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
@@ -835,7 +835,7 @@
                                     <GridViewColumn x:Name="colEmpAllownaceDate" Header="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=date}">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock TextAlignment="Center" Text="{Binding ExpenseDateFmt}" Foreground="{Binding RowColor}"/>
+                                                <TextBlock TextAlignment="Center" Text="{Binding AllowanceDateFmt}" Foreground="{Binding RowColor}"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
@@ -843,7 +843,7 @@
                                     <GridViewColumn x:Name="colEmpAllowanceNote" Header="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=note}">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock TextAlignment="Left" Text="{Binding ExpenseNote}" Foreground="{Binding RowColor}"/>
+                                                <TextBlock TextAlignment="Left" Text="{Binding AllowanceNote}" Foreground="{Binding RowColor}"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
@@ -851,7 +851,7 @@
                                     <GridViewColumn x:Name="colEmpAllowanceQuantity" Header="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=quantity}">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock TextAlignment="Right" Text="{Binding ExpenseQuantityFmt}" Foreground="{Binding RowColor}"/>
+                                                <TextBlock TextAlignment="Right" Text="{Binding AllowanceQuantityFmt}" Foreground="{Binding RowColor}"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
@@ -859,7 +859,7 @@
                                     <GridViewColumn x:Name="colEmpAllowancePrice" Header="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=unit_price}">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock TextAlignment="Right" Text="{Binding ExpensePriceFmt}" Foreground="{Binding RowColor}"/>
+                                                <TextBlock TextAlignment="Right" Text="{Binding AllowancePriceFmt}" Foreground="{Binding RowColor}"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
@@ -867,7 +867,7 @@
                                     <GridViewColumn x:Name="colEmpAllowanceAmount" Header="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=amount}">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock TextAlignment="Right" Text="{Binding ExpenseAmountFmt}" Foreground="{Binding RowColor}"/>
+                                                <TextBlock TextAlignment="Right" Text="{Binding AllowanceAmountFmt}" Foreground="{Binding RowColor}"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>

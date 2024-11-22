@@ -17,6 +17,7 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
         private MVOTDocumentItem currentViewObj = null;
         private MVPayrollExpenseItem currentExpenseViewObj = null;
         private MVPayrollDeductionItem currentDeductionViewObj = null;
+        private MVPayrollAllowanceItem currentAllowanceViewObj = null;
 
         private String employeeType = "";
 
@@ -429,9 +430,31 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
             }
         }
 
+        private void showEditAllowanceWindow()
+        {
+            CWinLoadParam param = new CWinLoadParam();
+
+            param.Caption = CLanguage.getValue("edit") + " " + "สวัสดิการพนักงาน";
+            param.Mode = "E";
+            param.ActualParentView = mv;
+            param.ActualView = currentAllowanceViewObj;
+            param.GenericType = loadParam.GenericType;
+            Boolean okClick = FactoryWindow.ShowWindow("WinAddEditPayrollAllowanceItem", param);
+
+            if (okClick)
+            {
+                (vw as MVOTDocument).CalculateTotalFields();
+                vw.IsModified = true;
+            }
+        }
+
         private void lsvEmpAllowance_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-
+            if (lsvEmpAllowance.SelectedItems.Count == 1)
+            {
+                currentAllowanceViewObj = (MVPayrollAllowanceItem) lsvEmpAllowance.SelectedItems[0];
+                showEditAllowanceWindow();
+            }
         }
     }
 }

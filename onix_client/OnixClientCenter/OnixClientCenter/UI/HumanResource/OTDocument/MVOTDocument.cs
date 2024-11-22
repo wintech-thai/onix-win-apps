@@ -1125,7 +1125,7 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
                 }
 
                 allowanceCount++;
-                allowanceTotal = allowanceTotal + allowanceCount;
+                allowanceTotal = allowanceTotal + CUtil.StringToDouble(exp.AllowanceAmount);
             }
 
 

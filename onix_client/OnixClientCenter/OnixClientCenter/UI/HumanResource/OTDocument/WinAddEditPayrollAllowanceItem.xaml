@@ -56,7 +56,7 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Margin="5,5,0,0">
             <ComboBox Name="cboExpense" Width="200" VerticalContentAlignment="Center" HorizontalAlignment="Left"
-                  SelectedItem="ObjSelf" DisplayMemberPath="Description" SelectedValuePath="ObjSelf" SelectedValue="{Binding ExpenseTypeObj}"
+                  SelectedItem="ObjSelf" DisplayMemberPath="Description" SelectedValuePath="ObjSelf" SelectedValue="{Binding AllowanceTypeObj}"
                   ItemsSource="{Binding Source={x:Static lang:CMasterReference.Instance}, Path=PayrollAllowanceTypes}"
                   SelectionChanged="DefaultComboBox_SelectionChanged"/>
         </StackPanel>
