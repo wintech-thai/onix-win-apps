@@ -13,6 +13,7 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
         private ObservableCollection<MVOTDocumentItem> docItems = new ObservableCollection<MVOTDocumentItem>();
         private ObservableCollection<MVPayrollExpenseItem> expenseItems = new ObservableCollection<MVPayrollExpenseItem>();
         private ObservableCollection<MVPayrollDeductionItem> deductionItems = new ObservableCollection<MVPayrollDeductionItem>();
+        private ObservableCollection<MVPayrollAllowanceItem> allowanceItems = new ObservableCollection<MVPayrollAllowanceItem>();
 
         public MVOTDocument(CTable obj) : base(obj)
         {
@@ -24,6 +25,7 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
             initOTDocItem();
             initExpenseItem();
             initDeductionItem();
+            initAllowanceItem();
 
             CalculateTotalFields();
         }
@@ -1113,6 +1115,20 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
                 deductMinuteTotal = deductMinuteTotal + CUtil.StringToDouble(exp.DurationMin);
             }
 
+            int allowanceCount = 0;
+            double allowanceTotal = 0;
+            foreach (MVPayrollAllowanceItem exp in allowanceItems)
+            {
+                if (exp.ExtFlag.Equals("D"))
+                {
+                    continue;
+                }
+
+                allowanceCount++;
+                allowanceTotal = allowanceTotal + CUtil.StringToDouble(exp.AllowanceAmount);
+            }
+
+
             double adjust = CUtil.StringToDouble(AdjustAmount);
             double otAdjust = CUtil.StringToDouble(OtAdjustAmount);
             double rate = CUtil.StringToDouble(OtRate);
@@ -1128,6 +1144,8 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
             DeductionHourRoundedTotal = roundedHour.ToString();
 
             ItemCount = i.ToString();
+
+            received = Math.Floor(received); //ลูกค้าบอกให้ปัดเศษ OT ลง
             ReceiveAmount = (received-otAdjust).ToString(); //OT
             WorkedAmount = workedAmt.ToString(); //ค่าแรงสำหรับรายวัน
 
@@ -1137,6 +1155,11 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
 
             ExpenseItemCount = expenseCount.ToString();
             ExpenseAmount = expense.ToString();
+
+            AllowanceItemCount = allowanceCount.ToString();
+            AllowanceAmount = allowanceTotal.ToString();
+
+            var slipDisplayOt = received - deduction; //อันนี้จะแสดงใน slip เงินเดือน เป็นยอด OT ที่หักขาดลาสาย เพราะ ไม่อยากโชว์ที่หักให้พนักงานเห็น
         }
 
         private double roundHour(double num)
@@ -1156,5 +1179,146 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
 
             return floor;
         }
+
+
+
+        public String AllowanceItemCount
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("ALLOWANCE_ITEM_COUNT"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("ALLOWANCE_ITEM_COUNT", value);
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("AllowanceItemCountFmt");
+            }
+        }
+
+        public String AllowanceItemCountFmt
+        {
+            get
+            {
+                String fmt = CUtil.FormatNumber(AllowanceItemCount);
+                return (fmt);
+            }
+
+            set
+            {
+            }
+        }
+
+        public String AllowanceAmount
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("ALLOWANCE_AMOUNT"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("ALLOWANCE_AMOUNT", value);
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("AllowanceAmountFmt");
+            }
+        }
+
+        public String AllowanceAmountFmt
+        {
+            get
+            {
+                String fmt = CUtil.FormatNumber(AllowanceAmount);
+                return (fmt);
+            }
+
+            set
+            {
+            }
+        }
+
+        #region AllowanceItems
+        public void AddAllowanceItem(MVPayrollAllowanceItem m)
+        {
+            CTable o = GetDbObject();
+            ArrayList arr = o.GetChildArray("ALLOWANCE_LIST");
+            if (arr == null)
+            {
+                arr = new ArrayList();
+                o.AddChildArray("ALLOWANCE_LIST", arr);
+            }
+
+            m.ExtFlag = "A";
+            arr.Add(m.GetDbObject());
+            allowanceItems.Add(m);
+        }
+
+        private void initAllowanceItem()
+        {
+            CTable o = GetDbObject();
+            if (o == null)
+            {
+                return;
+            }
+
+            ArrayList arr = o.GetChildArray("ALLOWANCE_LIST");
+
+            if (arr == null)
+            {
+                allowanceItems.Clear();
+                return;
+            }
+
+            allowanceItems.Clear();
+            foreach (CTable t in arr)
+            {
+                MVPayrollAllowanceItem v = new MVPayrollAllowanceItem(t);
+
+                allowanceItems.Add(v);
+                v.ExtFlag = "I";
+            }
+        }
+
+        public ObservableCollection<MVPayrollAllowanceItem> AllowanceItems
+        {
+            get
+            {
+                return (allowanceItems);
+            }
+        }
+
+        public MVPayrollAllowanceItem GetAllowanceItemByIndex(int idx)
+        {
+            int i = 0;
+            foreach (MVPayrollAllowanceItem it in allowanceItems)
+            {
+                if (it.ExtFlag.Equals("D"))
+                {
+                    continue;
+                }
+
+                if (i == idx)
+                {
+                    return (it);
+                }
+
+                i++;
+            }
+
+            return (null);
+        }
+
+        #endregion AllowanceItems
     }
 }

@@ -172,6 +172,7 @@
     <Compile Include="UI\HumanResource\OTDocument\MVOTDocument.cs" />
     <Compile Include="UI\HumanResource\OTDocument\MVOTRate.cs" />
     <Compile Include="UI\HumanResource\OTDocument\MVPayrollDeductionItem.cs" />
+    <Compile Include="UI\HumanResource\OTDocument\MVPayrollAllowanceItem.cs" />
     <Compile Include="UI\HumanResource\OTDocument\MVPayrollExpenseItem.cs" />
     <Compile Include="UI\HumanResource\OTDocument\MVOTDocumentItem.cs" />
     <Compile Include="UI\HumanResource\OTDocument\WinAddEditOtDocItem2.xaml.cs">
@@ -179,6 +180,9 @@
     </Compile>
     <Compile Include="UI\HumanResource\OTDocument\WinAddEditPayrollDeductItem.xaml.cs">
       <DependentUpon>WinAddEditPayrollDeductItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\HumanResource\OTDocument\WinAddEditPayrollAllowanceItem.xaml.cs">
+      <DependentUpon>WinAddEditPayrollAllowanceItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\HumanResource\OTDocument\WinAddEditPayrollExpenseItem.xaml.cs">
       <DependentUpon>WinAddEditPayrollExpenseItem.xaml</DependentUpon>
@@ -205,6 +209,10 @@
     <Compile Include="UI\Printing\Forms\AcDesign\HREmployeeTax\UFormEmployeeWithholdingTax.xaml.cs">
       <DependentUpon>UFormEmployeeWithholdingTax.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Printing\Forms\AcDesign\HROtDetails\CFormOtDetails.cs" />
+    <Compile Include="UI\Printing\Forms\AcDesign\HROtDetails\UFormOtDetails.xaml.cs">
+      <DependentUpon>UFormOtDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Printing\Forms\AcDesign\HRPayrollDeposit\CFormPayrollDeposit.cs" />
     <Compile Include="UI\Printing\Forms\AcDesign\HRPayrollDeposit\UFormPayrollDeposit.xaml.cs">
       <DependentUpon>UFormPayrollDeposit.xaml</DependentUpon>
@@ -214,6 +222,9 @@
       <DependentUpon>UFormEmployeeLeave.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Printing\Forms\AcDesign\HRPayrollDetails\CFormPayrollDetails.cs" />
+    <Compile Include="UI\Printing\Forms\AcDesign\HRPayrollDetails\UFormPayrollDetailsP2.xaml.cs">
+      <DependentUpon>UFormPayrollDetailsP2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Printing\Forms\AcDesign\HRPayrollDetails\UFormPayrollDetails.xaml.cs">
       <DependentUpon>UFormPayrollDetails.xaml</DependentUpon>
     </Compile>
@@ -670,6 +681,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UI\HumanResource\OTDocument\WinAddEditPayrollAllowanceItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UI\HumanResource\OTDocument\WinAddEditPayrollExpenseItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -694,11 +709,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UI\Printing\Forms\AcDesign\HROtDetails\UFormOtDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UI\Printing\Forms\AcDesign\HRPayrollDeposit\UFormPayrollDeposit.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Printing\Forms\AcDesign\HREmployeeLeave\UFormEmployeeLeave.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Printing\Forms\AcDesign\HRPayrollDetails\UFormPayrollDetailsP2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

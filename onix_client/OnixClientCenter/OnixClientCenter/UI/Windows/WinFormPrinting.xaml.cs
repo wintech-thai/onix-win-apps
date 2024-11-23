@@ -97,6 +97,8 @@ namespace Onix.ClientCenter.Windows
             reports.Add("hr_employee_leave", prefix + "AcDesign.HREmployeeLeave.CFormEmployeeLeave");
 
             reports.Add("hr_employee_witholding_tax", prefix + "AcDesign.HREmployeeTax.CFormEmployeeWithholdingTax");
+
+            reports.Add("hr_ot_doc", prefix + "AcDesign.HROtDetails.CFormOtDetails");
         }
 
         private void initReportGroup()
@@ -157,6 +159,8 @@ namespace Onix.ClientCenter.Windows
             addReportGroup("grpHRLeave", "hr_employee_leave");
 
             addReportGroup("grpHRTax", "hr_employee_witholding_tax");
+
+            addReportGroup("grpHROtDoc", "hr_ot_doc");
         }
 
         private void addReportGroup(String grpName, String rptName)

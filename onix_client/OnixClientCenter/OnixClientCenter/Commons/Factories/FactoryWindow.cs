@@ -38,6 +38,7 @@ namespace Onix.ClientCenter.Commons.Factories
             windowMaps["WinAddEditOtDocItem2"] = "Onix.ClientCenter.UI.HumanResource.OTDocument.WinAddEditOtDocItem2";
             windowMaps["WinAddEditPayrollExpenseItem"] = "Onix.ClientCenter.UI.HumanResource.OTDocument.WinAddEditPayrollExpenseItem";
             windowMaps["WinAddEditPayrollDeductItem"] = "Onix.ClientCenter.UI.HumanResource.OTDocument.WinAddEditPayrollDeductItem";
+            windowMaps["WinAddEditPayrollAllowanceItem"] = "Onix.ClientCenter.UI.HumanResource.OTDocument.WinAddEditPayrollAllowanceItem";
 
             windowMaps["WinAddEditCashAcc"] = "Onix.ClientCenter.UI.Cash.CashAccount.WinAddEditCashAcc";
             windowMaps["WinAddEditCashInOut"] = "Onix.ClientCenter.UI.Cash.CashInOut.WinAddEditCashInOut";

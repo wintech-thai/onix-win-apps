@@ -113,7 +113,14 @@ namespace Onix.ClientCenter.Forms.AcDesign.HRPayrollSlip
             var i = 1;
             foreach (var item in otDoc.OTItems)
             {
-                putOtDataRow(i, 16, item.FromWorkDateFmt, item.OtRateFmt, item.WorkAdjustedTotalHourFmt, item.OtAdjustedTotalHourFmt, item.MultiplierType, item.WorkAmountFmt, item.OtAmountFmt);
+                var displayDate = item.FromWorkDateFmt;
+                if (otDoc.EmployeeType == "2")
+                {
+                    //รายเดือน
+                    displayDate = item.FromOtDateFmt;
+                }
+
+                putOtDataRow(i, 16, displayDate, item.OtRateFmt, item.WorkAdjustedTotalHourFmt, item.OtAdjustedTotalHourFmt, item.MultiplierType, item.WorkAmountFmt, item.OtAmountFmt);
                 i++;
             }
 
@@ -171,7 +178,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HRPayrollSlip
             grdDeduction.Children.Add(row1_3);
         }
 
-            private void putOtDataRow(int i, int headerFontSize, string v1, string v2, string v3, string v4, string v5, string v6, string v7)
+        private void putOtDataRow(int i, int headerFontSize, string v1, string v2, string v3, string v4, string v5, string v6, string v7)
         {
             RowDefinition tmpRowDev = new RowDefinition();
             tmpRowDev.Height = new GridLength(20);

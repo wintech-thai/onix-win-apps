@@ -81,6 +81,8 @@ namespace Onix.Client.Helper
         private static ObservableCollection<MMasterRef> employeeDepartments = new ObservableCollection<MMasterRef>();
         private static ObservableCollection<MMasterRef> employeePositions = new ObservableCollection<MMasterRef>();
 
+        private static ObservableCollection<MMasterRef> payrollAllowanceTypes = new ObservableCollection<MMasterRef>();
+
         private static MCompanyProfile company = null;
 
         private static Boolean isCategoryITemLoaded = false;
@@ -1284,6 +1286,27 @@ namespace Onix.Client.Helper
             }
         }
 
+        public ObservableCollection<MMasterRef> PayrollAllowanceTypes
+        {
+            get
+            {
+                if (payrollAllowanceTypes.Count <= 0)
+                {
+                    MMasterRef e0 = new MMasterRef(new CTable(""));
+                    e0.Description = "";
+                    e0.MasterID = "";
+                    payrollAllowanceTypes.Add(e0);
+
+                    MMasterRef e1 = new MMasterRef(new CTable(""));
+                    e1.Description = "ค่ายานพาหนะ";
+                    e1.MasterID = "1";
+                    payrollAllowanceTypes.Add(e1);
+
+                }
+
+                return (payrollAllowanceTypes);
+            }
+        }
 
         public ObservableCollection<MMasterRef> PayrollExpenseTypes
         {

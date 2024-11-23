@@ -5515,6 +5515,15 @@ namespace Onix.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to สวัสดิการและโอที.
+        /// </summary>
+        public static string grpHROtDoc {
+            get {
+                return ResourceManager.GetString("grpHROtDoc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to สลิปเงินเดือน.
         /// </summary>
         public static string grpHRSlip {
@@ -5790,6 +5799,15 @@ namespace Onix.Client.Resources {
         public static string hr_employee_witholding_tax {
             get {
                 return ResourceManager.GetString("hr_employee_witholding_tax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to รายละเอียดสวัสดิการและโอที.
+        /// </summary>
+        public static string hr_ot_doc {
+            get {
+                return ResourceManager.GetString("hr_ot_doc", resourceCulture);
             }
         }
         

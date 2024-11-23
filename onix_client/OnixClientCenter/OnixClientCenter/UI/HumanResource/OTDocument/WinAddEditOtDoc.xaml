@@ -104,6 +104,11 @@
 
                 <Button Name="cmdApprove" IsEnabled="{Binding IsEditable}" Content="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=approve}" 
                         HorizontalAlignment="Right" MinWidth="80"  Margin="15,5,5,5" Click="CmdApprove_Click" TabIndex="99993"/>
+
+                <Button Name="cmdPreview" Content="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=preview}" 
+                        IsEnabled="{Binding ElementName=self}"
+                        HorizontalAlignment="Right" MinWidth="80"  Margin="45,5,5,5" TabIndex="99994" Click="CmdPreview_Click"/>
+
             </StackPanel>
 
             <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
@@ -735,6 +740,139 @@
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock TextAlignment="Right" Text="{Binding DurationMinFmt}" Foreground="{Binding RowColor}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </DockPanel>
+                </DockPanel>
+            </TabItem>
+
+            <TabItem Name="tbiEmployoeeAllowance">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource bmpGreenBullet}" 
+                                   Visibility="{Binding ElementName=tbiEmployoeeAllowance, Path=IsSelected, Converter={StaticResource boolToVisibilityConverter}}"/>
+                        <TextBlock Text="สวัสดิการพนักงาน"/>
+                    </StackPanel>
+                </TabItem.Header>
+
+                <DockPanel LastChildFill="True">
+                    <StackPanel DockPanel.Dock="Right" Orientation="Vertical" >
+                        <Button Name="cmdEmployeeAllowanceAdd" Content="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=add}" HorizontalAlignment="Center"
+                                IsEnabled="{Binding IsEditable}"
+                                Width="80"  Margin="5,5,5,5" Click="cmdEmployeeAllowanceAdd_Click"/>
+                    </StackPanel>
+
+                    <DockPanel LastChildFill="True">
+                        <StackPanel DockPanel.Dock="Bottom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0">
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Label Grid.Column="0" Grid.Row="1" Content="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=lot_quantity}" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Margin="5,0,0,0"/>
+                                    <TextBox Grid.Column="1" Grid.Row="1" Width="150" Text="{Binding AllowanceItemCountFmt}" IsEnabled="False" VerticalContentAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Margin="5,0,0,0" TextChanged="DefaultTextBox_TextChanged"
+                                             Foreground="Black" FontWeight="Medium"/>
+
+                                    <Label Grid.Column="2" Grid.Row="1" Name="lblEmpAllowanceAmount"  Content="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=ot_amount}" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Margin="5,0,0,0"/>
+                                    <TextBox Grid.Column="3" Grid.Row="1" Width="150" Text="{Binding AllowanceAmountFmt}" IsEnabled="False" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" HorizontalContentAlignment="Right" TextChanged="DefaultTextBox_TextChanged"/>
+                                </Grid>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <ListView Name="lsvEmpAllowance" Style="{StaticResource SearchListView}" SizeChanged="DefaultListView_SizeChanged" Grid.Column="0"  Margin="5" 
+                                  ItemsSource="{Binding AllowanceItems}" PreviewKeyDown="LsvExpense_PreviewKeyDown" MouseDoubleClick="lsvEmpAllowance_MouseDoubleClick">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn x:Name="colEmpAllowanceChecked">
+                                        <Image Width="16" Height="16" Source="{StaticResource bmpTrash}"/>
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <CheckBox Name="cbkRemove" Tag="{Binding ObjSelf}" IsChecked="{Binding IsDeleted}"
+                                                          Checked="CbkRemove_Checked" Unchecked="CbkRemove_Checked"/>
+                                                    <Image Width="16" Height="16" Source="{Binding Path=StateIcon}"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+
+                                    <GridViewColumn x:Name="colEmpAllowanceAction" Header="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=action}">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Name="cmdAction" Width="30" Tag="{Binding ObjSelf}" Content="..." Click="CmdAction_Click">
+                                                    <Button.ContextMenu>
+                                                        <ContextMenu>
+                                                            <MenuItem Name="mnuDocumentEdit" Header="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=ADMIN_EDIT}" Click="MnuDocumentEdit_Click"/>
+                                                        </ContextMenu>
+                                                    </Button.ContextMenu>
+                                                </Button>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+
+                                    <GridViewColumn x:Name="colEmpAllowanceType" Header="สวัสดิการ">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock TextAlignment="Left" Text="{Binding AllowanceTypeDesc}" Foreground="{Binding RowColor}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+
+                                    <GridViewColumn x:Name="colEmpAllownaceDate" Header="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=date}">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock TextAlignment="Center" Text="{Binding AllowanceDateFmt}" Foreground="{Binding RowColor}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+
+                                    <GridViewColumn x:Name="colEmpAllowanceNote" Header="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=note}">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock TextAlignment="Left" Text="{Binding AllowanceNote}" Foreground="{Binding RowColor}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+
+                                    <GridViewColumn x:Name="colEmpAllowanceQuantity" Header="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=quantity}">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock TextAlignment="Right" Text="{Binding AllowanceQuantityFmt}" Foreground="{Binding RowColor}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+
+                                    <GridViewColumn x:Name="colEmpAllowancePrice" Header="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=unit_price}">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock TextAlignment="Right" Text="{Binding AllowancePriceFmt}" Foreground="{Binding RowColor}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+
+                                    <GridViewColumn x:Name="colEmpAllowanceAmount" Header="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=amount}">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock TextAlignment="Right" Text="{Binding AllowanceAmountFmt}" Foreground="{Binding RowColor}"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>

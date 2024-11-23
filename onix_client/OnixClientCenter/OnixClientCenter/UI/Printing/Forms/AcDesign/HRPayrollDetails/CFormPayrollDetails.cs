@@ -50,7 +50,11 @@ namespace Onix.ClientCenter.Forms.AcDesign.HRPayrollSlip
             otDoc.InitializeAfterLoaded();
 
             m.OtDoc = otDoc;
-            UFormPayrollDetails page = new UFormPayrollDetails(m, pageIdx, pageCount, rptCfg, param);
+            UserControl page = new UFormPayrollDetails(m, pageIdx, pageCount, rptCfg, param);
+            if (pageIdx == 2)
+            {
+                page = new UFormPayrollDetailsP2(m, pageIdx, pageCount, rptCfg, param);
+            }
 
             page.Width = rptCfg.AreaWidthDot;
             page.Height = rptCfg.AreaHeightDot;
@@ -66,9 +70,27 @@ namespace Onix.ClientCenter.Forms.AcDesign.HRPayrollSlip
 
         protected override ArrayList createPageParam()
         {
-            MVPayrollDocument ad = (MVPayrollDocument)dataSource;
+            MVPayrollDocument ad = (MVPayrollDocument) dataSource;
 
-            ArrayList arr = createPageParamEasy(ad.PayrollItems, 1);
+            ArrayList arr = new ArrayList();
+
+            var param1 = new CReportPageParam
+            {
+                StartIndex = 1,
+                EndIndex = 1,
+                TotalItemCount = 1,
+            };
+
+            var param2 = new CReportPageParam
+            {
+                StartIndex = 1,
+                EndIndex = 1,
+                TotalItemCount = 1,
+            };
+
+            arr.Add(param1);
+            arr.Add(param2);
+
             return (arr);
         }
 

@@ -1465,6 +1465,40 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             }
         }
 
+
+        public String SlipDeductOther
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("SLIP_DEDUCT_OTHER"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("SLIP_DEDUCT_OTHER", value);
+                NotifyPropertyChanged();
+                updateFlag();
+            }
+        }
+
+        public String SlipDeductOtherFmt
+        {
+            get
+            {
+                String fmt = CUtil.FormatNumber(SlipDeductOther);
+                return (fmt);
+            }
+
+            set
+            {
+            }
+        }
+
         public String DeductOtherFmt
         {
             get
@@ -1612,7 +1646,8 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             ReceiveOtherTotal = receiveOthers.ToString();
             DeductOther = deductOther.ToString();
             DeductBorrowCoverage = deductBorrowCoverage.ToString();
-            SlipReceiveOT = ot.ToString();
+            SlipReceiveOT = (ot - penalty).ToString(); //ลูกค้าต้องการให้แสดง OT ที่หักขาดลามาสายแล้วที่สลิปเงินเดือนเพื่อที่พนักงานจะได้ไม่ต้องถามว่าหักอะไร
+            SlipDeductOther = (deductOther - penalty).ToString(); //ไม่ต้องเอาขาดลาสายมาคิด เพราะว่าหักใน SlipReceiveOT แล้ว
 
             GrandTotalAmount = grandTotal.ToString();
         }

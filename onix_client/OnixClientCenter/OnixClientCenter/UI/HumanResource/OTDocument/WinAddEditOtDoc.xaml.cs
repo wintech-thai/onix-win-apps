@@ -7,6 +7,7 @@ using Onix.Client.Model;
 using Onix.ClientCenter.Commons.Factories;
 using Onix.ClientCenter.Commons.UControls;
 using Onix.ClientCenter.Commons.Windows;
+using Onix.ClientCenter.Windows;
 using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.UI.HumanResource.OTDocument
@@ -17,6 +18,7 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
         private MVOTDocumentItem currentViewObj = null;
         private MVPayrollExpenseItem currentExpenseViewObj = null;
         private MVPayrollDeductionItem currentDeductionViewObj = null;
+        private MVPayrollAllowanceItem currentAllowanceViewObj = null;
 
         private String employeeType = "";
 
@@ -47,6 +49,9 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
 
             ratios = new double[6] { 0.05, 0.05, 0.15, 0.15, 0.50, 0.10};
             registerListViewSize(lsvDeduct.Name, ratios);
+
+            ratios = new double[8] { 0.05, 0.05, 0.15, 0.15, 0.30, 0.10, 0.10, 0.10 };
+            registerListViewSize(lsvEmpAllowance.Name, ratios);
         }
 
         protected override bool isEditable()
@@ -406,6 +411,57 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
         private void DefaultTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void cmdEmployeeAllowanceAdd_Click(object sender, RoutedEventArgs e)
+        {
+            CWinLoadParam param = new CWinLoadParam();
+
+            param.Caption = CLanguage.getValue("add") + " " + "สวัสดิการพนักงาน";
+            param.Mode = "A";
+            param.ActualParentView = mv;
+            param.GenericType = loadParam.GenericType;
+            //param.ActualView = actDoc;
+            Boolean okClick = FactoryWindow.ShowWindow("WinAddEditPayrollAllowanceItem", param);
+
+            if (okClick)
+            {
+                (vw as MVOTDocument).CalculateTotalFields();
+                vw.IsModified = true;
+            }
+        }
+
+        private void showEditAllowanceWindow()
+        {
+            CWinLoadParam param = new CWinLoadParam();
+
+            param.Caption = CLanguage.getValue("edit") + " " + "สวัสดิการพนักงาน";
+            param.Mode = "E";
+            param.ActualParentView = mv;
+            param.ActualView = currentAllowanceViewObj;
+            param.GenericType = loadParam.GenericType;
+            Boolean okClick = FactoryWindow.ShowWindow("WinAddEditPayrollAllowanceItem", param);
+
+            if (okClick)
+            {
+                (vw as MVOTDocument).CalculateTotalFields();
+                vw.IsModified = true;
+            }
+        }
+
+        private void lsvEmpAllowance_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (lsvEmpAllowance.SelectedItems.Count == 1)
+            {
+                currentAllowanceViewObj = (MVPayrollAllowanceItem) lsvEmpAllowance.SelectedItems[0];
+                showEditAllowanceWindow();
+            }
+        }
+
+        private void CmdPreview_Click(object sender, RoutedEventArgs e)
+        {
+            WinFormPrinting w = new WinFormPrinting("grpHROtDoc", mv);
+            w.ShowDialog();
         }
     }
 }
