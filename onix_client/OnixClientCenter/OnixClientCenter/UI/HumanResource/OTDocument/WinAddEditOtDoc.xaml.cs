@@ -7,6 +7,7 @@ using Onix.Client.Model;
 using Onix.ClientCenter.Commons.Factories;
 using Onix.ClientCenter.Commons.UControls;
 using Onix.ClientCenter.Commons.Windows;
+using Onix.ClientCenter.Windows;
 using Onix.OnixHttpClient;
 
 namespace Onix.ClientCenter.UI.HumanResource.OTDocument
@@ -455,6 +456,12 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
                 currentAllowanceViewObj = (MVPayrollAllowanceItem) lsvEmpAllowance.SelectedItems[0];
                 showEditAllowanceWindow();
             }
+        }
+
+        private void CmdPreview_Click(object sender, RoutedEventArgs e)
+        {
+            WinFormPrinting w = new WinFormPrinting("grpHROtDoc", mv);
+            w.ShowDialog();
         }
     }
 }

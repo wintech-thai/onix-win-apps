@@ -104,6 +104,11 @@
 
                 <Button Name="cmdApprove" IsEnabled="{Binding IsEditable}" Content="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=approve}" 
                         HorizontalAlignment="Right" MinWidth="80"  Margin="15,5,5,5" Click="CmdApprove_Click" TabIndex="99993"/>
+
+                <Button Name="cmdPreview" Content="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=preview}" 
+                        IsEnabled="{Binding ElementName=self}"
+                        HorizontalAlignment="Right" MinWidth="80"  Margin="45,5,5,5" TabIndex="99994" Click="CmdPreview_Click"/>
+
             </StackPanel>
 
             <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">

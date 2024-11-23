@@ -4567,4 +4567,10 @@
   <data name="grpHRSlipOrg" xml:space="preserve">
     <value>สลิปเงินเดือน</value>
   </data>
+  <data name="hr_ot_doc" xml:space="preserve">
+    <value>Allowance &amp; OT</value>
+  </data>
+  <data name="grpHROtDoc" xml:space="preserve">
+    <value>Allowance &amp; OT</value>
+  </data>
 </root>

@@ -1129,7 +1129,6 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
             }
 
 
-
             double adjust = CUtil.StringToDouble(AdjustAmount);
             double otAdjust = CUtil.StringToDouble(OtAdjustAmount);
             double rate = CUtil.StringToDouble(OtRate);
@@ -1145,6 +1144,8 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
             DeductionHourRoundedTotal = roundedHour.ToString();
 
             ItemCount = i.ToString();
+
+            received = Math.Floor(received); //ลูกค้าบอกให้ปัดเศษ OT ลง
             ReceiveAmount = (received-otAdjust).ToString(); //OT
             WorkedAmount = workedAmt.ToString(); //ค่าแรงสำหรับรายวัน
 
@@ -1157,6 +1158,8 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
 
             AllowanceItemCount = allowanceCount.ToString();
             AllowanceAmount = allowanceTotal.ToString();
+
+            var slipDisplayOt = received - deduction; //อันนี้จะแสดงใน slip เงินเดือน เป็นยอด OT ที่หักขาดลาสาย เพราะ ไม่อยากโชว์ที่หักให้พนักงานเห็น
         }
 
         private double roundHour(double num)
