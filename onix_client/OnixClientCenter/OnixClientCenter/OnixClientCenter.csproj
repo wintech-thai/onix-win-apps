@@ -222,6 +222,9 @@
       <DependentUpon>UFormEmployeeLeave.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Printing\Forms\AcDesign\HRPayrollDetails\CFormPayrollDetails.cs" />
+    <Compile Include="UI\Printing\Forms\AcDesign\HRPayrollDetails\UFormPayrollDetailsP2.xaml.cs">
+      <DependentUpon>UFormPayrollDetailsP2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Printing\Forms\AcDesign\HRPayrollDetails\UFormPayrollDetails.xaml.cs">
       <DependentUpon>UFormPayrollDetails.xaml</DependentUpon>
     </Compile>
@@ -715,6 +718,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Printing\Forms\AcDesign\HREmployeeLeave\UFormEmployeeLeave.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Printing\Forms\AcDesign\HRPayrollDetails\UFormPayrollDetailsP2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

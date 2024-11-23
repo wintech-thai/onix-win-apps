@@ -105,7 +105,7 @@
                 <TextBlock Text="{Binding FromSalaryDateFmt}" Style="{StaticResource ResourceKey=H2TextFont}" 
                            VerticalAlignment="Center"/>
 
-                <TextBlock Text="" Style="{StaticResource ResourceKey=H2TextFont}" 
+                <TextBlock Text="-" Style="{StaticResource ResourceKey=H2TextFont}" 
                            VerticalAlignment="Center"/>
                 
                 <TextBlock Text="{Binding ToSalaryDateFmt}" Style="{StaticResource ResourceKey=H2TextFont}" 
