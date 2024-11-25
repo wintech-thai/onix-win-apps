@@ -286,6 +286,15 @@
                                 <Label Content="(คืนเงินพนักงานที่สำรองจ่ายไปก่อน)" VerticalAlignment="Center" 
                                    VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Margin="5,0,0,0"/>
                             </StackPanel>
+
+                            <Label Grid.Column="0" Grid.Row="9" Content="หมายเหตุ" VerticalAlignment="Center" 
+                                   VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Margin="5,0,0,0"/>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="5">
+                                <TextBox  Width="750" Text="{Binding PayrollNote, UpdateSourceTrigger=PropertyChanged}"
+                                          IsEnabled="{Binding ElementName=self, Path=IsPreviewAble}"
+                                         VerticalContentAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Left" 
+                                         Margin="5,0,0,0" TextChanged="DefaultTextBox_TextChanged"/>
+                            </StackPanel>
                         </Grid>
                     </DockPanel>
                 </DockPanel>

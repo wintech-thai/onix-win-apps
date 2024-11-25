@@ -348,7 +348,8 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
                 EmployeeIDNumber = ii.IDNumber;
                 PositionName = ii.PositionName;
                 DepartmentName = ii.DepartmentName;
-                
+                HiringFlag = ii.HasHiringFlag.Equals(true)?"Y":"N";
+
 
                 updateFlag();
             }
@@ -373,6 +374,7 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
                 m.IDNumber = EmployeeIDNumber;
                 m.DepartmentName = DepartmentName;
                 m.PositionName = PositionName;
+                m.HasHiringFlag = HiringFlag.Equals("Y");
 
                 return (m);
             }
@@ -574,6 +576,24 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             set
             {
                 GetDbObject().SetFieldValue("POSITION_NAME", value);
+            }
+        }
+
+        public String HiringFlag
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("HIRING_FLAG"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("HIRING_FLAG", value);
             }
         }
 
@@ -861,6 +881,25 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             set
             {
                 GetDbObject().SetFieldValue("NOTE", value);
+                updateFlag();
+            }
+        }
+
+        public String PayrollNote
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("PAYROLL_NOTE"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("PAYROLL_NOTE", value);
                 updateFlag();
             }
         }
