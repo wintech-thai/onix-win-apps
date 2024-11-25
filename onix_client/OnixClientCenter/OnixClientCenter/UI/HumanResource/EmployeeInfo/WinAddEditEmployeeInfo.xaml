@@ -303,11 +303,15 @@
                                 <TextBox x:Name="txtSalary" Text="{Binding Salary}" Width="150" Margin="5,0,0,0" 
                                          VerticalContentAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Right"
                                          PreviewTextInput="DefaultTextBoxNumber_PreviewTextInput"
+                                         IsEnabled="False"
                                          TextChanged="DefaultTextBox_TextChanged"/>
 
                                 <Label Name="lblSalaryBath" Content="บาท" 
                                    VerticalAlignment="Center" VerticalContentAlignment="Center"  
                                    HorizontalContentAlignment="Right" Margin="0,0,0,0"  />
+
+                                <Button Name="cmdSalaryEdit" Content="แก้ไขเงินเดือน" MinWidth="100"  Margin="5,0,0,0" Click="cmdSalaryEdit_Click_1"/>
+
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="1">
