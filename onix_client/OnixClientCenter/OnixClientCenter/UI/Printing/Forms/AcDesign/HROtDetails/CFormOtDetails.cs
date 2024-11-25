@@ -12,6 +12,7 @@ using Onix.ClientCenter.UI.HumanResource.PayrollDocument;
 using Onix.ClientCenter.UI.HumanResource.OTDocument;
 using Microsoft.Office.Interop.Excel;
 using Onix.Client.Controller;
+using Onix.ClientCenter.Forms.AcDesign.HRPayrollSlip;
 
 namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
 {
@@ -26,7 +27,11 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
             var m = (MVOTDocument) dataSource;
             int idx = pageIdx - 1;
 
-            UFormOtDetails page = new UFormOtDetails(m, pageIdx, pageCount, rptCfg, param);
+            UserControl page = new UFormOtDetailsP1(m, pageIdx, pageCount, rptCfg, param);
+            if (pageIdx == 2)
+            {
+                page = new UFormOtDetailsP2(m, pageIdx, pageCount, rptCfg, param);
+            }
 
             page.Width = rptCfg.AreaWidthDot;
             page.Height = rptCfg.AreaHeightDot;
@@ -42,11 +47,26 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
 
         protected override ArrayList createPageParam()
         {
-            //MVPayrollDocument ad = (MVPayrollDocument)dataSource;
+            ArrayList arr = new ArrayList();
 
-            //ArrayList arr = createPageParamEasy(ad.PayrollItems, 1);
-            //return (arr);
-            return new ArrayList();
+            var param1 = new CReportPageParam
+            {
+                StartIndex = 1,
+                EndIndex = 1,
+                TotalItemCount = 1,
+            };
+
+            var param2 = new CReportPageParam
+            {
+                StartIndex = 1,
+                EndIndex = 1,
+                TotalItemCount = 1,
+            };
+
+            arr.Add(param1);
+            arr.Add(param2);
+
+            return (arr);
         }
 
         protected override void initPageCreateFlow()

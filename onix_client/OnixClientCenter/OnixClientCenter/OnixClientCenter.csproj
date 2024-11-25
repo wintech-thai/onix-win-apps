@@ -210,8 +210,11 @@
       <DependentUpon>UFormEmployeeWithholdingTax.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Printing\Forms\AcDesign\HROtDetails\CFormOtDetails.cs" />
-    <Compile Include="UI\Printing\Forms\AcDesign\HROtDetails\UFormOtDetails.xaml.cs">
-      <DependentUpon>UFormOtDetails.xaml</DependentUpon>
+    <Compile Include="UI\Printing\Forms\AcDesign\HROtDetails\UFormOtDetailsP1.xaml.cs">
+      <DependentUpon>UFormOtDetailsP1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Printing\Forms\AcDesign\HROtDetails\UFormOtlDetailsP2.xaml.cs">
+      <DependentUpon>UFormOtlDetailsP2.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Printing\Forms\AcDesign\HRPayrollDeposit\CFormPayrollDeposit.cs" />
     <Compile Include="UI\Printing\Forms\AcDesign\HRPayrollDeposit\UFormPayrollDeposit.xaml.cs">
@@ -709,7 +712,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Printing\Forms\AcDesign\HROtDetails\UFormOtDetails.xaml">
+    <Page Include="UI\Printing\Forms\AcDesign\HROtDetails\UFormOtDetailsP1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Printing\Forms\AcDesign\HROtDetails\UFormOtlDetailsP2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
