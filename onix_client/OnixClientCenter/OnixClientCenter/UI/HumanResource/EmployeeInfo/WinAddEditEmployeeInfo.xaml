@@ -310,11 +310,19 @@
                                    HorizontalContentAlignment="Right" Margin="0,0,0,0"  />
                             </StackPanel>
 
-                            <CheckBox Name="cboResign" Grid.Row="6" Grid.Column="1" IsThreeState="False" 
-                                      Content="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=has_resigned}" 
-                                      IsChecked="{Binding Path=HasResignedFlag}" VerticalAlignment="Center"
-                                      HorizontalAlignment="Left" Margin="5,0,0,0" 
-                                      Checked="DefaultRadioButton_Checked" Unchecked="DefaultRadioButton_Checked"/>
+                            <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="1">
+                                <CheckBox Name="cboResign" IsThreeState="False" 
+                                          Content="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=has_resigned}" 
+                                          IsChecked="{Binding Path=HasResignedFlag}" VerticalAlignment="Center"
+                                          HorizontalAlignment="Left" Margin="5,0,0,0" 
+                                          Checked="DefaultRadioButton_Checked" Unchecked="DefaultRadioButton_Checked"/>
+
+                                <CheckBox Name="cbxHiring" IsThreeState="False" 
+                                          Content="เป็นผู้รับจ้าง" 
+                                          IsChecked="{Binding Path=HasHiringFlag}" VerticalAlignment="Center"
+                                          HorizontalAlignment="Left" Margin="5,0,0,0" 
+                                          Checked="DefaultRadioButton_Checked" Unchecked="DefaultRadioButton_Checked"/>
+                            </StackPanel>
                         </Grid>
                     </Grid>
                 </Border>

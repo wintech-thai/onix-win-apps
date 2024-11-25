@@ -20,7 +20,7 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
         public WinAddEditPayrollDocItem(CWinLoadParam param) : base(param)
         {
             accessRightName = "HR_PAYROLL_EDIT";
-            mvParent = (MVPayrollDocument)loadParam.ActualParentView;
+            mvParent = (MVPayrollDocument) loadParam.ActualParentView;
 
             InitializeComponent();
 
@@ -254,6 +254,7 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
 
             MEmployee emp = new MEmployee(empObj);
             mv.ReceiveIncome = emp.Salary;
+            mv.EmployeeObj = emp;
         }
 
         private void UEmployee_SelectedObjectChanged(object sender, EventArgs e)
@@ -315,6 +316,19 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             mv.DeductPenalty = otDoc.DeductionAmount;
             mv.ReceiveRefund = otDoc.ExpenseAmount;
             mv.ReceiveTransaportation = otDoc.AllowanceAmount; //ตอนนี้สวัสดิการมีแต่ค่ายานพาหนะ
+
+            if (mv.EmployeeObj.HasHiringFlag.Equals(true))
+            {
+                //ผู้รับจ้างทั่วไป - ให้คิดภาษีหัก 3% ไปเลย
+                mv.DeductTax = (CUtil.StringToDouble(mv.ReceiveIncome) * 0.03).ToString();
+            }
+            else 
+            {
+                //รายวัน,รายเดือน ให้คำนวณประกันสังคมที่ 5% ให้เลย, ไม่ต้องคำนวณภาษีให้
+                var socAmt = (CUtil.StringToDouble(mv.ReceiveIncome) * 0.05).ToString();
+                mv.DeductSocialSecurity = socAmt;
+                mv.SocialSecurityCompany = socAmt;
+            }
 
             CUtil.EnableForm(true, this);
         }

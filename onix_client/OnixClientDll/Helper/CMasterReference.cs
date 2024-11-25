@@ -1378,6 +1378,12 @@ namespace Onix.Client.Helper
                     e3.Code = "minute";
                     payrollDeductionTypes.Add(e3);
 
+                    MMasterRef e5 = new MMasterRef(new CTable(""));
+                    e5.Description = "ลากิจ";
+                    e5.MasterID = "5";
+                    e5.Code = "hour";
+                    payrollDeductionTypes.Add(e5);
+
                     MMasterRef e4 = new MMasterRef(new CTable(""));
                     e4.Description = "อื่น ๆ";
                     e4.MasterID = "4";

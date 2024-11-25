@@ -570,6 +570,28 @@ namespace Onix.Client.Model
             }
         }
 
+        public Boolean IsHiring
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return (false);
+                }
+
+                return (EmployeeType.Equals("3"));
+            }
+
+            set
+            {
+                if (value)
+                {
+                    EmployeeType = "3";
+                    NotifyPropertyChanged("IsHiring");
+                }
+            }
+        }
+
         public String EmployeeTypeName
         {
             get
@@ -1253,6 +1275,36 @@ namespace Onix.Client.Model
                 }
 
                 GetDbObject().SetFieldValue("RESIGNED_FLAG", flag);
+                NotifyPropertyChanged();
+            }
+        }
+
+        public Boolean? HasHiringFlag
+        {
+            get
+            {
+                String flag = GetDbObject().GetFieldValue("HIRING_FLAG");
+                if (flag.Equals(""))
+                {
+                    return (false);
+                }
+
+                return (flag.Equals("Y"));
+            }
+
+            set
+            {
+                String flag = "N";
+                if (value == null)
+                {
+                    flag = "N";
+                }
+                else if ((Boolean)value)
+                {
+                    flag = "Y";
+                }
+                
+                GetDbObject().SetFieldValue("HIRING_FLAG", flag);
                 NotifyPropertyChanged();
             }
         }

@@ -1102,8 +1102,11 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
                 expense = expense + CUtil.StringToDouble(exp.ExpenseAmount);
             }
 
+            //หัก ขาดลาสาย
             int deductionCount = 0;
             double deductMinuteTotal = 0;
+            Hashtable deductTypeAggregate = new Hashtable();
+
             foreach (MVPayrollDeductionItem exp in deductionItems)
             {
                 if (exp.ExtFlag.Equals("D"))
@@ -1113,6 +1116,16 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
                 
                 deductionCount++;                
                 deductMinuteTotal = deductMinuteTotal + CUtil.StringToDouble(exp.DurationMin);
+
+                if (deductTypeAggregate[exp.DeductionType] == null)
+                {
+                    deductTypeAggregate[exp.DeductionType] = CUtil.StringToDouble(exp.DurationMin);
+                }
+                else
+                {
+                    double tmpAmt = (double) deductTypeAggregate[exp.DeductionType];
+                    deductTypeAggregate[exp.DeductionType] = tmpAmt + CUtil.StringToDouble(exp.DurationMin);
+                }
             }
 
             int allowanceCount = 0;
@@ -1138,7 +1151,7 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
                 //ถ้าไม่ถึง 1 ให้ปัดลง
                 roundedHour = 0.00;
             }
-            deduction = roundedHour * rate * 1.50; //คิดหักที่ 1.5 เท่า
+            deduction = calcuateDeduction(deductTypeAggregate, rate); //roundedHour * rate * 1.50; //คิดหักที่ 1.5 เท่า
             deduction = deduction - adjust;
 
             DeductionHourRoundedTotal = roundedHour.ToString();
@@ -1160,6 +1173,35 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
             AllowanceAmount = allowanceTotal.ToString();
 
             var slipDisplayOt = received - deduction; //อันนี้จะแสดงใน slip เงินเดือน เป็นยอด OT ที่หักขาดลาสาย เพราะ ไม่อยากโชว์ที่หักให้พนักงานเห็น
+        }
+
+        private double calcuateDeduction(Hashtable deductTypeAggregate, double rate)
+        {
+            double totalAmt = 0.0;
+
+            foreach (DictionaryEntry s in deductTypeAggregate)
+            {
+                double multiplier = 1.0;
+
+                double totalMinute = (double) s.Value;
+                double roundedHour = roundHour(totalMinute / 60.00);
+                if (roundedHour < 1.00)
+                {
+                    //ถ้าไม่ถึง 1 ให้ปัดลง
+                    roundedHour = 0.00;
+                }
+
+                if (s.Key.Equals("3") || s.Key.Equals("4"))
+                {
+                    //สายกับขาด เท่านั้นที่คิดตัวคูณที่ 1.5
+                    multiplier = 1.5;
+                }
+
+                double amt = roundedHour * rate * multiplier;
+                totalAmt = totalAmt + amt;
+            }
+
+            return totalAmt;
         }
 
         private double roundHour(double num)
