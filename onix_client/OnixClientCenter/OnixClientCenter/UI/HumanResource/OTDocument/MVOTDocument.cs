@@ -1160,7 +1160,7 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
 
             received = Math.Floor(received); //ลูกค้าบอกให้ปัดเศษ OT ลง
             ReceiveAmount = (received-otAdjust).ToString(); //OT
-            WorkedAmount = workedAmt.ToString(); //ค่าแรงสำหรับรายวัน
+            WorkedAmount = Math.Floor(workedAmt).ToString(); //ค่าแรงสำหรับรายวัน
 
             DeductionAmount = deduction.ToString(); //ขาด ลา สาย in hour 
             DeductionItemCount = deductionCount.ToString();
@@ -1362,5 +1362,352 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
         }
 
         #endregion AllowanceItems
+
+        #region Total fields
+        public String DeductionHourRoundedTotal1
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("DEDUCTION_HOUR_ROUNDED_TOTAL_1"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("DEDUCTION_HOUR_ROUNDED_TOTAL_1", value);
+                NotifyPropertyChanged();
+            }
+        }
+
+        public String DeductionMinuteTotal1
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("DEDUCTION_MINUTE_TOTAL_1"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("DEDUCTION_MINUTE_TOTAL_1", value);
+                NotifyPropertyChanged();
+            }
+        }
+
+        public String DeductionAmount1
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("DEDUCTION_AMOUNT_1"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("DEDUCTION_AMOUNT_1", value);
+                NotifyPropertyChanged();
+            }
+        }
+
+        public String DeductionHourRoundedTotal2
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("DEDUCTION_HOUR_ROUNDED_TOTAL_2"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("DEDUCTION_HOUR_ROUNDED_TOTAL_2", value);
+                NotifyPropertyChanged();
+            }
+        }
+
+        public String DeductionMinuteTotal2
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("DEDUCTION_MINUTE_TOTAL_2"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("DEDUCTION_MINUTE_TOTAL_2", value);
+                NotifyPropertyChanged();
+            }
+        }
+
+        public String DeductionAmount2
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("DEDUCTION_AMOUNT_2"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("DEDUCTION_AMOUNT_2", value);
+                NotifyPropertyChanged();
+            }
+        }
+
+        public String DeductionHourRoundedTotal3
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("DEDUCTION_HOUR_ROUNDED_TOTAL_3"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("DEDUCTION_HOUR_ROUNDED_TOTAL_3", value);
+                NotifyPropertyChanged();
+            }
+        }
+
+        public String DeductionMinuteTotal3
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("DEDUCTION_MINUTE_TOTAL_3"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("DEDUCTION_MINUTE_TOTAL_3", value);
+                NotifyPropertyChanged();
+            }
+        }
+
+        public String DeductionAmount3
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("DEDUCTION_AMOUNT_3"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("DEDUCTION_AMOUNT_3", value);
+                NotifyPropertyChanged();
+            }
+        }
+
+        public String DeductionHourRoundedTotal4
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("DEDUCTION_HOUR_ROUNDED_TOTAL_4"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("DEDUCTION_HOUR_ROUNDED_TOTAL_4", value);
+                NotifyPropertyChanged();
+            }
+        }
+
+        public String DeductionMinuteTotal4
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("DEDUCTION_MINUTE_TOTAL_4"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("DEDUCTION_MINUTE_TOTAL_4", value);
+                NotifyPropertyChanged();
+            }
+        }
+
+        public String DeductionAmount4
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("DEDUCTION_AMOUNT_4"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("DEDUCTION_AMOUNT_4", value);
+                NotifyPropertyChanged();
+            }
+        }
+
+        public String DeductionHourRoundedTotal5
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("DEDUCTION_HOUR_ROUNDED_TOTAL_5"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("DEDUCTION_HOUR_ROUNDED_TOTAL_5", value);
+                NotifyPropertyChanged();
+            }
+        }
+
+        public String DeductionMinuteTotal5
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("DEDUCTION_MINUTE_TOTAL_5"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("DEDUCTION_MINUTE_TOTAL_5", value);
+                NotifyPropertyChanged();
+            }
+        }
+
+        public String DeductionAmount5
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("DEDUCTION_AMOUNT_5"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("DEDUCTION_AMOUNT_5", value);
+                NotifyPropertyChanged();
+            }
+        }
+
+
+        public String DeductionHourRoundedTotal6
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("DEDUCTION_HOUR_ROUNDED_TOTAL_6"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("DEDUCTION_HOUR_ROUNDED_TOTAL_6", value);
+                NotifyPropertyChanged();
+            }
+        }
+
+        public String DeductionMinuteTotal6
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("DEDUCTION_MINUTE_TOTAL_6"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("DEDUCTION_MINUTE_TOTAL_6", value);
+                NotifyPropertyChanged();
+            }
+        }
+
+        public String DeductionAmount6
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("DEDUCTION_AMOUNT_6"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("DEDUCTION_AMOUNT_6", value);
+                NotifyPropertyChanged();
+            }
+        }
+
+        #endregion Total fields
+
     }
 }
