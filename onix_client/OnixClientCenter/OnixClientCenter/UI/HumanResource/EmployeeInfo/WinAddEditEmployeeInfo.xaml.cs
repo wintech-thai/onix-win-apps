@@ -120,5 +120,20 @@ namespace Onix.ClientCenter.UI.HumanResource.EmployeeInfo
             WinFormPrinting w = new WinFormPrinting("grpHRTax", emp);
             w.ShowDialog();
         }
+
+        private void cmdSalaryEdit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void cmdSalaryEdit_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (!CHelper.VerifyAccessRight("HR_EMPLOYEE_SALARY"))
+            {
+                return;
+            }
+
+            txtSalary.IsEnabled = true;
+        }
     }
 }

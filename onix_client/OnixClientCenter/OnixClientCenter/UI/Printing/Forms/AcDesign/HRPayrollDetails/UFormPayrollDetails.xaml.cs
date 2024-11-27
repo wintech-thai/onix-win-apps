@@ -125,7 +125,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HRPayrollSlip
             }
 
             putOtDataRow(i, 16, "ปรับยอด", "", "", "", "", "", $"-{otDoc.OtAdjustAmount}");
-            putOtDataRow(i+1, 16, "รวม", "", "", "", "", otDoc.WorkedAmountFmt, otDoc.ReceiveAmountFmt);
+            putOtDataRow(i+1, 16, "รวม (ปัดเศษ)", "", "", "", "", otDoc.WorkedAmountFmt, otDoc.ReceiveAmountFmt);
         }
 
         private void putDeductionDataRow(int i, int headerFontSize, string v1, string v2, string v3)
