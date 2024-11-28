@@ -5785,6 +5785,15 @@ namespace Onix.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to รายงานการหักเงิน ขาด/ลา/สาย.
+        /// </summary>
+        public static string hr_deduction_summary {
+            get {
+                return ResourceManager.GetString("hr_deduction_summary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ข้อมูลการลาพนักงาน.
         /// </summary>
         public static string hr_employee_leave {

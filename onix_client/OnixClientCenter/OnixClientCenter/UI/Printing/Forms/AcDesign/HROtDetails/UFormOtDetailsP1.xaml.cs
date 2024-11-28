@@ -27,13 +27,20 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
 
             init();
 
-            otDoc.InitializeAfterLoaded();
-            
+            if (otDoc != null)
+            {
+                otDoc.InitializeAfterLoaded();
+            }
+
             DataContext = model;
             InitializeComponent();
 
-            populateOtGrid(otDoc);
-            populateDeductionGrid(otDoc);
+
+            if (otDoc != null)
+            {
+                populateOtGrid(otDoc);
+                populateDeductionGrid(otDoc);
+            }
         }
 
         private void populateDeductionGrid(MVOTDocument otDoc)
@@ -280,6 +287,11 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
         {
             get
             {
+                if (otDoc == null)
+                {
+                    return null;
+                }
+
                 return (otDoc.EmployeeObj);
             }
 

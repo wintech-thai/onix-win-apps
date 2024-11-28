@@ -4614,4 +4614,7 @@
   <data name="grpHROtDoc" xml:space="preserve">
     <value>สวัสดิการและโอที</value>
   </data>
+  <data name="hr_deduction_summary" xml:space="preserve">
+    <value>รายงานการหักเงิน ขาด/ลา/สาย</value>
+  </data>
 </root>
