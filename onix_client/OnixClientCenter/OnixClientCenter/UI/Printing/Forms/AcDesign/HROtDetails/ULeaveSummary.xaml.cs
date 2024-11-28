@@ -91,7 +91,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
             grdSummary.ColumnDefinitions.Add(gridCol11);
 
             //Header
-            putDataRow(0, 16, HorizontalAlignment.Center, "วันที่", "ขาด(t)", "ไม่ครบ(t)", "สาย(t)", "ลากิจ(t)", "อื่นๆ(t)", "ขาด", "ไม่ครบ", "สาย", "ลากิจ", "อื่นๆ");
+            putDataRow(0, 16, HorizontalAlignment.Center, "วันที่", "ขาด (t)", "ไม่ครบ (t)", "สาย (t)", "ลากิจ (t)", "อื่นๆ (t)", "ขาด", "ไม่ครบ", "สาย", "ลากิจ", "อื่นๆ");
             /*
             var i = 1;
             foreach (var item in otDoc.OTItems)
