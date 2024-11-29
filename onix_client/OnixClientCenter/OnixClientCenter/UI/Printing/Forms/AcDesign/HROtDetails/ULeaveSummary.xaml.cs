@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Onix.Client.Helper;
 using Onix.Client.Model;
 using Onix.Client.Report;
 using Onix.ClientCenter.UI.HumanResource.OTDocument;
@@ -13,29 +15,11 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
     public partial class ULeaveSummary : UFormBase
     {
         private MVEployeeLeaveSummary leaveSummary = new MVEployeeLeaveSummary(new CTable(""));
+        private double[] totals = new double[11] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
         public ULeaveSummary(MBaseModel model, int page, int totalPage, MReportConfig cfg, CReportPageParam param)
         {
-            dataSource = model;
-
-            if (model is MVOTDocument)
-            {
-                var otDoc = (MVOTDocument) model;
-                leaveSummary.EmployeeObj = otDoc.EmployeeObj;
-            }
-            else if (model is MVPayrollDocument)
-            {
-                int idx = pageNo - 1;
-                var payrollDoc = (MVPayrollDocument)model;
-
-                var item = payrollDoc.GetItemByIndex(idx);
-                if (item == null)
-                {
-                    item = new MVPayrollDocumentItem(new CTable(""));
-                }
-
-                leaveSummary.EmployeeObj = item.EmployeeObj;
-            }
+            leaveSummary = (MVEployeeLeaveSummary) model;
 
             pageNo = page;
             pageCount = totalPage;
@@ -43,8 +27,6 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
             rptConfig = cfg;
 
             init();
-
-            leaveSummary.InitializeAfterLoaded();
             
             DataContext = model;
             InitializeComponent();
@@ -92,26 +74,65 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
 
             //Header
             putDataRow(0, 16, HorizontalAlignment.Center, "วันที่", "ขาด (t)", "ไม่ครบ (t)", "สาย (t)", "ลากิจ (t)", "อื่นๆ (t)", "ขาด", "ไม่ครบ", "สาย", "ลากิจ", "อื่นๆ");
-            /*
-            var i = 1;
-            foreach (var item in otDoc.OTItems)
-            {
-                var displayDate = item.FromWorkDateFmt;
-                if (otDoc.EmployeeType == "2")
-                {
-                    //รายเดือน
-                    displayDate = item.FromOtDateFmt;
-                }
 
-                putDataRow(i, 16, displayDate, item.OtRateFmt, item.WorkAdjustedTotalHourFmt, item.OtAdjustedTotalHourFmt, item.MultiplierType, item.WorkAmountFmt, item.OtAmountFmt);
+            var keyMap = leaveSummary.DateDeductionTypeHashMap;
+            var i = 1;
+            foreach (DateTime otDocDate in leaveSummary.DistinctDatesList)
+            {
+                var displayDate = CUtil.DateTimeToDateString(otDocDate);
+
+                var docDateStr = CUtil.DateTimeToDateStringInternal(otDocDate);
+                var v1 = getDurationMin("1", docDateStr, keyMap); //ขาด
+                var v2 = getDurationMin("2", docDateStr, keyMap); //ทำงานไม่ครบ
+                var v3 = getDurationMin("3", docDateStr, keyMap); //สาย
+                var v4 = getDurationMin("4", docDateStr, keyMap); //อื่น ๆ
+                var v5 = getDurationMin("5", docDateStr, keyMap); //ลากิจ
+
+                putDataRow(i, 16, HorizontalAlignment.Right, displayDate, 
+                    CUtil.FormatNumber(v1), CUtil.FormatNumber(v2), CUtil.FormatNumber(v3), CUtil.FormatNumber(v5),
+                    CUtil.FormatNumber(v4), CUtil.FormatNumber(""), CUtil.FormatNumber(""), CUtil.FormatNumber(""),
+                    CUtil.FormatNumber(""), CUtil.FormatNumber(""));
+
+                addTotal(v1, v2, v3, v4, v5, "", "", "", "", "");
                 i++;
             }
 
-            putDataRow(i, 16, "ปรับยอด", "", "", "", "", "", $"-{otDoc.OtAdjustAmount}");
-            putDataRow(i + 1, 16, "รวม (ปัดเศษ)", "", "", "", "", otDoc.WorkedAmountFmt, otDoc.ReceiveAmountFmt);
-            */
+            putDataRow(i, 16, HorizontalAlignment.Right, "รวม (ปัดเศษจำนวนเงิน)",
+                CUtil.FormatNumber(totals[1].ToString()), CUtil.FormatNumber(totals[2].ToString()), 
+                CUtil.FormatNumber(totals[3].ToString()), CUtil.FormatNumber(totals[5].ToString()),
+                CUtil.FormatNumber(totals[4].ToString()), CUtil.FormatNumber(""), 
+                CUtil.FormatNumber(""), CUtil.FormatNumber(""),
+                CUtil.FormatNumber(""), CUtil.FormatNumber(""));
         }
 
+        private void addTotal(string v1, string v2, string v3, string v4, string v5, 
+            string v6, string v7, string v8, string v9, string v10)
+        {
+            totals[1] = totals[1] + CUtil.StringToDouble(v1);
+            totals[2] = totals[2] + CUtil.StringToDouble(v2);
+            totals[3] = totals[3] + CUtil.StringToDouble(v3);
+            totals[4] = totals[4] + CUtil.StringToDouble(v4);
+            totals[5] = totals[5] + CUtil.StringToDouble(v5);
+            totals[6] = totals[6] + CUtil.StringToDouble(v6);
+            totals[7] = totals[7] + CUtil.StringToDouble(v7);
+            totals[8] = totals[8] + CUtil.StringToDouble(v8);
+            totals[9] = totals[9] + CUtil.StringToDouble(v9);
+            totals[10] = totals[10] + CUtil.StringToDouble(v10);
+        }
+
+        private string getDurationMin(string deductionType, string docDateStr, Hashtable keyMap)
+        {
+            var key1 = $"{docDateStr}:{deductionType}";
+            var obj1 = (MVPayrollDeductionItem) keyMap[key1];
+
+            var v1 = "";
+            if (obj1 != null)
+            {
+                v1 = obj1.DurationMin;
+            }
+
+            return v1;
+        }
 
         private void putDataRow(int i, int headerFontSize, HorizontalAlignment halign,
             string v1, string v2, string v3, string v4, string v5, string v6, string v7, 
@@ -143,6 +164,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
             data1_2.Text = v2;
             data1_2.HorizontalAlignment = halign;
             data1_2.VerticalAlignment = VerticalAlignment.Center;
+            data1_2.Margin = new Thickness(0, 0, 5, 0);
             row1_2.Child = data1_2;
             Grid.SetRow(row1_2, i);
             Grid.SetColumn(row1_2, 1);
@@ -156,6 +178,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
             data1_3.Text = v3;
             data1_3.HorizontalAlignment = halign;
             data1_3.VerticalAlignment = VerticalAlignment.Center;
+            data1_3.Margin = new Thickness(0, 0, 5, 0);
             row1_3.Child = data1_3;
             Grid.SetRow(row1_3, i);
             Grid.SetColumn(row1_3, 2);
@@ -169,6 +192,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
             data1_4.Text = v4;
             data1_4.HorizontalAlignment = halign;
             data1_4.VerticalAlignment = VerticalAlignment.Center;
+            data1_4.Margin = new Thickness(0, 0, 5, 0);
             row1_4.Child = data1_4;
             Grid.SetRow(row1_4, i);
             Grid.SetColumn(row1_4, 3);
@@ -182,6 +206,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
             data1_5.Text = v5;
             data1_5.HorizontalAlignment = halign;
             data1_5.VerticalAlignment = VerticalAlignment.Center;
+            data1_5.Margin = new Thickness(0, 0, 5, 0);
             row1_5.Child = data1_5;
             Grid.SetRow(row1_5, i);
             Grid.SetColumn(row1_5, 4);
@@ -195,6 +220,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
             data1_6.Text = v6;
             data1_6.HorizontalAlignment = halign;
             data1_6.VerticalAlignment = VerticalAlignment.Center;
+            data1_6.Margin = new Thickness(0, 0, 5, 0);
             data1_6.Margin = new Thickness(0, 0, 5, 0);
             row1_6.Child = data1_6;
             Grid.SetRow(row1_6, i);
@@ -210,6 +236,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
             data1_7.HorizontalAlignment = halign;
             data1_7.VerticalAlignment = VerticalAlignment.Center;
             data1_7.Margin = new Thickness(0, 0, 5, 0);
+            data1_7.Margin = new Thickness(0, 0, 5, 0);
             row1_7.Child = data1_7;
             Grid.SetRow(row1_7, i);
             Grid.SetColumn(row1_7, 6);
@@ -223,6 +250,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
             data1_8.Text = v8;
             data1_8.HorizontalAlignment = halign;
             data1_8.VerticalAlignment = VerticalAlignment.Center;
+            data1_8.Margin = new Thickness(0, 0, 5, 0);
             data1_8.Margin = new Thickness(0, 0, 5, 0);
             row1_8.Child = data1_8;
             Grid.SetRow(row1_8, i);
@@ -238,6 +266,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
             data1_9.HorizontalAlignment = halign;
             data1_9.VerticalAlignment = VerticalAlignment.Center;
             data1_9.Margin = new Thickness(0, 0, 5, 0);
+            data1_9.Margin = new Thickness(0, 0, 5, 0);
             row1_9.Child = data1_9;
             Grid.SetRow(row1_9, i);
             Grid.SetColumn(row1_9, 8);
@@ -252,6 +281,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
             data1_10.HorizontalAlignment = halign;
             data1_10.VerticalAlignment = VerticalAlignment.Center;
             data1_10.Margin = new Thickness(0, 0, 5, 0);
+            data1_10.Margin = new Thickness(0, 0, 5, 0);
             row1_10.Child = data1_10;
             Grid.SetRow(row1_10, i);
             Grid.SetColumn(row1_10, 9);
@@ -265,6 +295,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
             data1_11.Text = v11;
             data1_11.HorizontalAlignment = halign;
             data1_11.VerticalAlignment = VerticalAlignment.Center;
+            data1_11.Margin = new Thickness(0, 0, 5, 0);
             data1_11.Margin = new Thickness(0, 0, 5, 0);
             row1_11.Child = data1_11;
             Grid.SetRow(row1_11, i);

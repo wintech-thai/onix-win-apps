@@ -186,6 +186,30 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
             }
         }
 
+        public DateTime DocumentDate
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return (DateTime.Now);
+                }
+
+                String str = GetDbObject().GetFieldValue("DOCUMENT_DATE");
+                DateTime dt = CUtil.InternalDateToDate(str);
+
+                return (dt);
+            }
+
+            set
+            {
+                String str = CUtil.DateTimeToDateStringInternal(value);
+
+                GetDbObject().SetFieldValue("DOCUMENT_DATE", str);
+                NotifyPropertyChanged();
+            }
+        }
+
         public DateTime DeductionDate
         {
             get

@@ -10,6 +10,11 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
 {
     public class MVEployeeLeaveSummary : MBaseModel
     {
+        //หักเงินเนื่องจากการ leave ต่าง ๆ
+        private ObservableCollection<MVPayrollDeductionItem> deductionItems = new ObservableCollection<MVPayrollDeductionItem>();
+        private ArrayList dateArr = new ArrayList();
+        private Hashtable deducAccumulates = new Hashtable();
+
         public MVEployeeLeaveSummary(CTable obj) : base(obj)
         {
 
@@ -17,6 +22,121 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
 
         public override void InitializeAfterLoaded()
         {
+            initDeductionItem();
+            accumulateDeductionItem();
+        }
+
+        public ObservableCollection<MVPayrollDeductionItem> DeductionItems
+        {
+            get
+            {
+                return (deductionItems);
+            }
+        }
+
+        public ArrayList DistinctDatesList
+        {
+            get
+            {
+                return (dateArr);
+            }
+        }
+
+        public Hashtable DateDeductionTypeHashMap
+        {
+            get
+            {
+                return (deducAccumulates);
+            }
+        }
+
+        private void accumulateDeductionItem()
+        {
+            deducAccumulates.Clear();
+
+            foreach (MVPayrollDeductionItem t in deductionItems)
+            {
+                var deductType = t.DeductionType;
+                var docDate = t.DocumentDate;
+                var docDateStr = CUtil.DateTimeToDateStringInternal(docDate);
+
+                var key = $"{docDateStr}:{deductType}";
+
+                if (!dateArr.Contains(docDate))
+                {
+                    dateArr.Add(docDate);
+                }
+
+                if (deducAccumulates.ContainsKey(key))
+                {
+                    MVPayrollDeductionItem currentAccum = (MVPayrollDeductionItem) deducAccumulates[key]; //Got object reference
+
+                    var amt1 = sumString(currentAccum.DeductionAmount, t.DeductionAmount);
+                    var amt2 = sumString(currentAccum.Duration, t.Duration);
+
+                    currentAccum.DeductionAmount = amt1;
+                    currentAccum.Duration = amt2;
+                }
+                else
+                {
+                    CTable dat = new CTable("");
+                    dat.CopyFrom(t.GetDbObject());
+
+                    MVPayrollDeductionItem firstAccum = new MVPayrollDeductionItem(dat);
+                    deducAccumulates.Add(key, firstAccum);
+                }
+            }
+        }
+
+        private string sumString(string numStr1, string numStr2)
+        {
+            string str = (CUtil.StringToDouble(numStr1) + CUtil.StringToDouble(numStr2)).ToString();
+            return str;
+        }
+
+        private void initDeductionItem()
+        {
+            CTable o = GetDbObject();
+            if (o == null)
+            {
+                return;
+            }
+
+            ArrayList arr = o.GetChildArray("EMPLOYEE_PAYROLL_DEDUCTION_LIST");
+
+            if (arr == null)
+            {
+                deductionItems.Clear();
+                return;
+            }
+
+            deductionItems.Clear();
+            foreach (CTable t in arr)
+            {
+                MVPayrollDeductionItem v = new MVPayrollDeductionItem(t);
+
+                deductionItems.Add(v);
+                v.ExtFlag = "I";
+            }
+        }
+
+        public String HiringRate //อัตราค่าจ้าง/ชั่วโมง
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("HIRING_RATE"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("HIRING_RATE", value);
+                NotifyPropertyChanged();
+            }
         }
 
         #region Employee Type
@@ -269,6 +389,30 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
                 String str = CUtil.DateTimeToDateStringInternal(value);
 
                 GetDbObject().SetFieldValue("DOCUMENT_DATE", str);
+                NotifyPropertyChanged();
+            }
+        }
+
+        public DateTime StartDate
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return (DateTime.Now);
+                }
+
+                String str = GetDbObject().GetFieldValue("START_DATE");
+                DateTime dt = CUtil.InternalDateToDate(str);
+
+                return (dt);
+            }
+
+            set
+            {
+                String str = CUtil.DateTimeToDateStringInternal(value);
+
+                GetDbObject().SetFieldValue("START_DATE", str);
                 NotifyPropertyChanged();
             }
         }

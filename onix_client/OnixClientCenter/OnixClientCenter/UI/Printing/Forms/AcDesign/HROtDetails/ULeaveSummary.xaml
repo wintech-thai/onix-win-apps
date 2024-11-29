@@ -125,7 +125,7 @@
             <DockPanel LastChildFill="True">
                 <!-- ยานพาหนะ -->
                 <Border Margin="10,10,10,10" BorderBrush="Black" BorderThickness="1,1,1,1" DockPanel.Dock="Left">
-                    <Grid Width="720" HorizontalAlignment="Left" Name="grdSummary">
+                    <Grid Width="710" HorizontalAlignment="Left" Name="grdSummary">
                     </Grid>
                 </Border>
             </DockPanel>

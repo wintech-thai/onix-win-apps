@@ -24,7 +24,41 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
 
         protected override UserControl createPageObject(Size s, int pageIdx, int pageCount, CReportPageParam param)
         {
-            UserControl page = new ULeaveSummary(dataSource, pageIdx, pageCount, rptCfg, param);
+            MVEployeeLeaveSummary leaveSummary = new MVEployeeLeaveSummary(new CTable(""));
+
+            if (dataSource is MVOTDocument)
+            {
+                var otDoc = (MVOTDocument)dataSource;
+                leaveSummary.EmployeeObj = otDoc.EmployeeObj;
+                leaveSummary.StartDate = otDoc.DocumentDate;
+                leaveSummary.EmployeeID = otDoc.EmployeeObj.EmployeeID;
+                leaveSummary.HiringRate = otDoc.OtRate;
+            }
+            else if (dataSource is MVPayrollDocument)
+            {
+                var payrollDoc = (MVPayrollDocument)dataSource;
+
+                var item = payrollDoc.GetItemByIndex(pageIdx - 1);
+                if (item == null)
+                {
+                    item = new MVPayrollDocumentItem(new CTable(""));
+                }
+
+                leaveSummary.EmployeeObj = item.EmployeeObj;
+                leaveSummary.StartDate = payrollDoc.DocumentDate;
+                leaveSummary.EmployeeID = item.EmployeeObj.EmployeeID;
+            }
+
+            var items = OnixWebServiceAPI.GetListAPI("GetEmployeeDeductionList", "EMPLOYEE_PAYROLL_DEDUCTION_LIST", leaveSummary.GetDbObject());
+            var obj = new CTable("");
+            obj.AddChildArray("EMPLOYEE_PAYROLL_DEDUCTION_LIST", items);
+
+            var ds = new MVEployeeLeaveSummary(obj);
+            ds.InitializeAfterLoaded();
+            ds.EmployeeObj = leaveSummary.EmployeeObj;
+            ds.HiringRate = leaveSummary.HiringRate;
+
+            UserControl page = new ULeaveSummary(ds, pageIdx, pageCount, rptCfg, param);
 
             page.Width = rptCfg.AreaWidthDot;
             page.Height = rptCfg.AreaHeightDot; 

@@ -296,6 +296,21 @@ namespace Onix.Client.Helper
             }
         }
 
+        public static String EmptyToString(String str, String newStr)
+        {
+            if (str == null)
+            {
+                return newStr;
+            }
+
+            if (str.Equals(""))
+            {
+                return newStr;
+            }
+
+            return str;
+        }
+
         public static String GetCurrentScreen()
         {
             //int last = screens.Count - 1;
