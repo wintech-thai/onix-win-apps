@@ -4573,4 +4573,7 @@
   <data name="grpHROtDoc" xml:space="preserve">
     <value>Allowance &amp; OT</value>
   </data>
+  <data name="hr_deduction_summary" xml:space="preserve">
+    <value>รายงานการหักเงิน ขาด/ลา/สาย</value>
+  </data>
 </root>

@@ -169,6 +169,7 @@
     <Compile Include="UI\HumanResource\OrgChart\CWinOrgChartLoadParam.cs" />
     <Compile Include="UI\HumanResource\OrgChart\MVOrgChart.cs" />
     <Compile Include="UI\HumanResource\OTDocument\CCriteriaOTDocument.cs" />
+    <Compile Include="UI\HumanResource\OTDocument\MVEployeeLeaveSummary.cs" />
     <Compile Include="UI\HumanResource\OTDocument\MVOTDocument.cs" />
     <Compile Include="UI\HumanResource\OTDocument\MVOTRate.cs" />
     <Compile Include="UI\HumanResource\OTDocument\MVPayrollDeductionItem.cs" />
@@ -209,9 +210,13 @@
     <Compile Include="UI\Printing\Forms\AcDesign\HREmployeeTax\UFormEmployeeWithholdingTax.xaml.cs">
       <DependentUpon>UFormEmployeeWithholdingTax.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Printing\Forms\AcDesign\HROtDetails\CLeaveSummary.cs" />
     <Compile Include="UI\Printing\Forms\AcDesign\HROtDetails\CFormOtDetails.cs" />
     <Compile Include="UI\Printing\Forms\AcDesign\HROtDetails\UFormOtDetailsP1.xaml.cs">
       <DependentUpon>UFormOtDetailsP1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Printing\Forms\AcDesign\HROtDetails\ULeaveSummary.xaml.cs">
+      <DependentUpon>ULeaveSummary.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Printing\Forms\AcDesign\HROtDetails\UFormOtlDetailsP2.xaml.cs">
       <DependentUpon>UFormOtlDetailsP2.xaml</DependentUpon>
@@ -713,6 +718,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Printing\Forms\AcDesign\HROtDetails\UFormOtDetailsP1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Printing\Forms\AcDesign\HROtDetails\ULeaveSummary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
