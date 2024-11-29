@@ -88,21 +88,27 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
                 var v4 = getDurationMin("4", docDateStr, keyMap); //อื่น ๆ
                 var v5 = getDurationMin("5", docDateStr, keyMap); //ลากิจ
 
+                var m1 = getDeductionAmount("1", v1); //ขาด
+                var m2 = getDeductionAmount("2", v2); //ทำงานไม่ครบ
+                var m3 = getDeductionAmount("3", v3); //สาย
+                var m4 = getDeductionAmount("4", v4); //อื่น ๆ
+                var m5 = getDeductionAmount("5", v5); //ลากิจ
+
                 putDataRow(i, 16, HorizontalAlignment.Right, displayDate, 
                     CUtil.FormatNumber(v1), CUtil.FormatNumber(v2), CUtil.FormatNumber(v3), CUtil.FormatNumber(v5),
-                    CUtil.FormatNumber(v4), CUtil.FormatNumber(""), CUtil.FormatNumber(""), CUtil.FormatNumber(""),
-                    CUtil.FormatNumber(""), CUtil.FormatNumber(""));
+                    CUtil.FormatNumber(v4), CUtil.FormatNumber(m1), CUtil.FormatNumber(m2), CUtil.FormatNumber(m3),
+                    CUtil.FormatNumber(m5), CUtil.FormatNumber(m4));
 
-                addTotal(v1, v2, v3, v4, v5, "", "", "", "", "");
+                addTotal(v1, v2, v3, v4, v5, m1, m2, m3, m4, m5);
                 i++;
             }
 
-            putDataRow(i, 16, HorizontalAlignment.Right, "รวม (ปัดเศษจำนวนเงิน)",
+            putDataRow(i, 16, HorizontalAlignment.Right, "รวม",
                 CUtil.FormatNumber(totals[1].ToString()), CUtil.FormatNumber(totals[2].ToString()), 
                 CUtil.FormatNumber(totals[3].ToString()), CUtil.FormatNumber(totals[5].ToString()),
-                CUtil.FormatNumber(totals[4].ToString()), CUtil.FormatNumber(""), 
-                CUtil.FormatNumber(""), CUtil.FormatNumber(""),
-                CUtil.FormatNumber(""), CUtil.FormatNumber(""));
+                CUtil.FormatNumber(totals[4].ToString()), CUtil.FormatNumber(totals[6].ToString()), 
+                CUtil.FormatNumber(totals[7].ToString()), CUtil.FormatNumber(totals[8].ToString()),
+                CUtil.FormatNumber(totals[10].ToString()), CUtil.FormatNumber(totals[9].ToString()));
         }
 
         private void addTotal(string v1, string v2, string v3, string v4, string v5, 
@@ -132,6 +138,48 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
             }
 
             return v1;
+        }
+
+        private double roundHour(double num)
+        {
+            double floor = Math.Floor(num);
+            double diff = num - floor;
+
+            if (diff == 0.00)
+            {
+                return num;
+            }
+            else if (diff >= 0.50)
+            {
+                double midpoint = floor + 0.50;
+                return midpoint;
+            }
+
+            return floor;
+        }
+
+        private string getDeductionAmount(string deductionType, string totalMin)
+        {
+            double multiplier = 1.0;
+            double rate = CUtil.StringToDouble(leaveSummary.HiringRate);
+
+            double totalMinute = CUtil.StringToDouble(totalMin);
+            double roundedHour = roundHour(totalMinute / 60.00);
+            if (roundedHour < 1.00)
+            {
+                //ถ้าไม่ถึง 1 ให้ปัดลง
+                roundedHour = 0.00;
+            }
+
+            if (deductionType.Equals("3") || deductionType.Equals("4"))
+            {
+                //สายกับขาด เท่านั้นที่คิดตัวคูณที่ 1.5
+                multiplier = 1.5;
+            }
+
+            double amt = roundedHour * rate * multiplier;
+
+            return amt.ToString();
         }
 
         private void putDataRow(int i, int headerFontSize, HorizontalAlignment halign,

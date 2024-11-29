@@ -17,7 +17,7 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
 
         public void CreateDefaultValue()
         {
-        }        
+        }
 
         //public override String ID
         //{

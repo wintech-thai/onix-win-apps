@@ -191,6 +191,25 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
 
         #endregion
 
+        public String HiringRate
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("HIRING_RATE"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("HIRING_RATE", value);
+                updateFlag();
+            }
+        }
+
         #region Definition
 
         public String BalanceTotalDefinition

@@ -155,7 +155,7 @@ namespace Onix.ClientCenter.Windows
 
             addReportGroup("grpHRSlip", "hr_payroll_detail");
             addReportGroup("grpHRSlip", "hr_payroll_slip");
-            addReportGroup("grpHRSlip", "hr_deduction_summary");
+            //addReportGroup("grpHRSlip", "hr_deduction_summary");
             addReportGroup("grpHRSlip", "hr_payroll_withdraw");
             addReportGroup("grpHRSlip", "hr_payroll_deposit");
 

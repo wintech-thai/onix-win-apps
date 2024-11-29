@@ -255,6 +255,7 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             MEmployee emp = new MEmployee(empObj);
             mv.ReceiveIncome = emp.Salary;
             mv.EmployeeObj = emp;
+            mv.HiringRate = emp.HourRate;
         }
 
         private void UEmployee_SelectedObjectChanged(object sender, EventArgs e)
