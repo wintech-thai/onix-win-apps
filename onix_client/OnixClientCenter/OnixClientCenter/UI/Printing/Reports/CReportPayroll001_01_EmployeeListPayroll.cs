@@ -18,7 +18,7 @@ namespace Onix.ClientCenter.Reports
         private ArrayList sums = new ArrayList();
 
         private string[] empReceives = { "RECEIVE_INCOME", "RECEIVE_OT", "RECEIVE_POSITION", "RECEIVE_BONUS", "RECEIVE_TRANSPORTATION", "RECEIVE_TELEPHONE", "RECEIVE_ALLOWANCE", "RECEIVE_COMMISSION" };
-        private string[] empDeducts = { "DEDUCT_TAX", "DEDUCT_SOCIAL_SECURITY", "DEDUCT_PENALTY" };
+        private string[] empDeducts = { "DEDUCT_TAX", "DEDUCT_SOCIAL_SECURITY", "DEDUCT_PENALTY", "DEDUCT_BORROW" };
 
         public CReportPayroll001_01_EmployeeListPayroll() : base()
         {
@@ -48,7 +48,7 @@ namespace Onix.ClientCenter.Reports
             addConfig("L1", 20, "social_security", HorizontalAlignment.Center, HorizontalAlignment.Right, HorizontalAlignment.Right, "DEDUCT_SOCIAL_SECURITY", "D", true);
             addConfig("L1", 20, "absent_late", HorizontalAlignment.Center, HorizontalAlignment.Right, HorizontalAlignment.Right, "DEDUCT_PENALTY", "D", true);
 
-            addConfig("L1", 20, "deduct_total", HorizontalAlignment.Center, HorizontalAlignment.Right, HorizontalAlignment.Right, "EMP_DEDUCT_TOTAL", "D", true);
+            addConfig("L1", 20, "employee_borrow", HorizontalAlignment.Center, HorizontalAlignment.Right, HorizontalAlignment.Right, "DEDUCT_BORROW", "D", true); //ของเดิม คือ EMP_DEDUCT_TOTAL แต่ลูกค้าบอกว่าไม่ต้องแสดงหักรวม
 
             addConfig("L1", 20, "return_advance", HorizontalAlignment.Center, HorizontalAlignment.Right, HorizontalAlignment.Right, "RECEIVE_REFUND", "D", true);
             addConfig("L1", 20, "coverage", HorizontalAlignment.Center, HorizontalAlignment.Right, HorizontalAlignment.Right, "DEDUCT_COVERAGE", "D", true);

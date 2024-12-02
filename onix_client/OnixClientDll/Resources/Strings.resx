@@ -4617,4 +4617,7 @@
   <data name="hr_deduction_summary" xml:space="preserve">
     <value>รายงานการหักเงิน ขาด/ลา/สาย</value>
   </data>
+  <data name="employee_borrow" xml:space="preserve">
+    <value>เงินกู้ยืม</value>
+  </data>
 </root>

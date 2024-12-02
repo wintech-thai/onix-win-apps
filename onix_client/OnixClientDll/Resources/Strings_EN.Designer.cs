@@ -3886,6 +3886,15 @@ namespace Onix.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to เงินกู้ยืม.
+        /// </summary>
+        public static string employee_borrow {
+            get {
+                return ResourceManager.GetString("employee_borrow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Employee Category.
         /// </summary>
         public static string employee_category {
