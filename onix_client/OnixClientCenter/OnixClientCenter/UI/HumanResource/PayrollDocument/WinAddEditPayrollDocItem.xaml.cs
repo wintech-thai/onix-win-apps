@@ -329,7 +329,7 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
                 var socAmt = adjustLimit(CUtil.StringToDouble(mv.ReceiveIncome) * 0.05, 750);
                 mv.DeductSocialSecurity = socAmt;
 
-                var socAmtCompany = adjustLimit(CUtil.StringToDouble(mv.ReceiveIncome) * 0.05, 850);
+                var socAmtCompany = adjustLimit(CUtil.StringToDouble(mv.ReceiveIncome) * 0.05, 750);
                 mv.SocialSecurityCompany = socAmtCompany;
             }
 
