@@ -343,7 +343,7 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
                 return limit.ToString();
             }
 
-            return amt.ToString();
+            return Math.Round(amt, 0, MidpointRounding.AwayFromZero).ToString();
         }
     }
 }
