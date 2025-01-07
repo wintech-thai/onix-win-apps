@@ -321,7 +321,9 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             if (mv.EmployeeObj.HasHiringFlag.Equals(true))
             {
                 //ผู้รับจ้างทั่วไป - ให้คิดภาษีหัก 3% ไปเลย
-                mv.DeductTax = (CUtil.StringToDouble(mv.ReceiveIncome) * 0.03).ToString();
+                //คิดจากยอด (รายได้รวม + OT) - หักลาสาย 
+                var amt = CUtil.StringToDouble(mv.ReceiveIncome) + CUtil.StringToDouble(mv.ReceiveOT) - CUtil.StringToDouble(mv.DeductPenalty);
+                mv.DeductTax = (amt * 0.03).ToString();
             }
             else 
             {
