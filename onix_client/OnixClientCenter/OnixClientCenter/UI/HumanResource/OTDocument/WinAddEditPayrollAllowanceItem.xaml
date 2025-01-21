@@ -48,7 +48,7 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
             <uc:UDateEntry x:Name="uDate"  Grid.Row="2" Grid.Column="1" Margin="5,5,0,0" Width="200" HorizontalAlignment="Left"
-                           SelectedDate="{Binding AllowanceDate}" SelectedDateChanged="DefaultUDate_SelectedDateChanged"/>
+                           SelectedDate="{Binding AllowanceDate, UpdateSourceTrigger=PropertyChanged}" SelectedDateChanged="DefaultUDate_SelectedDateChanged"/>
         </StackPanel>
 
         <Label Name="lblExpense" Content="สวัสดิการ" Margin="0,0,0,0" Grid.Row="2" Grid.Column="0"
@@ -100,7 +100,7 @@
 
             <StackPanel Orientation="Horizontal">
                 <Button Name="cmdOK" IsEnabled="{Binding IsEditable}" MinWidth="80" Margin="0,0,0,0" HorizontalAlignment="Right"
-                 Click="cmdOK_Click" TabIndex="99990">
+                 Click="cmdOK_Click"  TabIndex="99990">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <Image Visibility="{Binding IsModified, Converter={StaticResource TrueToVisibleConverter}}" Width="16" Height="16" 

@@ -231,6 +231,8 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
 
                 GetDbObject().SetFieldValue("DEDUCTION_DATE", str);
                 NotifyPropertyChanged();
+
+                updateFlag();
             }
         }
 
