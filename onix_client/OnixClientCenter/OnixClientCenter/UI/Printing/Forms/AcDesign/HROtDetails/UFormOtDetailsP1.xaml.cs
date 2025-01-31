@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Onix.Client.Helper;
 using Onix.Client.Model;
 using Onix.Client.Report;
 using Onix.ClientCenter.UI.HumanResource.OTDocument;
@@ -61,14 +62,19 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
             putDeductionDataRow(0, 16, "รายการ", "นาที", "รวมหัก");
 
             var i = 1;
+            var totalMin = 0.00;
             foreach (var item in otDoc.DeductionItems)
             {
                 putDeductionDataRow(i, 16, $"{item.DeductionDateFmt} ({item.DeductionTypeDesc})", item.DurationMinFmt, "");
                 i++;
+
+                totalMin = totalMin + CUtil.StringToDouble(item.DurationMin);
             }
 
+            var totalMinFmt = CUtil.FormatNumber(totalMin.ToString());
+
             putDeductionDataRow(i, 16, "ปรับยอด", "", $"-{otDoc.AdjustAmount}");
-            putDeductionDataRow(i + 1, 16, "หักสุทธิ", "", otDoc.DeductionAmountFmt);
+            putDeductionDataRow(i + 1, 16, "หักสุทธิ", totalMinFmt, otDoc.DeductionAmountFmt);
         }
 
 
