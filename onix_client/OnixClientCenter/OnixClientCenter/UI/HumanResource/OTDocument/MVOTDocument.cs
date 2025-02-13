@@ -1709,5 +1709,68 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
 
         #endregion Total fields
 
+        public String LeaveDeductionFlag
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("ACTUAL_LEAVE_DEDUCT_FLAG"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("ACTUAL_LEAVE_DEDUCT_FLAG", value);
+                //updateFlag();
+                NotifyPropertyChanged();
+            }
+        }
+
+        public Boolean IsLeaveDeduct
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return (false);
+                }
+
+                return (LeaveDeductionFlag.Equals("Y"));
+            }
+
+            set
+            {
+                if (value)
+                {
+                    LeaveDeductionFlag = "Y";
+                    NotifyPropertyChanged("IsLeaveDeduct");
+                }
+            }
+        }
+
+        public Boolean IsLeaveNotDeduct
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return (false);
+                }
+
+                return (LeaveDeductionFlag.Equals("N"));
+            }
+
+            set
+            {
+                if (value)
+                {
+                    LeaveDeductionFlag = "N";
+                    NotifyPropertyChanged("IsLeaveNotDeduct");
+                }
+            }
+        }
     }
 }

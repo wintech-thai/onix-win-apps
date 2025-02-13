@@ -1362,6 +1362,26 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             }
         }
 
+        public String DeductPenaltyPending
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("DEDUCT_PENALTY_PENDING"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("DEDUCT_PENALTY_PENDING", value);
+                NotifyPropertyChanged();
+                updateFlag();
+            }
+        }
+
         public String DeductPenaltyFmt
         {
             get
@@ -1663,6 +1683,74 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             }
         }
         #endregion deduct fields
+
+
+        public String LeaveDeductionFlag
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("ACTUAL_LEAVE_DEDUCT_FLAG"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("ACTUAL_LEAVE_DEDUCT_FLAG", value);
+                //updateFlag();
+                NotifyPropertyChanged();
+
+                NotifyPropertyChanged("IsLeaveDeduct");
+                NotifyPropertyChanged("IsLeaveNotDeduct");
+            }
+        }
+
+        public Boolean IsLeaveDeduct
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return (false);
+                }
+
+                return (LeaveDeductionFlag.Equals("Y"));
+            }
+
+            set
+            {
+                if (value)
+                {
+                    LeaveDeductionFlag = "Y";
+                    NotifyPropertyChanged("IsLeaveDeduct");
+                }
+            }
+        }
+
+        public Boolean IsLeaveNotDeduct
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return (false);
+                }
+
+                return (LeaveDeductionFlag.Equals("N"));
+            }
+
+            set
+            {
+                if (value)
+                {
+                    LeaveDeductionFlag = "N";
+                    NotifyPropertyChanged("IsLeaveNotDeduct");
+                }
+            }
+        }
 
         public void calculateFields()
         {

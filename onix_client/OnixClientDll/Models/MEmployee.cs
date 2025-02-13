@@ -1110,6 +1110,63 @@ namespace Onix.Client.Model
             }
         }
 
+        public String PreConfigTax
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("CFG_TAX"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("CFG_TAX", value);
+                NotifyPropertyChanged();
+            }
+        }
+
+        public String PreConfigPositionFee
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("FEE_POSITION"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("FEE_POSITION", value);
+                NotifyPropertyChanged();
+            }
+        }
+
+        public String PreConfigTelephoneFee
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("FEE_TELEPHONE"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("FEE_TELEPHONE", value);
+                NotifyPropertyChanged();
+            }
+        }
+
         #region EmployeeDepartment
 
         public MMasterRef DepartmentObj

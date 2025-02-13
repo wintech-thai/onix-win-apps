@@ -254,6 +254,10 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
 
             MEmployee emp = new MEmployee(empObj);
             mv.ReceiveIncome = emp.Salary;
+            mv.ReceiveTelephone = emp.PreConfigTelephoneFee;
+            mv.ReceivePosition = emp.PreConfigPositionFee;
+            mv.DeductTax = emp.PreConfigTax;
+
             mv.EmployeeObj = emp;
             mv.HiringRate = emp.HourRate;
         }
@@ -306,7 +310,7 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             MVOTDocument otDoc = new MVOTDocument(newobj);
             otDoc.InitializeAfterLoaded();
             otDoc.CalculateTotalFields();
-
+            
             mv.ReceiveOT = otDoc.ReceiveAmount;
             if (mvParent.EmployeeType.Equals("1"))
             {
@@ -314,9 +318,21 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             }
             
             //mv.ReceiveTransaportation = otDoc.ExpenseAmount; //To be fixed
-            mv.DeductPenalty = otDoc.DeductionAmount;
+            
             mv.ReceiveRefund = otDoc.ExpenseAmount;
             mv.ReceiveTransaportation = otDoc.AllowanceAmount; //ตอนนี้สวัสดิการมีแต่ค่ายานพาหนะ
+            mv.LeaveDeductionFlag = otDoc.LeaveDeductionFlag;
+
+            if (otDoc.IsLeaveNotDeduct)
+            {
+                mv.DeductPenalty = "0.00";
+                mv.DeductPenaltyPending = otDoc.DeductionAmount;
+            }
+            else if (otDoc.IsLeaveDeduct)
+            {
+                mv.DeductPenalty = otDoc.DeductionAmount;
+                mv.DeductPenaltyPending = "0.00";
+            }
 
             if (mv.EmployeeObj.HasHiringFlag.Equals(true))
             {

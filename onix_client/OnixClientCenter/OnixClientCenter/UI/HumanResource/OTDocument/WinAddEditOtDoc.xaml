@@ -79,6 +79,16 @@
                 <TextBox Text="{Binding EmployeeTypeDesc}" Name="txtEmployeeTypeDesc" Width="150" IsEnabled="False"
                          VerticalContentAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Center" 
                          Margin="5,0,0,0" TextChanged="DefaultTextBox_TextChanged"/>
+
+                <StackPanel  VerticalAlignment="Center" Orientation="Horizontal">
+                    <RadioButton Name="radLeaveDeduct"   Content="หักเงินแล้ว (ขาด/ลา/สาย)" 
+                                 IsChecked="{Binding IsLeaveDeduct, UpdateSourceTrigger=PropertyChanged}" Margin="10,5,0,0" Checked="DefaultRadioButton_Checked" 
+                                 VerticalAlignment="Center"/>
+
+                    <RadioButton Name="radLeaveNotDeduct"  Content="ยังไม่ได้หักเงิน (ขาด/ลา/สาย)" 
+                                 IsChecked="{Binding IsLeaveNotDeduct, UpdateSourceTrigger=PropertyChanged}" Margin="10,5,0,0" Checked="DefaultRadioButton_Checked" 
+                                 VerticalAlignment="Center"/>
+                </StackPanel>
             </StackPanel>
         </Grid>
 
