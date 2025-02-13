@@ -10132,7 +10132,7 @@ namespace Onix.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to คอมฯ.
+        ///   Looks up a localized string similar to เงินพิเศษ.
         /// </summary>
         public static string revenue_commission {
             get {
