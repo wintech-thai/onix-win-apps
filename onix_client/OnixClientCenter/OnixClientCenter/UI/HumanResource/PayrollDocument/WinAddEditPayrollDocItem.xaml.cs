@@ -5,6 +5,7 @@ using Onix.Client.Controller;
 using Onix.Client.Helper;
 using Onix.Client.Model;
 using Onix.ClientCenter.Commons.UControls;
+using Onix.ClientCenter.Commons.Utils;
 using Onix.ClientCenter.Commons.Windows;
 using Onix.ClientCenter.UI.HumanResource.OTDocument;
 using Onix.ClientCenter.Windows;
@@ -28,6 +29,25 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             registerValidateControls(lblEmployee, uEmployee, false);
             registerValidateControls(lblSocialSec, txtSocialSec, false);
             //registerValidateControls(lblMonth, cboMonth, false);
+        }
+
+        public Boolean IsHasRightToEdit
+        {
+            get
+            {
+                if (loadParam.ParentMode.Equals("E") && loadParam.Mode.Equals("E"))
+                {
+                    var hasAccess = CAccessValidator.VerifyAccessRight("HR_EMPLOYEE_SALARY");
+
+                    return hasAccess;
+                }
+
+                return true;
+            }
+
+            set
+            {
+            }
         }
 
         protected override bool isEditable()

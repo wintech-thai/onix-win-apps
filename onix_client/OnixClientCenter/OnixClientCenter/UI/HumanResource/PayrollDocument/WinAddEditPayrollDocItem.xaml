@@ -224,6 +224,7 @@
                                    VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Margin="5,0,0,0"/>
                             <TextBox Grid.Column="7" Grid.Row="2" Width="150" Text="{Binding ReceiveCommission, UpdateSourceTrigger=PropertyChanged}"
                                      VerticalContentAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Right" 
+                                     IsEnabled="{Binding ElementName=self, Path=IsHasRightToEdit}"
                                      Margin="5,0,0,0" TextChanged="DefaultTextBox_TextChanged" PreviewTextInput="DefaultTextBoxNumber_PreviewTextInput"/>
 
 

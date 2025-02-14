@@ -8,6 +8,7 @@ namespace Onix.ClientCenter.Commons.Windows
     public class CWinLoadParam
     {
         public String Mode { get; set; }
+        public String ParentMode { get; set; }
         public String Caption { get; set; }
         public MBaseModel ActualView { get; set; }
         public MBaseModel ActualParentView { get; set; }

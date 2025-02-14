@@ -238,6 +238,7 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
 
             param.Caption = loadParam.Caption;
             param.Mode = "E";
+            param.ParentMode = loadParam.Mode;
             param.ActualParentView = mv;
             param.ActualView = currentViewObj;
             param.GenericType = loadParam.GenericType;
@@ -256,6 +257,7 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
 
             param.Caption = loadParam.Caption;
             param.Mode = "A";
+            param.ParentMode = loadParam.Mode;
             param.ActualParentView = mv;
             param.GenericType = loadParam.GenericType;
             //param.ActualView = actDoc;
