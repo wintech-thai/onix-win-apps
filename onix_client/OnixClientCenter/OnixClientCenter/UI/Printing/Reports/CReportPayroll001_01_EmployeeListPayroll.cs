@@ -19,6 +19,8 @@ namespace Onix.ClientCenter.Reports
 
         private string[] empReceives = { "RECEIVE_INCOME", "RECEIVE_OT", "RECEIVE_POSITION", "RECEIVE_BONUS", "RECEIVE_TRANSPORTATION", "RECEIVE_TELEPHONE", "RECEIVE_ALLOWANCE", "RECEIVE_COMMISSION" };
         private string[] empDeducts = { "DEDUCT_TAX", "DEDUCT_SOCIAL_SECURITY", "DEDUCT_PENALTY", "DEDUCT_BORROW" };
+        private string[] empDeductsTaxSsc = { "DEDUCT_TAX", "DEDUCT_SOCIAL_SECURITY" };
+        private string[] empBorrowCoverage = { "DEDUCT_BORROW", "DEDUCT_COVERAGE" };
 
         public CReportPayroll001_01_EmployeeListPayroll() : base()
         {
@@ -30,7 +32,7 @@ namespace Onix.ClientCenter.Reports
             addConfig("L1", 23, "date", HorizontalAlignment.Center, HorizontalAlignment.Left, HorizontalAlignment.Center, "FROM_SALARY_DATE", "DT", false);
             addConfig("L1", 20, "code", HorizontalAlignment.Center, HorizontalAlignment.Left, HorizontalAlignment.Center, "EMPLOYEE_CODE", "S", false);
             addConfig("L1", 30, "employee_name", HorizontalAlignment.Center, HorizontalAlignment.Left, HorizontalAlignment.Center, "EMPLOYEE_NAME_LASTNAME", "S", false);
-            addConfig("L1", 30, "bank_name", HorizontalAlignment.Center, HorizontalAlignment.Left, HorizontalAlignment.Center, "BANK_NAME", "S", false);
+            // addConfig("L1", 30, "bank_name", HorizontalAlignment.Center, HorizontalAlignment.Left, HorizontalAlignment.Center, "BANK_NAME", "S", false);
             addConfig("L1", 30, "account", HorizontalAlignment.Center, HorizontalAlignment.Left, HorizontalAlignment.Center, "ACCOUNT_NO", "S", false);
 
             addConfig("L1", 20, "salary", HorizontalAlignment.Center, HorizontalAlignment.Right, HorizontalAlignment.Right, "RECEIVE_INCOME", "D", true);
@@ -41,16 +43,15 @@ namespace Onix.ClientCenter.Reports
             addConfig("L1", 20, "revenue_telephone", HorizontalAlignment.Center, HorizontalAlignment.Right, HorizontalAlignment.Right, "RECEIVE_TELEPHONE", "D", true);
             addConfig("L1", 20, "revenue_allowance", HorizontalAlignment.Center, HorizontalAlignment.Right, HorizontalAlignment.Right, "RECEIVE_ALLOWANCE", "D", true);
             addConfig("L1", 20, "revenue_commission", HorizontalAlignment.Center, HorizontalAlignment.Right, HorizontalAlignment.Right, "RECEIVE_COMMISSION", "D", true);
-
-            addConfig("L1", 20, "revenue_total", HorizontalAlignment.Center, HorizontalAlignment.Right, HorizontalAlignment.Right, "EMP_RECEIVED_TOTAL", "D", true);
-
-            addConfig("L1", 20, "tax", HorizontalAlignment.Center, HorizontalAlignment.Right, HorizontalAlignment.Right, "DEDUCT_TAX", "D", true);
-            addConfig("L1", 20, "social_security", HorizontalAlignment.Center, HorizontalAlignment.Right, HorizontalAlignment.Right, "DEDUCT_SOCIAL_SECURITY", "D", true);
             addConfig("L1", 20, "absent_late", HorizontalAlignment.Center, HorizontalAlignment.Right, HorizontalAlignment.Right, "DEDUCT_PENALTY", "D", true);
+            addConfig("L1", 20, "revenue_total", HorizontalAlignment.Center, HorizontalAlignment.Right, HorizontalAlignment.Right, "EMP_RECEIVED_TOTAL_WITH_PENALTY", "D", true);
+            
+            addConfig("L1", 20, "social_security", HorizontalAlignment.Center, HorizontalAlignment.Right, HorizontalAlignment.Right, "DEDUCT_SOCIAL_SECURITY", "D", true);
+            addConfig("L1", 20, "tax", HorizontalAlignment.Center, HorizontalAlignment.Right, HorizontalAlignment.Right, "DEDUCT_TAX", "D", true);
+            addConfig("L1", 20, "รายได้สุทธิ", HorizontalAlignment.Center, HorizontalAlignment.Right, HorizontalAlignment.Right, "EMP_RECEIVED_TOTAL", "D", true);
 
             addConfig("L1", 20, "employee_borrow", HorizontalAlignment.Center, HorizontalAlignment.Right, HorizontalAlignment.Right, "DEDUCT_BORROW", "D", true); //ของเดิม คือ EMP_DEDUCT_TOTAL แต่ลูกค้าบอกว่าไม่ต้องแสดงหักรวม
-
-            addConfig("L1", 20, "return_advance", HorizontalAlignment.Center, HorizontalAlignment.Right, HorizontalAlignment.Right, "RECEIVE_REFUND", "D", true);
+            //addConfig("L1", 20, "return_advance", HorizontalAlignment.Center, HorizontalAlignment.Right, HorizontalAlignment.Right, "RECEIVE_REFUND", "D", true);
             addConfig("L1", 20, "coverage", HorizontalAlignment.Center, HorizontalAlignment.Right, HorizontalAlignment.Right, "DEDUCT_COVERAGE", "D", true);
 
             addConfig("L1", 20, "total_receive_emp", HorizontalAlignment.Center, HorizontalAlignment.Right, HorizontalAlignment.Right, "EMP_AMOUNT_TOTAL", "D", true);
@@ -153,13 +154,21 @@ namespace Onix.ClientCenter.Reports
             double coverage = CUtil.StringToDouble(o.GetFieldValue("DEDUCT_COVERAGE"));
 
             o.SetFieldValue("EMPLOYEE_NAME_LASTNAME", name + " " + lastName);
+            double latePenalty = CUtil.StringToDouble(o.GetFieldValue("DEDUCT_PENALTY"));
+            double taxSscDeduct = getSumArray(o, empDeductsTaxSsc);
+            double borrowCoverage = getSumArray(o, empBorrowCoverage);
+            
             double received = getSumArray(o, empReceives);
-            double deduct = getSumArray(o, empDeducts);
-            double total = received + refund - deduct - coverage;
+            double total1 = received - latePenalty;
+            double total2 = received - latePenalty - taxSscDeduct;
+            double total3 = received - latePenalty - taxSscDeduct - borrowCoverage;
 
-            o.SetFieldValue("EMP_DEDUCT_TOTAL", deduct.ToString());
-            o.SetFieldValue("EMP_RECEIVED_TOTAL", received.ToString());
-            o.SetFieldValue("EMP_AMOUNT_TOTAL", total.ToString());
+            double deduct = getSumArray(o, empDeducts);
+
+            //o.SetFieldValue("EMP_DEDUCT_TOTAL", deduct.ToString());
+            o.SetFieldValue("EMP_RECEIVED_TOTAL_WITH_PENALTY", total1.ToString());
+            o.SetFieldValue("EMP_RECEIVED_TOTAL", total2.ToString());
+            o.SetFieldValue("EMP_AMOUNT_TOTAL", total3.ToString());
         }
 
         public override CReportDataProcessingProperty DataToProcessingProperty(CTable o, ArrayList rows, int row)
