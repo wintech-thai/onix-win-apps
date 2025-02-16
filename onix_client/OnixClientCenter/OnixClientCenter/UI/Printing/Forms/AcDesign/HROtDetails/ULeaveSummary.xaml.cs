@@ -20,7 +20,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
         public ULeaveSummary(MBaseModel model, int page, int totalPage, MReportConfig cfg, CReportPageParam param)
         {
             leaveSummary = (MVEployeeLeaveSummary) model;
-
+          
             pageNo = page;
             pageCount = totalPage;
             pageParam = param;
@@ -47,6 +47,8 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
             ColumnDefinition gridCol9 = new ColumnDefinition();
             ColumnDefinition gridCol10 = new ColumnDefinition();
             ColumnDefinition gridCol11 = new ColumnDefinition();
+            ColumnDefinition gridCol12 = new ColumnDefinition();
+            ColumnDefinition gridCol13 = new ColumnDefinition();
 
             gridCol1.Width = new GridLength(70, GridUnitType.Star);
             gridCol2.Width = new GridLength(35, GridUnitType.Star);
@@ -59,6 +61,8 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
             gridCol9.Width = new GridLength(35, GridUnitType.Star);
             gridCol10.Width = new GridLength(35, GridUnitType.Star);
             gridCol11.Width = new GridLength(35, GridUnitType.Star);
+            gridCol12.Width = new GridLength(35, GridUnitType.Star);
+            gridCol13.Width = new GridLength(35, GridUnitType.Star);
 
             grdSummary.ColumnDefinitions.Add(gridCol1);
             grdSummary.ColumnDefinitions.Add(gridCol2);
@@ -71,17 +75,21 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
             grdSummary.ColumnDefinitions.Add(gridCol9);
             grdSummary.ColumnDefinitions.Add(gridCol10);
             grdSummary.ColumnDefinitions.Add(gridCol11);
+            grdSummary.ColumnDefinitions.Add(gridCol12);
+            grdSummary.ColumnDefinitions.Add(gridCol13);
 
             //Header
-            putDataRow(0, 16, HorizontalAlignment.Center, "วันที่", "ขาด (t)", "ไม่ครบ (t)", "สาย (t)", "ลากิจ (t)", "อื่นๆ (t)", "ขาด", "ไม่ครบ", "สาย", "ลากิจ", "อื่นๆ");
+            putDataRow(0, 16, HorizontalAlignment.Center, "วันที่", "ขาด (t)", "ไม่ครบ (t)", "สาย (t)", "ลากิจ (t)", "อื่นๆ (t)", "ขาด", "ไม่ครบ", "สาย", "ลากิจ", "อื่นๆ", "หักสาย", "ไม่หักสาย");
 
             var keyMap = leaveSummary.DateDeductionTypeHashMap;
             var i = 1;
             foreach (DateTime otDocDate in leaveSummary.DistinctDatesList)
             {
-                var displayDate = CUtil.DateTimeToDateString(otDocDate);
+                var displayDate = CUtil.DateTimeToDateString2YY(otDocDate);
 
                 var docDateStr = CUtil.DateTimeToDateStringInternal(otDocDate);
+                var deductFlag = getDeductFlag(docDateStr, keyMap);
+
                 var v1 = getDurationMin("1", docDateStr, keyMap); //ขาด
                 var v2 = getDurationMin("2", docDateStr, keyMap); //ทำงานไม่ครบ
                 var v3 = getDurationMin("3", docDateStr, keyMap); //สาย
@@ -94,10 +102,21 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
                 var m4 = getDeductionAmount("4", v4); //อื่น ๆ
                 var m5 = getDeductionAmount("5", v5); //ลากิจ
 
+                var f1 = "";
+                var f2 = "";
+                if (deductFlag.Equals("Y"))
+                {
+                    f1 = "Y";
+                }
+                else if (deductFlag.Equals("N"))
+                {
+                    f2 = "Y";
+                }
+
                 putDataRow(i, 16, HorizontalAlignment.Right, displayDate, 
                     CUtil.FormatNumber(v1), CUtil.FormatNumber(v2), CUtil.FormatNumber(v3), CUtil.FormatNumber(v5),
                     CUtil.FormatNumber(v4), CUtil.FormatNumber(m1), CUtil.FormatNumber(m2), CUtil.FormatNumber(m3),
-                    CUtil.FormatNumber(m5), CUtil.FormatNumber(m4));
+                    CUtil.FormatNumber(m5), CUtil.FormatNumber(m4), f1, f2);
 
                 addTotal(v1, v2, v3, v4, v5, m1, m2, m3, m4, m5);
                 i++;
@@ -108,7 +127,26 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
                 CUtil.FormatNumber(totals[3].ToString()), CUtil.FormatNumber(totals[5].ToString()),
                 CUtil.FormatNumber(totals[4].ToString()), CUtil.FormatNumber(totals[6].ToString()), 
                 CUtil.FormatNumber(totals[7].ToString()), CUtil.FormatNumber(totals[8].ToString()),
-                CUtil.FormatNumber(totals[10].ToString()), CUtil.FormatNumber(totals[9].ToString()));
+                CUtil.FormatNumber(totals[10].ToString()), CUtil.FormatNumber(totals[9].ToString()),
+                "", "");
+        }
+
+        private string getDeductFlag(string docDateStr, Hashtable keyMap)
+        {
+            int[] arr = { 1, 2, 3, 4, 5 };
+
+            foreach (int t in arr)
+            {
+                var key1 = $"{docDateStr}:{t}";
+                var obj1 = (MVPayrollDeductionItem) keyMap[key1];
+
+                if (obj1 != null)
+                {
+                    return obj1.LeaveDeductionFlag;
+                }
+            }
+            
+            return "Y";
         }
 
         private void addTotal(string v1, string v2, string v3, string v4, string v5, 
@@ -184,7 +222,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
 
         private void putDataRow(int i, int headerFontSize, HorizontalAlignment halign,
             string v1, string v2, string v3, string v4, string v5, string v6, string v7, 
-            string v8, string v9, string v10, string v11)
+            string v8, string v9, string v10, string v11, string v12, string v13)
         {
             RowDefinition tmpRowDev = new RowDefinition();
             tmpRowDev.Height = new GridLength(20);
@@ -349,6 +387,36 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
             Grid.SetRow(row1_11, i);
             Grid.SetColumn(row1_11, 10);
 
+            Border row1_12 = new Border();
+            row1_12.BorderBrush = Brushes.Black;
+            row1_12.BorderThickness = new Thickness(0, 0, 1, 1);
+            TextBlock data1_12 = new TextBlock();
+            data1_12.Foreground = Brushes.Black;
+            data1_12.FontSize = headerFontSize;
+            data1_12.Text = v12;
+            data1_12.HorizontalAlignment = HorizontalAlignment.Center;
+            data1_12.VerticalAlignment = VerticalAlignment.Center;
+            data1_12.Margin = new Thickness(0, 0, 5, 0);
+            data1_12.Margin = new Thickness(0, 0, 5, 0);
+            row1_12.Child = data1_12;
+            Grid.SetRow(row1_12, i);
+            Grid.SetColumn(row1_12, 11);
+
+            Border row1_13 = new Border();
+            row1_13.BorderBrush = Brushes.Black;
+            row1_13.BorderThickness = new Thickness(0, 0, 1, 1);
+            TextBlock data1_13 = new TextBlock();
+            data1_13.Foreground = Brushes.Black;
+            data1_13.FontSize = headerFontSize;
+            data1_13.Text = v13;
+            data1_13.HorizontalAlignment = HorizontalAlignment.Center;
+            data1_13.VerticalAlignment = VerticalAlignment.Center;
+            data1_13.Margin = new Thickness(0, 0, 5, 0);
+            data1_13.Margin = new Thickness(0, 0, 5, 0);
+            row1_13.Child = data1_13;
+            Grid.SetRow(row1_13, i);
+            Grid.SetColumn(row1_13, 12);
+
             grdSummary.Children.Add(row1_1);
             grdSummary.Children.Add(row1_2);
             grdSummary.Children.Add(row1_3);
@@ -360,6 +428,8 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
             grdSummary.Children.Add(row1_9);
             grdSummary.Children.Add(row1_10);
             grdSummary.Children.Add(row1_11);
+            grdSummary.Children.Add(row1_12);
+            grdSummary.Children.Add(row1_13);
         }
 
         public MEmployee EmployeeObj

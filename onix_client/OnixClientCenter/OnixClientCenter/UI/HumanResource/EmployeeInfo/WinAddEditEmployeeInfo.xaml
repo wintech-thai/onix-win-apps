@@ -310,7 +310,45 @@
                                    VerticalAlignment="Center" VerticalContentAlignment="Center"  
                                    HorizontalContentAlignment="Right" Margin="0,0,0,0"  />
 
-                                <Button Name="cmdSalaryEdit" Content="แก้ไขเงินเดือน" MinWidth="100"  Margin="5,0,0,0" Click="cmdSalaryEdit_Click_1"/>
+                                <Label Name="lblTelephoneFee" Content="ค่าโทรศัพท์" 
+                                   VerticalAlignment="Center" VerticalContentAlignment="Center"  
+                                   HorizontalContentAlignment="Right" Margin="20,0,0,0"  />
+                                <TextBox x:Name="txtTelephoneFee" Text="{Binding PreConfigTelephoneFee}" Width="100" Margin="5,0,0,0" 
+                                         VerticalContentAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Right"
+                                         PreviewTextInput="DefaultTextBoxNumber_PreviewTextInput"
+                                         IsEnabled="False"
+                                         TextChanged="DefaultTextBox_TextChanged"/>
+                                <Label Name="lblTelephoneBath" Content="บาท" 
+                                   VerticalAlignment="Center" VerticalContentAlignment="Center"  
+                                   HorizontalContentAlignment="Right" Margin="0,0,0,0"  />
+
+
+                                <Label Name="lblPositionFee" Content="ค่าตำแหน่ง" 
+                                   VerticalAlignment="Center" VerticalContentAlignment="Center"  
+                                   HorizontalContentAlignment="Right" Margin="20,0,0,0"  />
+                                <TextBox x:Name="txtPositionFee" Text="{Binding PreConfigPositionFee}" Width="100" Margin="5,0,0,0" 
+                                         VerticalContentAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Right"
+                                         PreviewTextInput="DefaultTextBoxNumber_PreviewTextInput"
+                                         IsEnabled="False"
+                                         TextChanged="DefaultTextBox_TextChanged"/>
+                                <Label Name="lblPositionBath" Content="บาท" 
+                                   VerticalAlignment="Center" VerticalContentAlignment="Center"  
+                                   HorizontalContentAlignment="Right" Margin="0,0,0,0"  />
+
+
+                                <Label Name="lblTaxFee" Content="ภาษีเงินได้" 
+                                   VerticalAlignment="Center" VerticalContentAlignment="Center"  
+                                   HorizontalContentAlignment="Right" Margin="20,0,0,0"  />
+                                <TextBox x:Name="txtTaxFee" Text="{Binding PreConfigTax}" Width="100" Margin="5,0,0,0" 
+                                         VerticalContentAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Right"
+                                         PreviewTextInput="DefaultTextBoxNumber_PreviewTextInput"
+                                         IsEnabled="False"
+                                         TextChanged="DefaultTextBox_TextChanged"/>
+                                <Label Name="lblTaxBath" Content="บาท" 
+                                   VerticalAlignment="Center" VerticalContentAlignment="Center"  
+                                   HorizontalContentAlignment="Right" Margin="0,0,0,0"  />
+
+                                <Button Name="cmdSalaryEdit" Content="แก้ไขจำนวนเงิน" MinWidth="100"  Margin="5,0,0,0" Click="cmdSalaryEdit_Click_1"/>
 
                             </StackPanel>
 

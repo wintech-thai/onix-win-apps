@@ -254,6 +254,24 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
             }
         }
 
+        public String DeductionDate2YYFmt
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                String str2 = CUtil.DateTimeToDateString2YY(DeductionDate);
+                return (str2);
+            }
+
+            set
+            {
+            }
+        }
+
         public String Duration
         {
             get
@@ -381,7 +399,26 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
             }
         }
 
-        
+        public String LeaveDeductionFlag
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("ACTUAL_LEAVE_DEDUCT_FLAG"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("ACTUAL_LEAVE_DEDUCT_FLAG", value);
+                //updateFlag();
+                NotifyPropertyChanged();
+            }
+        }
+
         //public void CalculateExpenseAmount()
         //{
         //    double price = CUtil.StringToDouble(ExpensePrice);

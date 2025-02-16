@@ -220,10 +220,11 @@
                                      VerticalContentAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Right" 
                                      Margin="5,0,0,0" TextChanged="DefaultTextBox_TextChanged" PreviewTextInput="DefaultTextBoxNumber_PreviewTextInput"/>
 
-                            <Label Grid.Column="6" Grid.Row="2" Content="คอมมิสชัน" VerticalAlignment="Center" 
+                            <Label Grid.Column="6" Grid.Row="2" Content="เงินพิเศษ" VerticalAlignment="Center" 
                                    VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Margin="5,0,0,0"/>
                             <TextBox Grid.Column="7" Grid.Row="2" Width="150" Text="{Binding ReceiveCommission, UpdateSourceTrigger=PropertyChanged}"
                                      VerticalContentAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Right" 
+                                     IsEnabled="{Binding ElementName=self, Path=IsHasRightToEdit}"
                                      Margin="5,0,0,0" TextChanged="DefaultTextBox_TextChanged" PreviewTextInput="DefaultTextBoxNumber_PreviewTextInput"/>
 
 
@@ -294,6 +295,22 @@
                                           IsEnabled="{Binding ElementName=self, Path=IsPreviewAble}"
                                          VerticalContentAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Left" 
                                          Margin="5,0,0,0" TextChanged="DefaultTextBox_TextChanged"/>
+                            </StackPanel>
+
+                            <!--- xxx -->
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="5" IsEnabled="False">
+                                <RadioButton Name="radLeaveDeduct"   Content="ให้หักเงินด้วย (ขาด/ลา/สาย)" 
+                                 IsChecked="{Binding IsLeaveDeduct, UpdateSourceTrigger=PropertyChanged}" Margin="10,5,0,0" Checked="DefaultRadioButton_Checked" 
+                                 VerticalAlignment="Center"/>
+
+                                <RadioButton Name="radLeaveNotDeduct"  Content="ยังไม่ต้องหักเงิน (ขาด/ลา/สาย)" 
+                                 IsChecked="{Binding IsLeaveNotDeduct, UpdateSourceTrigger=PropertyChanged}" Margin="10,5,0,0" Checked="DefaultRadioButton_Checked" 
+                                 VerticalAlignment="Center"/>
+
+                                <TextBox Width="150" Text="{Binding DeductPenaltyPending, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"
+                                     VerticalContentAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Right" 
+                                     Margin="15,0,0,0" TextChanged="DefaultTextBox_TextChanged" PreviewTextInput="DefaultTextBoxNumber_PreviewTextInput"/>
+
                             </StackPanel>
                         </Grid>
                     </DockPanel>

@@ -373,6 +373,11 @@ namespace Onix.ClientCenter.Commons.Windows
             return (true);
         }
 
+        protected virtual Boolean IsHasRightToEdit()
+        {
+            return (true);
+        }
+
         #region Event Handler
 
         protected void DefaultListView_SizeChanged(object sender, SizeChangedEventArgs e)

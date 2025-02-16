@@ -134,6 +134,9 @@ namespace Onix.ClientCenter.UI.HumanResource.EmployeeInfo
             }
 
             txtSalary.IsEnabled = true;
+            txtTelephoneFee.IsEnabled = true;
+            txtPositionFee.IsEnabled = true;
+            txtTaxFee.IsEnabled = true;
         }
     }
 }
