@@ -254,6 +254,24 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
             }
         }
 
+        public String DeductionDate2YYFmt
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                String str2 = CUtil.DateTimeToDateString2YY(DeductionDate);
+                return (str2);
+            }
+
+            set
+            {
+            }
+        }
+
         public String Duration
         {
             get

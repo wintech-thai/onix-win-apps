@@ -357,6 +357,18 @@ namespace Onix.Client.Helper
             return (text);
         }
 
+        public static String DateTimeToDateString2YY(DateTime? dt)
+        {
+            if (dt == null)
+            {
+                return ("");
+            }
+
+            DateTime dt2 = (DateTime)dt;
+            string text = dt2.ToString("dd/MM/yy", System.Globalization.CultureInfo.InvariantCulture);
+            return (text);
+        }
+
         public static String DateTimeToDateStringTime(DateTime dt)
         {
             string text = dt.ToString("dd/MM/yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture);

@@ -65,7 +65,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
             var totalMin = 0.00;
             foreach (var item in otDoc.DeductionItems)
             {
-                putDeductionDataRow(i, 16, $"{item.DeductionDateFmt} ({item.DeductionTypeDesc})", item.DurationMinFmt, "");
+                putDeductionDataRow(i, 16, $"{item.DeductionDate2YYFmt} ({item.DeductionTypeDesc})", item.DurationMinFmt, "");
                 i++;
 
                 totalMin = totalMin + CUtil.StringToDouble(item.DurationMin);
@@ -110,11 +110,11 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
             var i = 1;
             foreach (var item in otDoc.OTItems)
             {
-                var displayDate = item.FromWorkDateFmt;
+                var displayDate = item.FromWorkDate2YYFmt;
                 if (otDoc.EmployeeType == "2")
                 {
                     //รายเดือน
-                    displayDate = item.FromOtDateFmt;
+                    displayDate = item.FromOtDate2YYFmt;
                 }
 
                 putOtDataRow(i, 16, displayDate, item.OtRateFmt, item.WorkAdjustedTotalHourFmt, item.OtAdjustedTotalHourFmt, item.MultiplierType, item.WorkAmountFmt, item.OtAmountFmt);

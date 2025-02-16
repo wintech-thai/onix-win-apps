@@ -274,6 +274,27 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
             }
         }
 
+        public String FromOtDate2YYFmt
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                String str = GetDbObject().GetFieldValue("FROM_OT_DATE");
+                DateTime dt = CUtil.InternalDateToDate(str);
+                String str2 = CUtil.DateTimeToDateString2YY(dt);
+
+                return (str2);
+            }
+
+            set
+            {
+            }
+        }
+
         public String FromTime
         {
             get
@@ -789,6 +810,24 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
                 }
 
                 String str2 = CUtil.DateTimeToDateString(FromWorkDate);
+                return (str2);
+            }
+
+            set
+            {
+            }
+        }
+
+        public String FromWorkDate2YYFmt
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                String str2 = CUtil.DateTimeToDateString2YY(FromWorkDate);
                 return (str2);
             }
 

@@ -85,7 +85,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
             var i = 1;
             foreach (DateTime otDocDate in leaveSummary.DistinctDatesList)
             {
-                var displayDate = CUtil.DateTimeToDateString(otDocDate);
+                var displayDate = CUtil.DateTimeToDateString2YY(otDocDate);
 
                 var docDateStr = CUtil.DateTimeToDateStringInternal(otDocDate);
                 var deductFlag = getDeductFlag(docDateStr, keyMap);
