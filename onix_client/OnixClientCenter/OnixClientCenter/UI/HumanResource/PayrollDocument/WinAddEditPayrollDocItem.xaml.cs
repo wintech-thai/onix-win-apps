@@ -277,6 +277,7 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             mv.ReceiveTelephone = emp.PreConfigTelephoneFee;
             mv.ReceivePosition = emp.PreConfigPositionFee;
             mv.DeductTax = emp.PreConfigTax;
+            mv.ReceiveCommission = emp.PreConfigCommissionFee;
 
             mv.EmployeeObj = emp;
             mv.HiringRate = emp.HourRate;
