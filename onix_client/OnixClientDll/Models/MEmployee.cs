@@ -1148,6 +1148,25 @@ namespace Onix.Client.Model
             }
         }
 
+        public String PreConfigCommissionFee
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("FEE_COMMISSION"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("FEE_COMMISSION", value);
+                NotifyPropertyChanged();
+            }
+        }
+
         public String PreConfigTelephoneFee
         {
             get

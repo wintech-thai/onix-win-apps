@@ -83,6 +83,9 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
 
             var keyMap = leaveSummary.DateDeductionTypeHashMap;
             var i = 1;
+            var total1 = 0.00;
+            var total2 = 0.00;
+
             foreach (DateTime otDocDate in leaveSummary.DistinctDatesList)
             {
                 var displayDate = CUtil.DateTimeToDateString2YY(otDocDate);
@@ -101,16 +104,23 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
                 var m3 = getDeductionAmount("3", v3); //สาย
                 var m4 = getDeductionAmount("4", v4); //อื่น ๆ
                 var m5 = getDeductionAmount("5", v5); //ลากิจ
+                var totMoney = CUtil.StringToDouble(m1) + 
+                    CUtil.StringToDouble(m2) + 
+                    CUtil.StringToDouble(m3) +
+                    CUtil.StringToDouble(m4) + 
+                    CUtil.StringToDouble(m5);
 
                 var f1 = "";
                 var f2 = "";
                 if (deductFlag.Equals("Y"))
                 {
-                    f1 = "Y";
+                    f1 = CUtil.FormatNumber(totMoney.ToString());
+                    total1 = total1 + totMoney;
                 }
                 else if (deductFlag.Equals("N"))
                 {
-                    f2 = "Y";
+                    f2 = CUtil.FormatNumber(totMoney.ToString());
+                    total2 = total2 + totMoney;
                 }
 
                 putDataRow(i, 16, HorizontalAlignment.Right, displayDate, 
@@ -128,7 +138,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
                 CUtil.FormatNumber(totals[4].ToString()), CUtil.FormatNumber(totals[6].ToString()), 
                 CUtil.FormatNumber(totals[7].ToString()), CUtil.FormatNumber(totals[8].ToString()),
                 CUtil.FormatNumber(totals[10].ToString()), CUtil.FormatNumber(totals[9].ToString()),
-                "", "");
+                CUtil.FormatNumber(total1.ToString()), CUtil.FormatNumber(total2.ToString()));
         }
 
         private string getDeductFlag(string docDateStr, Hashtable keyMap)
@@ -394,7 +404,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
             data1_12.Foreground = Brushes.Black;
             data1_12.FontSize = headerFontSize;
             data1_12.Text = v12;
-            data1_12.HorizontalAlignment = HorizontalAlignment.Center;
+            data1_12.HorizontalAlignment = HorizontalAlignment.Right;
             data1_12.VerticalAlignment = VerticalAlignment.Center;
             data1_12.Margin = new Thickness(0, 0, 5, 0);
             data1_12.Margin = new Thickness(0, 0, 5, 0);
@@ -409,7 +419,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HROtDetails
             data1_13.Foreground = Brushes.Black;
             data1_13.FontSize = headerFontSize;
             data1_13.Text = v13;
-            data1_13.HorizontalAlignment = HorizontalAlignment.Center;
+            data1_13.HorizontalAlignment = HorizontalAlignment.Right;
             data1_13.VerticalAlignment = VerticalAlignment.Center;
             data1_13.Margin = new Thickness(0, 0, 5, 0);
             data1_13.Margin = new Thickness(0, 0, 5, 0);

@@ -336,6 +336,19 @@
                                    HorizontalContentAlignment="Right" Margin="0,0,0,0"  />
 
 
+                                <Label Name="lblCommissionFee" Content="เงินพิเศษ" 
+                                   VerticalAlignment="Center" VerticalContentAlignment="Center"  
+                                   HorizontalContentAlignment="Right" Margin="20,0,0,0"  />
+                                <TextBox x:Name="txtCommissionFee" Text="{Binding PreConfigCommissionFee}" Width="100" Margin="5,0,0,0" 
+                                         VerticalContentAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Right"
+                                         PreviewTextInput="DefaultTextBoxNumber_PreviewTextInput"
+                                         IsEnabled="False"
+                                         TextChanged="DefaultTextBox_TextChanged"/>
+                                <Label Name="lblCommissionBath" Content="บาท" 
+                                   VerticalAlignment="Center" VerticalContentAlignment="Center"  
+                                   HorizontalContentAlignment="Right" Margin="0,0,0,0"  />
+
+                                
                                 <Label Name="lblTaxFee" Content="ภาษีเงินได้" 
                                    VerticalAlignment="Center" VerticalContentAlignment="Center"  
                                    HorizontalContentAlignment="Right" Margin="20,0,0,0"  />
