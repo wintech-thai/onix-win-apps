@@ -139,5 +139,15 @@ namespace Onix.ClientCenter.UI.HumanResource.EmployeeInfo
             txtTaxFee.IsEnabled = true;
             txtCommissionFee.IsEnabled = true;
         }
+
+        private void cmdWageEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (!CHelper.VerifyAccessRight("HR_EMPLOYEE_SALARY"))
+            {
+                return;
+            }
+
+            txtHourRate.IsEnabled = true;
+        }
     }
 }

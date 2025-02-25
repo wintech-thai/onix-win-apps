@@ -307,7 +307,7 @@
                 </Border>
 
                 <Border BorderThickness="0,0,0,1" BorderBrush="Black" Grid.Column="7" Grid.Row="1">
-                    <TextBlock  Text="{Binding ElementName=rootElement, Path=ItemObj.ReceiveAmountFmt}" 
+                    <TextBlock  Text="{Binding ElementName=rootElement, Path=ItemObj.ReceiveAmount2Fmt}" 
                                 Style="{StaticResource ResourceKey=ItemTextFont}" 
                                 Margin="5"
                                 HorizontalAlignment="Right" VerticalAlignment="Center"/>
@@ -429,7 +429,7 @@
                 </Border>
 
                 <Border BorderThickness="0,0,0,1" BorderBrush="Black" Grid.Column="7" Grid.Row="4">
-                    <TextBlock  Text="{Binding ElementName=rootElement, Path=ItemObj.GrandTotalAmountFmt}" 
+                    <TextBlock  Text="{Binding ElementName=rootElement, Path=ItemObj.GrandTotalAmount2Fmt}" 
                                 Style="{StaticResource ResourceKey=ItemTextFont}" 
                                 Margin="5"
                                 HorizontalAlignment="Right" VerticalAlignment="Center"/>
