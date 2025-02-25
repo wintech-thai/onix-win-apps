@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Office.Interop.Excel;
 using Onix.Client.Model;
 using Onix.Client.Report;
 using Onix.ClientCenter.UI.HumanResource.PayrollDocument;
@@ -37,6 +38,7 @@ namespace Onix.ClientCenter.Forms.AcDesign.HRPayrollSlip
             }
 
             item.InitializeAfterLoaded();
+            item.calculateFields();
 
             DataContext = model;
             InitializeComponent();

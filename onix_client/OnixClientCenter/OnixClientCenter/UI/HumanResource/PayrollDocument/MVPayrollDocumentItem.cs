@@ -656,11 +656,47 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             }
         }
 
+
+        public String ReceiveAmount2
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("RECEIVE_AMOUNT2"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("RECEIVE_AMOUNT2", value);
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("ReceiveAmount2Fmt");
+
+                updateFlag();
+            }
+        }
+
         public String ReceiveAmountFmt
         {
             get
             {
                 String fmt = CUtil.FormatNumber(ReceiveAmount);
+                return (fmt);
+            }
+
+            set
+            {
+            }
+        }
+
+        public String ReceiveAmount2Fmt
+        {
+            get
+            {
+                String fmt = CUtil.FormatNumber(ReceiveAmount2);
                 return (fmt);
             }
 
@@ -839,11 +875,46 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             }
         }
 
+        public String GrandTotalAmount2
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("GRAND_TOTAL_AMOUNT2"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("GRAND_TOTAL_AMOUNT2", value);
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("GrandTotalAmount2Fmt");
+                updateFlag();
+            }
+        }
+
         public String GrandTotalAmountFmt
         {
             get
             {
                 String fmt = CUtil.FormatNumber(GrandTotalAmount);
+                return (fmt);
+            }
+
+            set
+            {
+            }
+        }
+
+
+        public String GrandTotalAmount2Fmt
+        {
+            get
+            {
+                String fmt = CUtil.FormatNumber(GrandTotalAmount2);
                 return (fmt);
             }
 
@@ -1779,23 +1850,27 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             ot = Math.Floor(ot); //ปัดลงทุกกรณี
 
             double received = income + ot + position + transport + telephone + receiveOthers;
+            double received2 = received - penalty; //หักลบขาดสายเลย
             double receivedWithRefund = received + refund;
             double deduced = tax + socialSecurity + deductOther;
 
             double remain = received - deduced;
             double remainWithRefund = receivedWithRefund - deduced;
             double grandTotal = remain;//ตัวเงินจริง ๆ ทั้งหมดที่พนักงานได้รับ
+            double grandTotal2 = received2 - deduced;//ตัวเงินจริง ๆ ทั้งหมดที่พนักงานได้รับ
 
             RemainAmount = remain.ToString();
             ReceiveAmount = received.ToString();
+            ReceiveAmount2 = received2.ToString();
             DeductAmount = deduced.ToString();
             ReceiveOtherTotal = receiveOthers.ToString();
             DeductOther = deductOther.ToString();
             DeductBorrowCoverage = deductBorrowCoverage.ToString();
             SlipReceiveOT = (ot - penalty).ToString(); //ลูกค้าต้องการให้แสดง OT ที่หักขาดลามาสายแล้วที่สลิปเงินเดือนเพื่อที่พนักงานจะได้ไม่ต้องถามว่าหักอะไร
-            SlipDeductOther = (deductOther - penalty).ToString(); //ไม่ต้องเอาขาดลาสายมาคิด เพราะว่าหักใน SlipReceiveOT แล้ว
+            SlipDeductOther = (deductOther).ToString(); //ไม่ต้องเอาขาดลาสายมาคิด เพราะว่าหักใน SlipReceiveOT แล้ว
 
             GrandTotalAmount = grandTotal.ToString();
+            GrandTotalAmount2 = grandTotal2.ToString();
         }
     }
 }

@@ -264,11 +264,14 @@
                                 <TextBox x:Name="txtHourRate" Text="{Binding HourRate}" Width="100" Margin="5,0,0,0" 
                                          VerticalContentAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Right"
                                          PreviewTextInput="DefaultTextBoxNumber_PreviewTextInput"
-                                         TextChanged="DefaultTextBox_TextChanged"/>
+                                         TextChanged="DefaultTextBox_TextChanged" IsEnabled="False"/>
 
                                 <Label Name="lblManHourRateUnit" Content="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=hour_rate_unit}" 
                                    VerticalAlignment="Center" VerticalContentAlignment="Center"  
                                    HorizontalContentAlignment="Right" Margin="0,0,0,0"  />
+
+                                <Button Name="cmdWageEdit" Content="แก้ไขจำนวนเงิน" MinWidth="100"  Margin="5,0,0,0" Click="cmdWageEdit_Click"/>
+
                             </StackPanel>
 
                             <Label Name="lblEmpDepartment" Content="{Binding Source={x:Static lang:CTextLabel.Instance}, Path=department}" 
