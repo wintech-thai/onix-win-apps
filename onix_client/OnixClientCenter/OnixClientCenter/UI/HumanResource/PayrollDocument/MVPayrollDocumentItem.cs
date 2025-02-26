@@ -1867,7 +1867,7 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             DeductOther = deductOther.ToString();
             DeductBorrowCoverage = deductBorrowCoverage.ToString();
             SlipReceiveOT = (ot - penalty).ToString(); //ลูกค้าต้องการให้แสดง OT ที่หักขาดลามาสายแล้วที่สลิปเงินเดือนเพื่อที่พนักงานจะได้ไม่ต้องถามว่าหักอะไร
-            SlipDeductOther = (deductOther).ToString(); //ไม่ต้องเอาขาดลาสายมาคิด เพราะว่าหักใน SlipReceiveOT แล้ว
+            SlipDeductOther = (deductOther - penalty).ToString(); //ไม่ต้องเอาขาดลาสายมาคิด เพราะว่าหักใน SlipReceiveOT แล้ว
 
             GrandTotalAmount = grandTotal.ToString();
             GrandTotalAmount2 = grandTotal2.ToString();
