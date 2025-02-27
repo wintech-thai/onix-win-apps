@@ -1844,7 +1844,7 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
 
 
             double deductBorrowCoverage = borrow + coverage;
-            double deductOther = borrow + advance + coverage + penalty;
+            double deductOther = borrow + advance + coverage ; //ไม่เอา penalty มาคิด เพราะว่า หักไปใน OT แทนแล้ว
             double receiveOthers = commission + allowance + bonus; //ลูกค้าต้องการให้แสดงแบบนี้
 
             ot = Math.Floor(ot); //ปัดลงทุกกรณี
@@ -1867,7 +1867,7 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             DeductOther = deductOther.ToString();
             DeductBorrowCoverage = deductBorrowCoverage.ToString();
             SlipReceiveOT = (ot - penalty).ToString(); //ลูกค้าต้องการให้แสดง OT ที่หักขาดลามาสายแล้วที่สลิปเงินเดือนเพื่อที่พนักงานจะได้ไม่ต้องถามว่าหักอะไร
-            SlipDeductOther = (deductOther - penalty).ToString(); //ไม่ต้องเอาขาดลาสายมาคิด เพราะว่าหักใน SlipReceiveOT แล้ว
+            SlipDeductOther = (deductOther).ToString();
 
             GrandTotalAmount = grandTotal.ToString();
             GrandTotalAmount2 = grandTotal2.ToString();
