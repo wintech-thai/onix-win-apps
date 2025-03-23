@@ -180,7 +180,8 @@
                             <Label Grid.Column="0" Grid.Row="1" Content="เงินเดือน" VerticalAlignment="Center" 
                                    VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Margin="5,0,0,0"/>
                             <TextBox Grid.Column="1" Grid.Row="1" Width="150" Text="{Binding ReceiveIncome, UpdateSourceTrigger=PropertyChanged}"
-                                     VerticalContentAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Right" IsEnabled="False"
+                                     VerticalContentAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Right" 
+                                     IsEnabled="{Binding ElementName=self, Path=IsHasRightToEdit}"
                                      Margin="5,0,0,0" TextChanged="DefaultTextBox_TextChanged" PreviewTextInput="DefaultTextBoxNumber_PreviewTextInput"/>
 
                             <Label Grid.Column="2" Grid.Row="1" Content="โอที" VerticalAlignment="Center" 
