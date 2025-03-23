@@ -64,14 +64,14 @@ jobs:
         echo "ProgramVersion=${VERSION}" >> $GITHUB_OUTPUT
         echo "ProgramEnvironment=${DEPLOYMENT_BRANCH}" >> $GITHUB_OUTPUT
 
-    - name: Slack notification start
-      uses: 8398a7/action-slack@v3
-      with:
-        status: ${{ job.status }}
-        fields: repo,message,commit,author,ref,workflow # selectable (default: repo,message)
-        text: "Start building [Onix-Win-Apps] [${{ steps.prepare.outputs.ProgramVersion }}]..."
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_URL }} # required
+    #- name: Slack notification start
+    #  uses: 8398a7/action-slack@v3
+    #  with:
+    #    status: ${{ job.status }}
+    #    fields: repo,message,commit,author,ref,workflow # selectable (default: repo,message)
+    #    text: "Start building [Onix-Win-Apps] [${{ steps.prepare.outputs.ProgramVersion }}]..."
+    #  env:
+    #    SLACK_WEBHOOK_URL: ${{ secrets.SLACK_URL }} # required
   
     # Install the .NET Core workload
     #- name: Install .NET Core
@@ -147,12 +147,12 @@ jobs:
         path: latest-release.txt
         destination: 'public-software-download/onix/${{ steps.prepare.outputs.ProgramEnvironment }}'
 
-    - name: Slack notification end
-      if: always()
-      uses: 8398a7/action-slack@v3
-      with:
-        status: ${{ job.status }}
-        fields: repo,message,commit,author,ref,workflow # selectable (default: repo,message)
-        text: "Done building [Onix-Win-Apps] [${{ steps.prepare.outputs.ProgramVersion }}]"
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_URL }} # required
+    #- name: Slack notification end
+    #  if: always()
+    #  uses: 8398a7/action-slack@v3
+    #  with:
+    #    status: ${{ job.status }}
+    #    fields: repo,message,commit,author,ref,workflow # selectable (default: repo,message)
+    #    text: "Done building [Onix-Win-Apps] [${{ steps.prepare.outputs.ProgramVersion }}]"
+    #  env:
+    #    SLACK_WEBHOOK_URL: ${{ secrets.SLACK_URL }} # required
