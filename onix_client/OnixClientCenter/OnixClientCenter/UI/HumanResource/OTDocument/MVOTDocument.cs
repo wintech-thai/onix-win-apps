@@ -1146,7 +1146,7 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
             double otAdjust = CUtil.StringToDouble(OtAdjustAmount);
             double rate = CUtil.StringToDouble(OtRate);
             double roundedHour = roundHour(deductMinuteTotal / 60.00);
-            if (roundedHour <= 1.00)
+            if (roundedHour < 1.00) //ถ้า 1 ชั่วโมง ให้คิดหักเงินเลย
             {
                 //ถ้าไม่ถึง 1 ให้ปัดลง
                 roundedHour = 0.00;
