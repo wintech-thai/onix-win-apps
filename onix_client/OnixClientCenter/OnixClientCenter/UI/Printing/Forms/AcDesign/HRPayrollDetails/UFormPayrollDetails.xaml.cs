@@ -2,10 +2,12 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Microsoft.Office.Interop.Excel;
 using Onix.Client.Model;
 using Onix.Client.Report;
 using Onix.ClientCenter.UI.HumanResource.PayrollDocument;
 using Onix.OnixHttpClient;
+using Border = System.Windows.Controls.Border;
 
 namespace Onix.ClientCenter.Forms.AcDesign.HRPayrollSlip
 {
@@ -40,7 +42,8 @@ namespace Onix.ClientCenter.Forms.AcDesign.HRPayrollSlip
             }
 
             item.InitializeAfterLoaded();
-            
+            item.calculateFields();
+
             DataContext = model;
             InitializeComponent();
 

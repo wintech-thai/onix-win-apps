@@ -773,6 +773,42 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             }
         }
 
+
+        public String RemainWithRefund2
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("REMAIN_AMOUNT_WITH_REFUND2"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("REMAIN_AMOUNT_WITH_REFUND2", value);
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("RemainWithRefund2Fmt");
+
+                updateFlag();
+            }
+        }
+
+        public String RemainWithRefund2Fmt
+        {
+            get
+            {
+                String fmt = CUtil.FormatNumber(RemainWithRefund2);
+                return (fmt);
+            }
+
+            set
+            {
+            }
+        }
+
         public String RemainWithRefundFmt
         {
             get
@@ -807,6 +843,41 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             }
         }
 
+
+        public String DeductAmount2
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("DEDUCT_AMOUNT2"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("DEDUCT_AMOUNT2", value);
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("DeductAmount2Fmt");
+                updateFlag();
+            }
+        }
+
+        public String DeductAmount2Fmt
+        {
+            get
+            {
+                String fmt = CUtil.FormatNumber(DeductAmount2);
+                return (fmt);
+            }
+
+            set
+            {
+            }
+        }
+
         public String DeductAmountFmt
         {
             get
@@ -838,6 +909,40 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
                 NotifyPropertyChanged();
                 NotifyPropertyChanged("RemainAmountFmt");
                 updateFlag();
+            }
+        }
+
+        public String RemainAmount2
+        {
+            get
+            {
+                if (GetDbObject() == null)
+                {
+                    return ("");
+                }
+
+                return (GetDbObject().GetFieldValue("REMAIN_AMOUNT2"));
+            }
+
+            set
+            {
+                GetDbObject().SetFieldValue("REMAIN_AMOUNT2", value);
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("RemainAmountFmt2");
+                updateFlag();
+            }
+        }
+
+        public String RemainAmountFmt2
+        {
+            get
+            {
+                String fmt = CUtil.FormatNumber(RemainAmount2);
+                return (fmt);
+            }
+
+            set
+            {
             }
         }
 
@@ -1853,9 +1958,11 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             double received2 = received - penalty; //หักลบขาดสายเลย
             double receivedWithRefund = received + refund;
             double deduced = tax + socialSecurity + deductOther;
+            double deduced2 = tax + socialSecurity + deductOther + penalty;
 
             double remain = received - deduced;
             double remainWithRefund = receivedWithRefund - deduced;
+            double remainWithRefund2 = receivedWithRefund - deduced2;
             double grandTotal = remain;//ตัวเงินจริง ๆ ทั้งหมดที่พนักงานได้รับ
             double grandTotal2 = received2 - deduced;//ตัวเงินจริง ๆ ทั้งหมดที่พนักงานได้รับ
 
@@ -1863,11 +1970,13 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             ReceiveAmount = received.ToString();
             ReceiveAmount2 = received2.ToString();
             DeductAmount = deduced.ToString();
+            DeductAmount2 = deduced2.ToString();
             ReceiveOtherTotal = receiveOthers.ToString();
             DeductOther = deductOther.ToString();
             DeductBorrowCoverage = deductBorrowCoverage.ToString();
             SlipReceiveOT = (ot - penalty).ToString(); //ลูกค้าต้องการให้แสดง OT ที่หักขาดลามาสายแล้วที่สลิปเงินเดือนเพื่อที่พนักงานจะได้ไม่ต้องถามว่าหักอะไร
             SlipDeductOther = (deductOther).ToString();
+            RemainWithRefund2 = remainWithRefund2.ToString();
 
             GrandTotalAmount = grandTotal.ToString();
             GrandTotalAmount2 = grandTotal2.ToString();
