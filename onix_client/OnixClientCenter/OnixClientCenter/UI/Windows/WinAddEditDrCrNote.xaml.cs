@@ -213,11 +213,11 @@ namespace Onix.ClientCenter.Windows
             {
                 uv.AccountDocId = (vw as MAccountDoc).AccountDocId;
             }
-            if (OnixWebServiceAPI.IsAccountDocExist(uv.GetDbObject()))
-            {
-                CHelper.ShowKeyExist(lblDocumentNo, txtDocNo);
-                return (false);
-            }
+            //if (OnixWebServiceAPI.IsAccountDocExist(uv.GetDbObject()))
+            //{
+            //    CHelper.ShowKeyExist(lblDocumentNo, txtDocNo);
+            //    return (false);
+            //}
 
             return (result);
         }
