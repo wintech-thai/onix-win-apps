@@ -365,10 +365,10 @@ namespace Onix.ClientCenter.UI.HumanResource.PayrollDocument
             else 
             {
                 //รายวัน,รายเดือน ให้คำนวณประกันสังคมที่ 5% ให้เลย, ไม่ต้องคำนวณภาษีให้
-                var socAmt = adjustLimit(CUtil.StringToDouble(mv.ReceiveIncome) * 0.05, 750);
+                var socAmt = adjustLimit(CUtil.StringToDouble(mv.ReceiveIncome) * 0.05, 875);
                 mv.DeductSocialSecurity = socAmt;
 
-                var socAmtCompany = adjustLimit(CUtil.StringToDouble(mv.ReceiveIncome) * 0.05, 750);
+                var socAmtCompany = adjustLimit(CUtil.StringToDouble(mv.ReceiveIncome) * 0.05, 875);
                 mv.SocialSecurityCompany = socAmtCompany;
             }
 
