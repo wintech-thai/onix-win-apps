@@ -169,15 +169,5 @@ namespace Onix.ClientCenter.UI.HumanResource.OTDocument
         {
 
         }
-
-        private void txtMultiplier_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void DefaultTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
     }
 }
