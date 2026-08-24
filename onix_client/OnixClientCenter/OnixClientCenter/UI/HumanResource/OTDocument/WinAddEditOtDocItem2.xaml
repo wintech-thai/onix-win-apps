@@ -120,7 +120,7 @@
                 <TextBox Name="txtMultiplier" Width="100" MaxLength="4" IsEnabled="False" 
                          VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,5,0,0" 
                          Text="{Binding MultiplierType, UpdateSourceTrigger=PropertyChanged}"
-                         PreviewTextInput="DefaultTextBoxNumber_PreviewTextInput"/>
+                         PreviewTextInput="DefaultTextBoxNumber_PreviewTextInput" TextChanged="txtMultiplier_TextChanged"/>
             </StackPanel>
 
             <Label Name="lblToAccount" Content="{Binding Source={x:Static lang:CTextLabel.Instance},Path=ot_rate}" 

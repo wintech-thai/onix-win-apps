@@ -422,8 +422,9 @@ namespace Onix.ClientCenter
             }
             else if (mnu.Name.Equals("mnuServer"))
             {
-                WinServerSetting w = new WinServerSetting();
-                w.ShowDialog();
+                //ปิดไม่ให้ setup จากตรงนี้แล้ว
+                //WinServerSetting w = new WinServerSetting();
+                //w.ShowDialog();
             }
             else if (mnu.Name.Equals("mnuCompanyProfile"))
             {
