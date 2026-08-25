@@ -126,8 +126,9 @@ namespace Onix.ClientCenter
                 CUtil.EnableForm(true, this);
                 CMessageBox.Show(OnixWebServiceAPI.GetLastErrorDescription(), "ERROR", MessageBoxButton.OK);
 
-                WinServerSetting w = new WinServerSetting();
-                w.ShowDialog();
+                //WinServerSetting w = new WinServerSetting();
+                //w.ShowDialog();
+                CMessageBox.Show("กรุณาตรวจสอบ internet ว่ายังใช้งานได้!!!", "ERROR", MessageBoxButton.OK);
             }
 
             CUtil.EnableForm(true, this);
@@ -138,6 +139,7 @@ namespace Onix.ClientCenter
                 return;
             }
 
+            //มี new version ต้อง update
             var isSuccess = CUtil.AutoUpdateProgram(CUtil.AutoUpdateUrl, "OnixClientCenter.exe", CConfig.Version);
             if (isSuccess)
             {
